@@ -6,7 +6,7 @@
 <Project Version="7" Minor="38">
   <DefaultLaunch Dir="$PRUNDIR"/>
   <Configuration>
-    <Option Name="Id" Val="42e4d2d139954dbd83b39f53e8b1e86b"/>
+    <Option Name="Id" Val="64fdf57676ec4b60853ba2c3848964ff"/>
     <Option Name="Part" Val="xc7vx690tffg1927-2"/>
     <Option Name="CompiledLibDir" Val="$PCACHEDIR/compile_simlib"/>
     <Option Name="CompiledLibDirXSim" Val=""/>
@@ -20,7 +20,7 @@
     <Option Name="TargetLanguage" Val="VHDL"/>
     <Option Name="BoardPart" Val=""/>
     <Option Name="SourceMgmtMode" Val="DisplayOnly"/>
-    <Option Name="ActiveSimSet" Val="gtl_fdl_wrapper"/>
+    <Option Name="ActiveSimSet" Val="sim_1"/>
     <Option Name="DefaultLib" Val="xil_defaultlib"/>
     <Option Name="ProjectType" Val="Default"/>
     <Option Name="IPOutputRepo" Val="$PCACHEDIR/ip"/>
@@ -33,7 +33,7 @@
     <Option Name="EnableBDX" Val="FALSE"/>
     <Option Name="DSAVendor" Val="xilinx"/>
     <Option Name="DSANumComputeUnits" Val="60"/>
-    <Option Name="WTXSimLaunchSim" Val="53"/>
+    <Option Name="WTXSimLaunchSim" Val="0"/>
     <Option Name="WTModelSimLaunchSim" Val="0"/>
     <Option Name="WTQuestaLaunchSim" Val="0"/>
     <Option Name="WTIesLaunchSim" Val="0"/>
@@ -61,6 +61,11 @@
   <FileSets Version="1" Minor="31">
     <FileSet Name="sources_1" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1">
       <Filter Type="Srcs"/>
+      <File Path="$PPRDIR/../../../../cactusupgrades/components/mp7_datapath/firmware/hdl/mp7_data_types.vhd">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
       <File Path="$PPRDIR/../../../../cactusupgrades/boards/mp7/base_fw/mp7xe_690/firmware/hdl/mp7_brd_decl.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -71,52 +76,42 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../firmware/hdl/packages/top_decl.vhd">
+      <File Path="$PPRDIR/../firmware/hdl/lhc_data_pkg.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../../../../cactusupgrades/components/mp7_datapath/firmware/hdl/mp7_data_types.vhd">
+      <File Path="$PPRDIR/../firmware/hdl/math_pkg.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../../../../cactusupgrades/components/mp7_ttc/firmware/hdl/mp7_ttc_decl.vhd">
+      <File Path="$PPRDIR/../firmware/hdl/gt_mp7_top_pkg.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../firmware/hdl/packages/math_pkg.vhd">
+      <File Path="$PPRDIR/../firmware/hdl/top_decl.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../firmware/hdl/packages/lhc_data_pkg.vhd">
+      <File Path="$PPRDIR/../firmware/hdl/gt_mp7_core/gt_mp7_core_pkg_sim.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../firmware/hdl/packages/gt_mp7_core_pkg.vhd">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PPRDIR/../firmware/hdl/data/gtl/gtl_pkg.vhd">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PPRDIR/../firmware/hdl/data/gtl/lut_pkg.vhd">
-        <FileInfo>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PPRDIR/../firmware/sim/testbench/txt_util_pkg.vhd">
+      <File Path="$PPRDIR/../firmware/hdl/gt_mp7_core/gtl_fdl_wrapper/gtl/gtl_pkg.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
       <File Path="$PPRDIR/../firmware/sim/testbench/lhc_data_debug_util_pkg.vhd">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../firmware/sim/testbench/txt_util_pkg.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
@@ -131,207 +126,237 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../firmware/hdl/ipbus/ipb_read_regs.vhd">
+      <File Path="$PPRDIR/../firmware/hdl/ipbus/slaves/ipb_read_regs.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../firmware/hdl/ipbus/ipb_pulse_regs.vhd">
+      <File Path="$PPRDIR/../firmware/hdl/ipbus/slaves/ipb_pulse_regs.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../firmware/hdl/ipbus/ipb_write_regs.vhd">
+      <File Path="$PPRDIR/../firmware/hdl/ipbus/slaves/ipb_write_regs.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../firmware/hdl/control/delay_element.vhd">
+      <File Path="$PPRDIR/../firmware/hdl/gt_mp7_core/gtl_fdl_wrapper/gtl/eta_comp_signed.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../firmware/hdl/data/fdl/update_process.vhd">
+      <File Path="$PPRDIR/../firmware/hdl/gt_mp7_core/gtl_fdl_wrapper/gtl/eta_windows_comp.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../firmware/hdl/data/fdl/pulse_converter.vhd">
+      <File Path="$PPRDIR/../firmware/hdl/gt_mp7_core/gtl_fdl_wrapper/gtl/sub_signed_eta.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../firmware/hdl/data/fdl/algo_rate_counter.vhd">
+      <File Path="$PPRDIR/../firmware/hdl/gt_mp7_core/gtl_fdl_wrapper/gtl/phi_windows_comp.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../firmware/hdl/data/fdl/algo_pre_scaler.vhd">
+      <File Path="$PPRDIR/../firmware/hdl/gt_mp7_core/gtl_fdl_wrapper/gtl/sub_unsigned_phi.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../firmware/hdl/data/fdl/algo_post_dead_time_counter.vhd">
+      <File Path="$PPRDIR/../firmware/hdl/gt_mp7_core/gtl_fdl_wrapper/gtl/sub_eta_integer_obj_vs_obj.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../firmware/hdl/data/fdl/algo_slice.vhd">
+      <File Path="$PPRDIR/../firmware/hdl/gt_mp7_core/gtl_fdl_wrapper/gtl/sub_phi_integer_obj_vs_obj.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../firmware/hdl/data/fdl/fdl_addr_decode.vhd">
+      <File Path="$PPRDIR/../firmware/hdl/gt_mp7_core/gtl_fdl_wrapper/gtl/mass_calculator_v2.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../firmware/hdl/data/fdl/fdl_fabric.vhd">
+      <File Path="$PPRDIR/../firmware/hdl/gt_mp7_core/gtl_fdl_wrapper/gtl/dr_calculator_v3.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../firmware/hdl/data/fdl/algo_mapping_rop.vhd">
+      <File Path="$PPRDIR/../firmware/hdl/gt_mp7_core/gtl_fdl_wrapper/gtl/twobody_pt_calculator_v2.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../firmware/hdl/data/fdl/fdl_module.vhd">
+      <File Path="$PPRDIR/../firmware/hdl/gt_mp7_core/gtl_fdl_wrapper/gtl/cuts_instances_v2.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../firmware/hdl/data/gtl/reg_mux.vhd">
+      <File Path="$PPRDIR/../firmware/hdl/gt_mp7_core/gtl_fdl_wrapper/gtl/towercount_condition.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../firmware/hdl/data/gtl/muon_charge_correlations.vhd">
+      <File Path="$PPRDIR/../firmware/hdl/gt_mp7_core/gtl_fdl_wrapper/gtl/muon_charge_correlations.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../firmware/hdl/data/gtl/transverse_mass.vhd">
+      <File Path="$PPRDIR/../firmware/hdl/gt_mp7_core/gtl_fdl_wrapper/gtl/calo_comparators_v2.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../firmware/hdl/data/gtl/invariant_mass.vhd">
+      <File Path="$PPRDIR/../firmware/hdl/gt_mp7_core/gtl_fdl_wrapper/gtl/muon_comparators_v2.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../firmware/hdl/data/gtl/delta_r.vhd">
+      <File Path="$PPRDIR/../firmware/hdl/gt_mp7_core/gtl_fdl_wrapper/gtl/esums_comparators.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../firmware/hdl/data/gtl/cos_dphi_lut.vhd">
+      <File Path="$PPRDIR/../firmware/hdl/gt_mp7_core/gtl_fdl_wrapper/gtl/calo_calo_calo_correlation_orm_condition_v3.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../firmware/hdl/data/gtl/diff_phi_lut.vhd">
+      <File Path="$PPRDIR/../firmware/hdl/gt_mp7_core/gtl_fdl_wrapper/gtl/calo_conditions_orm_v4_quad.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../firmware/hdl/data/gtl/sub_phi.vhd">
+      <File Path="$PPRDIR/../firmware/hdl/gt_mp7_core/gtl_fdl_wrapper/gtl/calo_conditions_orm_v4_triple.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../firmware/hdl/data/gtl/cosh_deta_lut.vhd">
+      <File Path="$PPRDIR/../firmware/hdl/gt_mp7_core/gtl_fdl_wrapper/gtl/calo_conditions_orm_v4_single_double.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../firmware/hdl/data/gtl/diff_eta_lut.vhd">
+      <File Path="$PPRDIR/../firmware/hdl/gt_mp7_core/gtl_fdl_wrapper/gtl/muon_esums_correlation_condition_v3.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../firmware/hdl/data/gtl/sub_eta.vhd">
+      <File Path="$PPRDIR/../firmware/hdl/gt_mp7_core/gtl_fdl_wrapper/gtl/muon_muon_correlation_condition_v4.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../firmware/hdl/data/gtl/comp_signed.vhd">
+      <File Path="$PPRDIR/../firmware/hdl/gt_mp7_core/gtl_fdl_wrapper/gtl/calo_esums_correlation_condition_v3.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../firmware/hdl/data/gtl/correlation_conditions.vhd">
+      <File Path="$PPRDIR/../firmware/hdl/gt_mp7_core/gtl_fdl_wrapper/gtl/calo_muon_correlation_condition_v3.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../firmware/hdl/data/gtl/combinatorial_conditions.vhd">
+      <File Path="$PPRDIR/../firmware/hdl/gt_mp7_core/gtl_fdl_wrapper/gtl/calo_calo_correlation_condition_v4.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../firmware/hdl/data/gtl/comparator_muon_charge_corr.vhd">
+      <File Path="$PPRDIR/../firmware/hdl/gt_mp7_core/gtl_fdl_wrapper/gtl/min_bias_hf_conditions.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../firmware/hdl/data/gtl/comparators_corr_cuts.vhd">
+      <File Path="$PPRDIR/../firmware/hdl/gt_mp7_core/gtl_fdl_wrapper/gtl/esums_conditions.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../firmware/hdl/data/gtl/threshold_comparator.vhd">
+      <File Path="$PPRDIR/../firmware/hdl/gt_mp7_core/gtl_fdl_wrapper/gtl/muon_conditions_v7.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../firmware/hdl/data/gtl/range_comparator.vhd">
+      <File Path="$PPRDIR/../firmware/hdl/gt_mp7_core/gtl_fdl_wrapper/gtl/calo_condition_v6_quad.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../firmware/hdl/data/gtl/lut_comparator.vhd">
+      <File Path="$PPRDIR/../firmware/hdl/gt_mp7_core/gtl_fdl_wrapper/gtl/calo_conditions_v7_no_quad.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../firmware/hdl/data/gtl/conversions.vhd">
+      <File Path="$PPRDIR/../firmware/hdl/gt_mp7_core/gtl_fdl_wrapper/gtl/p_m_2_bx_pipeline.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../firmware/hdl/data/gtl/delay_pipeline.vhd">
+      <File Path="$PPRDIR/../firmware/hdl/gt_mp7_core/frame/dm/delay_element.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../firmware/hdl/data/gtl/bx_pipeline.vhd">
+      <File Path="$PPRDIR/../firmware/hdl/gt_mp7_core/gtl_fdl_wrapper/fdl/update_process.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../firmware/hdl/data/gtl/gtl_module.vhd">
+      <File Path="$PPRDIR/../firmware/hdl/gt_mp7_core/gtl_fdl_wrapper/fdl/pulse_converter.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../firmware/hdl/data/gtl_fdl_wrapper.vhd">
+      <File Path="$PPRDIR/../firmware/hdl/gt_mp7_core/gtl_fdl_wrapper/fdl/fdl_addr_decode.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../firmware/hdl/data/data_cdc.vhd">
+      <File Path="$PPRDIR/../firmware/hdl/gt_mp7_core/gtl_fdl_wrapper/fdl/fdl_fabric.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../firmware/hdl/data/data_cdc_lmp.vhd">
+      <File Path="$PPRDIR/../firmware/hdl/gt_mp7_core/gtl_fdl_wrapper/fdl/algo_pre_scaler.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../firmware/hdl/packages/gt_mp7_core_addr_decode.vhd">
+      <File Path="$PPRDIR/../firmware/hdl/gt_mp7_core/gtl_fdl_wrapper/fdl/algo_rate_counter.vhd">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../firmware/hdl/gt_mp7_core/gtl_fdl_wrapper/fdl/algo_post_dead_time_counter.vhd">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../firmware/hdl/gt_mp7_core/gtl_fdl_wrapper/fdl/algo_slice.vhd">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../firmware/hdl/gt_mp7_core/gtl_fdl_wrapper/fdl/algo_mapping_rop.vhd">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../firmware/sim/testbench/fdl_module_sim.vhd">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../firmware/hdl/gt_mp7_core/gtl_fdl_wrapper/gtl/gtl_module.vhd">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../firmware/hdl/gt_mp7_core/gtl_fdl_wrapper/gtl_fdl_wrapper.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
@@ -379,24 +404,6 @@
       <Option Name="Description" Val="Vivado Simulator"/>
       <Option Name="CompiledLib" Val="0"/>
     </Simulator>
-    <Simulator Name="ModelSim">
-      <Option Name="Description" Val="ModelSim Simulator"/>
-    </Simulator>
-    <Simulator Name="Questa">
-      <Option Name="Description" Val="Questa Advanced Simulator"/>
-    </Simulator>
-    <Simulator Name="IES">
-      <Option Name="Description" Val="Incisive Enterprise Simulator (IES)"/>
-    </Simulator>
-    <Simulator Name="Xcelium">
-      <Option Name="Description" Val="Xcelium Parallel Simulator"/>
-    </Simulator>
-    <Simulator Name="VCS">
-      <Option Name="Description" Val="Verilog Compiler Simulator (VCS)"/>
-    </Simulator>
-    <Simulator Name="Riviera">
-      <Option Name="Description" Val="Riviera-PRO Simulator"/>
-    </Simulator>
   </Simulators>
   <Runs Version="1" Minor="10">
     <Run Id="synth_1" Type="Ft3:Synth" SrcSet="sources_1" Part="xc7vx690tffg1927-2" ConstrsSet="constrs_1" Description="Vivado Synthesis Defaults" WriteIncrSynthDcp="false" State="current" IncludeInArchive="true">
@@ -424,5 +431,4 @@
       <Report Name="ROUTE_DESIGN.REPORT_METHODOLOGY" Enabled="1"/>
     </Run>
   </Runs>
-  <Board/>
 </Project>

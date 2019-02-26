@@ -9,9 +9,15 @@ import argparse
 import logging
 import ConfigParser
 import sys, os, re
+import socket
 
-VIVADO_BASE_DIR = '/opt/xilinx/Vivado'
-"""Default Xilinx Vivado installation location."""
+HB_PC = 'powerslave'
+"""if HB_PC => Bergauer PC 'powerslave' Xilinx Vivado installation location = '/opt/Xilinx/Vivado."""
+"""else => Default Xilinx Vivado installation location = '/opt/xilinx/Vivado'."""
+if socket.gethostname() == HB_PC:
+    VIVADO_BASE_DIR = '/opt/Xilinx/Vivado'
+else:
+    VIVADO_BASE_DIR = '/opt/xilinx/Vivado'
 
 EXIT_SUCCESS = 0
 EXIT_FAILURE = 1
@@ -74,7 +80,7 @@ def main():
         # module build directory inside build area
         builddir = os.path.join(buildarea, 'module_{i}'.format(**locals()))
         # command to be executed inside module screen session
-        command = 'bash -c "source {settings64}; cd {builddir}; make project && make bitfile"'.format(**locals())
+        command = 'bash -c "source {settings64}; cd {builddir}; make reset; make bitfile"'.format(**locals())
         # run screen command
         logging.info("starting screen session '%s' for module %s ...", session, i)
         run_command('screen', '-dmS', session, command)

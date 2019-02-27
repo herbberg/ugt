@@ -25,6 +25,7 @@ XPR_FILE_PATH = 'top/sim.xpr'
 algonum = 512#numbers of bits
 IGNORED_ALGOS = [
   'L1_FirstBunchInTrain',
+  'L1_SecondBunchInTrain',
   ]
 
 def read_file(filename):

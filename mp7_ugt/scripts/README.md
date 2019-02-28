@@ -14,11 +14,7 @@ CPU with at least +3.0 GHz and 16/32 cores.
 
     $ python makeProject.py --user doe --tag mp7fw_v2_4_1 --menu /path/to/L1Menu_Sample --build 0x1042 --path /tmp/fwdir
 
-    $ python prepareProjectSimSynth.py 2018.2 /tmp/fwdir/mp7_ugt/0x1042/mp7fw_v2_4_1/build/build_0x1042.cfg
-    
-    $ python startSim.py 2018.2 /tmp/fwdir/mp7_ugt/0x1042/mp7fw_v2_4_1/build/build_0x1042.cfg --testvector /path/to/<testvector-file>
-
-    $ python startSynth.py 2018.2 /tmp/fwdir/mp7_ugt/0x1042/mp7fw_v2_4_1/build/build_0x1042.cfg
+    $ python startSynth.py 2017.4 /tmp/fwdir/mp7_ugt/0x1042/mp7fw_v2_4_1/build/build_0x1042.cfg
 
     $ python checkSynth.py /tmp/fwdir/mp7_ugt/0x1042/mp7fw_v2_4_1/build/build_0x1042.cfg
 
@@ -33,18 +29,6 @@ CPU with at least +3.0 GHz and 16/32 cores.
 Create a new build area to synthesize a uGT menu.
 
     $ python makeProject.py -u <username> -t <mp7tag> -m <menu-dir> -b <build-id>
-
-### prepareProjectSimSynth.py
-
-Preparing project for simulation (Vivado) and sythesis.
-
-    $ python prepareProjectSimSynth.py <vivado-version> <build-config-file>
-
-### startSim.py
-
-Starting simulation of GTL-FDL-wrapper parts of all modules in parallel.
-
-    $ python startSim.py <vivado-version> <build-config-file> --testvector <testvector-file>
 
 
 ### startSynth.py

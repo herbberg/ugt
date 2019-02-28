@@ -1,2 +1,2 @@
-## Frame of Global Trigger Logic
+## Control part of Global Trigger Logic
 

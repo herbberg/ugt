@@ -38,6 +38,9 @@ firmware_dir = os.path.abspath(os.path.join(scripts_dir, '..', 'firmware'))
 # Target VHDL package and it's template must be defined.
 TARGET_PKG_TPL = os.path.join(firmware_dir, 'hdl', 'gt_mp7_top_pkg_tpl.vhd')
 TARGET_PKG = os.path.join(firmware_dir, 'hdl', 'gt_mp7_top_pkg.vhd')
+## HB 2019-01-23: omitted gt_mp7_top_pkg_tpl.vhd - used top_decl_tpl.vhd now.
+#TARGET_PKG_TPL = os.path.join(firmware_dir, 'hdl', 'packages', 'top_decl_tpl.vhd')
+#TARGET_PKG = os.path.join(firmware_dir, 'hdl', 'packages', 'top_decl.vhd')
 
 def parse_args():
     """Parse command line arguments."""
@@ -159,7 +162,7 @@ def main():
 
     # Create build directory for fw synthesis...
     project_dir = os.path.abspath(os.path.join(build_area_dir, menu_name))
-    os.makedirs(project_dir)
+    #os.makedirs(project_dir)
 
     # Do for every module of the menu...
     for module_id in range(modules):
@@ -168,13 +171,22 @@ def main():
         local_fw_dir = os.path.abspath(os.path.join(module_dir, 'mp7_ugt'))
 
         # Creat module build area
-        os.makedirs(local_fw_dir)
+        #os.makedirs(local_fw_dir)
+        os.makedirs(module_dir)
 
         # Copy sources to module build area
-        copy_tree(os.path.join(firmware_dir, 'cfg'), os.path.join(local_fw_dir, 'firmware', 'cfg'))
-        copy_tree(os.path.join(firmware_dir, 'hdl'), os.path.join(local_fw_dir, 'firmware', 'hdl'))
-        copy_tree(os.path.join(firmware_dir, 'ngc'), os.path.join(local_fw_dir, 'firmware', 'ngc'))
-        copy_tree(os.path.join(firmware_dir, 'ucf'), os.path.join(local_fw_dir, 'firmware', 'ucf'))
+        #copy_tree(os.path.join(firmware_dir, 'cfg'), os.path.join(local_fw_dir, 'firmware', 'cfg'))
+        #copy_tree(os.path.join(firmware_dir, 'hdl'), os.path.join(local_fw_dir, 'firmware', 'hdl'))
+        #copy_tree(os.path.join(firmware_dir, 'ngc'), os.path.join(local_fw_dir, 'firmware', 'ngc'))
+        #copy_tree(os.path.join(firmware_dir, 'ucf'), os.path.join(local_fw_dir, 'firmware', 'ucf'))
+        copy_tree(os.path.join(firmware_dir, 'cfg'), os.path.join(module_dir, 'firmware', 'cfg'))
+        copy_tree(os.path.join(firmware_dir, 'hdl'), os.path.join(module_dir, 'firmware', 'hdl'))
+        copy_tree(os.path.join(firmware_dir, 'ngc'), os.path.join(module_dir, 'firmware', 'ngc'))
+        copy_tree(os.path.join(firmware_dir, 'ucf'), os.path.join(module_dir, 'firmware', 'ucf'))
+        copy_tree(os.path.join(firmware_dir, 'sim_vivado', 'scripts'), os.path.join(project_dir, 'sim', 'scripts'))
+        copy_tree(os.path.join(firmware_dir, 'sim_vivado', 'testbench'), os.path.join(module_dir, 'firmware', 'sim', 'testbench'))
+        copy_tree(os.path.join(firmware_dir, 'sim_vivado', 'tcl'), os.path.join(module_dir, 'firmware', 'sim', 'tcl'))
+        copy_tree(os.path.join(firmware_dir, 'sim_vivado', 'xpr'), os.path.join(module_dir, 'sim', 'xpr'))
 
         # Read generated VHDL snippets
         src_dir = os.path.join(args.menu, 'vhdl', module_name, 'src')
@@ -186,7 +198,13 @@ def main():
             '{{gtl_module_instances}}': tb.read_file(os.path.join(src_dir, 'gtl_module_instances.vhd')),
         }
 
-        gtl_fdl_wrapper_dir = os.path.join(local_fw_dir, 'firmware', 'hdl', 'gt_mp7_core', 'gtl_fdl_wrapper')
+        #gtl_fdl_wrapper_dir = os.path.join(local_fw_dir, 'firmware', 'hdl', 'gt_mp7_core', 'gtl_fdl_wrapper')
+        gtl_fdl_wrapper_dir = os.path.join(module_dir, 'firmware', 'hdl', 'gt_mp7_core', 'gtl_fdl_wrapper')
+        ### HB 2019-01-15: changed dir structure of FW
+        ##gtl_fdl_wrapper_dir = os.path.join(local_fw_dir, 'firmware', 'hdl')
+        #gtl_fdl_wrapper_dir = os.path.join(module_dir, 'firmware', 'hdl')
+        #gtl_dir = os.path.join(gtl_fdl_wrapper_dir, 'data', 'gtl')
+        #fdl_dir = os.path.join(gtl_fdl_wrapper_dir, 'data', 'fdl')
         gtl_dir = os.path.join(gtl_fdl_wrapper_dir, 'gtl')
         fdl_dir = os.path.join(gtl_fdl_wrapper_dir, 'fdl')
 
@@ -196,7 +214,8 @@ def main():
         tb.template_replace(os.path.join(gtl_dir, 'gtl_module_tpl.vhd'), replace_map, os.path.join(gtl_dir, 'gtl_module.vhd'))
 
         # Run project manager
-        subprocess.check_call(['python', 'ProjectManager.py', 'vivado', local_fw_dir, '-w', module_dir])
+        #subprocess.check_call(['python', 'ProjectManager.py', 'vivado', local_fw_dir, '-w', module_dir])
+        subprocess.check_call(['python', 'ProjectManager.py', 'vivado', module_dir, '-w', module_dir])
 
     # Go to build area root directory.
     os.chdir(mp7path)

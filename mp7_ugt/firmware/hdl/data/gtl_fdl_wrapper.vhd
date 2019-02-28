@@ -27,6 +27,7 @@ use work.gtl_pkg.all;
 
 use work.gt_mp7_core_pkg.all;
 use work.lhc_data_pkg.all;
+use work.fdl_addr_decode.all;
 
 entity gtl_fdl_wrapper is
     generic(
@@ -57,7 +58,10 @@ entity gtl_fdl_wrapper is
         finor_preview_2_mezz_lemo : out std_logic;
         veto_2_mezz_lemo : out std_logic;
         finor_w_veto_2_mezz_lemo : out std_logic;
-        local_finor_with_veto_o : out std_logic
+        local_finor_with_veto_o : out std_logic;
+-- HB 2019-02-28: ipbus for algo-bx-mem in control.vhd
+        ipb_to_slaves_fdl : out ipb_wbus_array(NR_IPB_SLV_FDL-1 downto 0);
+        ipb_from_slaves_fdl : in ipb_rbus_array(NR_IPB_SLV_FDL-1 downto 0)
     );
 end gtl_fdl_wrapper;
 
@@ -190,7 +194,10 @@ fdl_module_i: entity work.fdl_module
         veto_2_mezz_lemo => veto_2_mezz_lemo,
         finor_w_veto_2_mezz_lemo => finor_w_veto_2_mezz_lemo,
         local_finor_with_veto_o => local_finor_with_veto_o,
-        algo_bx_mask_sim => (others => '1')  
+        algo_bx_mask_sim => (others => '1'),  
+-- HB 2019-02-28: ipbus for algo-bx-mem in control.vhd
+        ipb_to_slaves_fdl => ipb_to_slaves_fdl,
+        ipb_from_slaves_fdl => ipb_from_slaves_fdl
     );
 
 end architecture rtl;

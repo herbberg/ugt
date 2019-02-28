@@ -31,6 +31,7 @@ use work.gt_mp7_core_addr_decode.all;
 use work.mp7_brd_decl.all;
 use work.mp7_ttc_decl.all;
 use work.top_decl.all;
+use work.fdl_addr_decode.all;
 
 entity mp7_payload is
     port(
@@ -86,6 +87,9 @@ architecture rtl of mp7_payload is
 
     signal bx_nr_fdl : std_logic_vector(11 downto 0);
     signal algo_bx_mask_mem_fdl : std_logic_vector(MAX_NR_ALGOS-1 downto 0);
+
+    signal ipb_to_slaves_fdl : ipb_wbus_array(NR_IPB_SLV_FDL-1 downto 0);
+    signal ipb_from_slaves_fdl : ipb_rbus_array(NR_IPB_SLV_FDL-1 downto 0);
 
 begin
 
@@ -143,6 +147,9 @@ begin
         local_veto_rop => local_veto_rop, -- HB 2014-10-22: added for ROP
         finor_rop => '0', -- HB 2014-10-30: no total_finor to ROP
         local_finor_with_veto_2_spy2 => local_finor_with_veto_o -- HB 2014-10-30: to SPY2_FINOR
+-- HB 2019-02-28: ipbus for algo-bx-mem in control.vhd
+        ipb_to_slaves_fdl => ipb_to_slaves_fdl,
+        ipb_from_slaves_fdl => ipb_from_slaves_fdl
     );
 
 -- HB 2019-01-21: "Global Trigger Logic" data flow
@@ -176,7 +183,10 @@ begin
         finor_preview_2_mezz_lemo => finor_preview_2_mezz_lemo,
         veto_2_mezz_lemo => veto_2_mezz_lemo,
         finor_w_veto_2_mezz_lemo => finor_w_veto_2_mezz_lemo,
-        local_finor_with_veto_o => local_finor_with_veto_o
+        local_finor_with_veto_o => local_finor_with_veto_o,
+-- HB 2019-02-28: ipbus for algo-bx-mem in control.vhd
+        ipb_to_slaves_fdl => ipb_to_slaves_fdl,
+        ipb_from_slaves_fdl => ipb_from_slaves_fdl
     );
 
 -- Signals to LEMO on mezzanine

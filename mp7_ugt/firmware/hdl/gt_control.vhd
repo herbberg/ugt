@@ -78,7 +78,10 @@ entity gt_control is
         local_finor_rop : in std_logic;
         local_veto_rop : in std_logic;
         finor_rop : in std_logic;
-        local_finor_with_veto_2_spy2 : in std_logic
+        local_finor_with_veto_2_spy2 : in std_logic;
+-- HB 2019-02-28: ipbus for algo-bx-mem in control.vhd
+        ipb_to_slaves_fdl : in ipb_wbus_array(NR_IPB_SLV_FDL-1 downto 0);
+        ipb_from_slaves_fdl : out ipb_rbus_array(NR_IPB_SLV_FDL-1 downto 0)
     );
 
 end gt_control;
@@ -297,8 +300,8 @@ architecture rtl of gt_control is
             port map(
                 ipbus_clk => ipb_clk, 
                 reset => ipb_rst, 
-                ipbus_in => ipb_to_slaves(C_IPB_ALGO_BX_MEM(i)),
-                ipbus_out  => ipb_from_slaves(C_IPB_ALGO_BX_MEM(i)),
+                ipbus_in => ipb_to_slaves_fdl(C_IPB_ALGO_BX_MEM(i)),
+                ipbus_out  => ipb_from_slaves_fdl(C_IPB_ALGO_BX_MEM(i)),
                 clk_b => lhc_clk, 
                 enb => '1', web => '0', 
                 addrb => bx_nr_fdl, dinb => X"FFFFFFFF", 

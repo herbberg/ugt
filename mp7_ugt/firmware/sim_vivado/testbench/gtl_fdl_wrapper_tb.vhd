@@ -27,6 +27,7 @@ use work.gt_mp7_core_pkg.all;
 
 use work.gtl_pkg.all;
 use work.gtl_fdl_wrapper_tb_pkg.all;
+use work.fdl_addr_decode.all;
 
 entity gtl_fdl_wrapper_TB is
 end gtl_fdl_wrapper_TB;
@@ -61,7 +62,8 @@ architecture rtl of gtl_fdl_wrapper_TB is
     signal stop : boolean := false;
 
     constant algo_bx_mask_mem_fdl : std_logic_vector(MAX_NR_ALGOS-1 downto 0) := (others => '1');
-
+    constant ipb_from_slaves_fdl : ipb_rbus_array(NR_IPB_SLV_FDL-1 downto 0) := (others => IPB_RBUS_NULL);
+    
 --*********************************Main Body of Code**********************************
 begin
 
@@ -297,7 +299,10 @@ dut : entity work.gtl_fdl_wrapper
         finor_preview_2_mezz_lemo => open,
         veto_2_mezz_lemo => open,
         finor_w_veto_2_mezz_lemo => open,
-        local_finor_with_veto_o => local_finor_with_veto    
+        local_finor_with_veto_o => local_finor_with_veto,    
+-- HB 2019-02-28: ipbus for algo-bx-mem in control.vhd
+        ipb_to_slaves_fdl => open,
+        ipb_from_slaves_fdl => ipb_from_slaves_fdl
     );
 
 end rtl;

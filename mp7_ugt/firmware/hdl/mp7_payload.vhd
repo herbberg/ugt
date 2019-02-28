@@ -146,7 +146,7 @@ begin
         local_finor_rop => local_finor_rop,
         local_veto_rop => local_veto_rop, -- HB 2014-10-22: added for ROP
         finor_rop => '0', -- HB 2014-10-30: no total_finor to ROP
-        local_finor_with_veto_2_spy2 => local_finor_with_veto_o -- HB 2014-10-30: to SPY2_FINOR
+        local_finor_with_veto_2_spy2 => local_finor_with_veto_o, -- HB 2014-10-30: to SPY2_FINOR
 -- HB 2019-02-28: ipbus for algo-bx-mem in control.vhd
         ipb_to_slaves_fdl => ipb_to_slaves_fdl,
         ipb_from_slaves_fdl => ipb_from_slaves_fdl

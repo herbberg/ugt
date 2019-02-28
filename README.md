@@ -1,4 +1,4 @@
-# ugt
+# ugt - Global Trigger on MP7 in MicroTCA
 Clone of CERN gitlab ugt firmware.
 
 Updates:

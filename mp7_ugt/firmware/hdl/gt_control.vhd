@@ -1,6 +1,7 @@
 -- Description:
 -- Contains control part ("framework") of Global Trigger firmware.
 
+-- HB 2019-03-01: v2.2.0 - moved algo-bx-mem back to FDL to keep clear structure. Used fdl_module_sim.vhd without algo-bx-mem for Vivado simulation. 
 -- HB 2019-02-01: v2.1.0 - moved algo-bx-mem from FDL to control (no ipbus in simulation of gtl_fdl_wrapper with vivado). 
 -- HB 2019-01-21: v2.0.0 - renamed frame.vhd to gt_control.vhd and inplemented bgo_sync.vhd to this module. 
 

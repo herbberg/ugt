@@ -1,6 +1,6 @@
 
 -- actual versions:
---	control (frame): v2.0.0
+--	control (frame): v2.2.0
 --	gtl: v2.0.0
 --	fdl: v1.2.2
 
@@ -33,7 +33,7 @@ package gt_mp7_core_pkg is
 -- ==================================================================================================
 -- CONTROL = FRAME version (given by the editor of control.vhd)
     constant FRAME_MAJOR_VERSION : integer range 0 to 255 := 2;
-    constant FRAME_MINOR_VERSION : integer range 0 to 255 := 0;
+    constant FRAME_MINOR_VERSION : integer range 0 to 255 := 2;
     constant FRAME_REV_VERSION   : integer range 0 to 255 := 0;
 	constant FRAME_VERSION : std_logic_vector(31 downto 0) := X"00" &
            std_logic_vector(to_unsigned(FRAME_MAJOR_VERSION, 8)) &

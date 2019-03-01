@@ -9,7 +9,6 @@ Top hierarchy module of ugt firmware *[mp7_payload.vhd](firmware/hdl/mp7_payload
     * comparisons
     * conditions and algos
   * Final Decision Logic ([FDL](doc/fdl.md))
-    * moved algo-bx-mem to gt_control.vhd to exclude from gtl_fdl_wrapper Vivado simulation
 
 Inserted possibility to simulate gtl_fdl_wrapper logic with Vivado simulator by scripts (see *[README.md](scripts/README.md)*)
 * make a Vivado project with "python makeProject.py ..."

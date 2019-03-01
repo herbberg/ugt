@@ -196,7 +196,7 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../firmware/hdl/data/fdl/fdl_module.vhd">
+      <File Path="$PPRDIR/../firmware/sim/testbench/fdl_module_sim.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>

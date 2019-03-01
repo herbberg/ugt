@@ -70,7 +70,6 @@ entity gt_control is
         lhc_data_i : in lhc_data_t;
         lane_data_out : out ldata(NR_LANES-1 downto 0);
         bx_nr_fdl : in std_logic_vector(11 downto 0);
-        algo_bx_mask_mem_out : out std_logic_vector(MAX_NR_ALGOS-1 downto 0);
         prescale_factor_set_index_rop : in std_logic_vector(7 downto 0);
         algo_after_gtLogic_rop : in std_logic_vector(MAX_NR_ALGOS-1 downto 0);
         algo_after_bxomask_rop : in std_logic_vector(MAX_NR_ALGOS-1 downto 0);
@@ -78,10 +77,7 @@ entity gt_control is
         local_finor_rop : in std_logic;
         local_veto_rop : in std_logic;
         finor_rop : in std_logic;
-        local_finor_with_veto_2_spy2 : in std_logic;
--- HB 2019-02-28: ipbus for algo-bx-mem in control.vhd
-        ipb_to_slaves_fdl : in ipb_wbus_array(NR_IPB_SLV_FDL-1 downto 0);
-        ipb_from_slaves_fdl : out ipb_rbus_array(NR_IPB_SLV_FDL-1 downto 0)
+        local_finor_with_veto_2_spy2 : in std_logic
     );
 
 end gt_control;
@@ -290,24 +286,6 @@ architecture rtl of gt_control is
 
             simmem_in_use_i => '0'
         );
-
---===============================================================================================--
---                           ALGO BX MEMORY
---===============================================================================================--
-
-    algo_bx_mem_l: for i in 0 to 15 generate
-        algo_bx_mem_i: entity work.ipb_dpmem_4096_32
-            port map(
-                ipbus_clk => ipb_clk, 
-                reset => ipb_rst, 
-                ipbus_in => ipb_to_slaves_fdl(C_IPB_ALGO_BX_MEM(i)),
-                ipbus_out  => ipb_from_slaves_fdl(C_IPB_ALGO_BX_MEM(i)),
-                clk_b => lhc_clk, 
-                enb => '1', web => '0', 
-                addrb => bx_nr_fdl, dinb => X"FFFFFFFF", 
-                doutb => algo_bx_mask_mem_out(32*i+31 downto 32*i)            
-            );
-    end generate algo_bx_mem_l;
 
 --===============================================================================================--
 --                                SIMSPYMEM          lhc_data_slv_i_simulator

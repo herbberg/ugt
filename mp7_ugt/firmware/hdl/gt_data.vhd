@@ -7,12 +7,9 @@ use ieee.std_logic_arith.all;
 
 use work.ipbus.all;
 
--- use work.gtl_pkg.all;
-
 use work.mp7_data_types.all;
 use work.gt_mp7_core_pkg.all;
 use work.lhc_data_pkg.all;
-use work.fdl_addr_decode.all;
 
 entity gt_data is
     generic(
@@ -34,7 +31,6 @@ entity gt_data is
         test_en : in std_logic;
         l1a : in std_logic;
         start_lumisection : in std_logic;
-        algo_bx_mask_mem_fdl : in std_logic_vector(MAX_NR_ALGOS-1 downto 0);
         bx_nr_fdl : out std_logic_vector(11 downto 0);
         prescale_factor_set_index_rop : out std_logic_vector(7 downto 0);
         algo_after_gtLogic_rop : out std_logic_vector(MAX_NR_ALGOS-1 downto 0);
@@ -46,10 +42,7 @@ entity gt_data is
         finor_preview_2_mezz_lemo : out std_logic;
         veto_2_mezz_lemo : out std_logic;
         finor_w_veto_2_mezz_lemo : out std_logic;
-        local_finor_with_veto_o : out std_logic;
--- HB 2019-02-28: ipbus for algo-bx-mem in control.vhd
-        ipb_to_slaves_fdl : out ipb_wbus_array(NR_IPB_SLV_FDL-1 downto 0);
-        ipb_from_slaves_fdl : in ipb_rbus_array(NR_IPB_SLV_FDL-1 downto 0)
+        local_finor_with_veto_o : out std_logic
     );
 end gt_data;
 
@@ -88,7 +81,6 @@ begin
         test_en => test_en,
         l1a => l1a,
         begin_lumi_section => start_lumisection,
-        algo_bx_mask_mem_fdl => algo_bx_mask_mem_fdl,
         bx_nr_fdl => bx_nr_fdl,
         prescale_factor_set_index_rop => prescale_factor_set_index_rop,
         algo_after_gtLogic_rop => algo_after_gtLogic_rop,
@@ -100,10 +92,7 @@ begin
         finor_preview_2_mezz_lemo => finor_preview_2_mezz_lemo,
         veto_2_mezz_lemo => veto_2_mezz_lemo,
         finor_w_veto_2_mezz_lemo => finor_w_veto_2_mezz_lemo,
-        local_finor_with_veto_o => local_finor_with_veto_o,
--- HB 2019-02-28: ipbus for algo-bx-mem in control.vhd
-        ipb_to_slaves_fdl => ipb_to_slaves_fdl,
-        ipb_from_slaves_fdl => ipb_from_slaves_fdl
+        local_finor_with_veto_o => local_finor_with_veto_o
     );
     
 -- HB 2019-01-21: data to gt_control for memories

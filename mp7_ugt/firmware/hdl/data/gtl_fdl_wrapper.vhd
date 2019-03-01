@@ -46,7 +46,6 @@ entity gtl_fdl_wrapper is
         test_en : in std_logic;
         l1a : in std_logic;
         begin_lumi_section : in std_logic;
-        algo_bx_mask_mem_fdl : in std_logic_vector(MAX_NR_ALGOS-1 downto 0);
         bx_nr_fdl : out std_logic_vector(11 downto 0);
         prescale_factor_set_index_rop : out std_logic_vector(7 downto 0);
         algo_after_gtLogic_rop : out std_logic_vector(MAX_NR_ALGOS-1 downto 0);
@@ -58,10 +57,7 @@ entity gtl_fdl_wrapper is
         finor_preview_2_mezz_lemo : out std_logic;
         veto_2_mezz_lemo : out std_logic;
         finor_w_veto_2_mezz_lemo : out std_logic;
-        local_finor_with_veto_o : out std_logic;
--- HB 2019-02-28: ipbus for algo-bx-mem in control.vhd
-        ipb_to_slaves_fdl : out ipb_wbus_array(NR_IPB_SLV_FDL-1 downto 0);
-        ipb_from_slaves_fdl : in ipb_rbus_array(NR_IPB_SLV_FDL-1 downto 0)
+        local_finor_with_veto_o : out std_logic
     );
 end gtl_fdl_wrapper;
 
@@ -180,7 +176,6 @@ fdl_module_i: entity work.fdl_module
         test_en => test_en,
         l1a => l1a,
         begin_lumi_section => begin_lumi_section,
-        algo_bx_mask_mem_in => algo_bx_mask_mem_fdl,
         algo_i => algo,
         bx_nr_out => bx_nr_fdl,
         prescale_factor_set_index_rop => prescale_factor_set_index_rop,
@@ -194,10 +189,7 @@ fdl_module_i: entity work.fdl_module
         veto_2_mezz_lemo => veto_2_mezz_lemo,
         finor_w_veto_2_mezz_lemo => finor_w_veto_2_mezz_lemo,
         local_finor_with_veto_o => local_finor_with_veto_o,
-        algo_bx_mask_sim => (others => '1'),  
--- HB 2019-02-28: ipbus for algo-bx-mem in control.vhd
-        ipb_to_slaves_fdl => ipb_to_slaves_fdl,
-        ipb_from_slaves_fdl => ipb_from_slaves_fdl
+        algo_bx_mask_sim => (others => '1')  
     );
 
 end architecture rtl;

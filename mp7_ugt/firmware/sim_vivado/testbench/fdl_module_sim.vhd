@@ -2,7 +2,58 @@
 -- FDL structure
 
 -- Version-history:
--- HB 2019-02-14: version for vivado simulation without algo-bx-mem.
+-- HB 2019-02-01: v2.0.0 - moved algo-bx-mem control.vhd (no ipbus in simulation of gtl_fdl_wrapper with vivado). 
+
+-- HB 2017-01-10: v1.2.2 - based on v1.2.1, but fixed bug with 1 bx delay for "begin_lumi_per" (in algo_slice.vhd) for rate counter after pre-scaler.
+-- HB 2016-12-01: v1.2.1 - based on v1.2.0, but inserted rate counter and register for finor with "prescaler preview" in monitoring.
+-- HB 2016-11-17: v1.2.0 - based on v1.1.1, but inserted logic for "prescaler preview" in monitoring. Removed port "finor_mask".
+-- HB 2016-10-24: v1.1.1 - based on v1.1.0, but inserted register for "updated prescale factor index" and "lumi section number" for monitoring (N-1).
+-- HB 2016-10-11: v1.1.0 - based on v1.0.3, but inserted extra FF for finor_2_mezz_lemo and veto_2_mezz_lemo for IOB output FF.
+-- HB 2016-09-19: v1.0.3 - based on v1.0.2, but module algo_mapping_rop.vhd moved to "fix" part (no template anymore for algo_mapping_rop.vhd).
+-- HB 2016-09-12: v1.0.2 - based on v1.0.1, but removed algo_after_finor_mask_rop, not used anymore in read-out record.
+-- HB 2016-09-02: v1.0.1 - based on v1.0.0, but bug fixed at algo_after_finor_mask_rop.
+-- HB 2016-08-31: v1.0.0 - based on v0.0.31, but renamed rate_cnt_after_finor_mask to rate_cnt_after_prescaler and removed finor mask logic (in algo_slice.vhd).
+--                         Kept "algo_after_finor_mask" port, used algo_after_prescaler for this port. Kept "algo_after_finor_mask_rop" port, used algo_after_prescaler_rop for this port.
+-- HB 2016-07-04: v0.0.31 - based on v0.0.30, but rate_cnt_after_finor_mask (instead of rate_cnt_after_prescaler) used in algo_slice.
+-- HB 2016-06-30: v0.0.30 - based on v0.0.29, but removed clock domain change for counter_o in algo_rate_counter.vhd and algo_post_dead_time_counter.vhd.
+-- HB 2016-06-29: v0.0.29 - based on v0.0.28, but added register for MODULE_ID.
+-- HB 2016-06-21: v0.0.28 - based on v0.0.27, but added register for values begin and end of calibration trigger gap (cal_trigger_gap_beg and cal_trigger_gap_end).
+-- HB 2016-06-17: v0.0.27 - based on v0.0.26, but added BGo "test-enable" not synchronized (!) occures at bx=~3300 (used to suppress counting algos caused by calibration trigger at bx=3490)
+--			    and logic for suppress counting algos caused by calibration trigger.
+-- HB 2016-06-10: v0.0.26 - based on v0.0.25, but tested using "local_finor_pipe" for "finor_2_mezz_lemo" (instead of "local_finor"), same for veto.
+-- HB 2016-04-25: v0.0.25 - based on v0.0.24, but bug fixed at "rate_cnt_reg_l" (using MAX_NR_ALGOS instead of NR_ALGOS).
+-- HB 2016-04-06: v0.0.24 - based on v0.0.23, but used algo_mapping_rop with "algo_after_gtLogic" for read-out-record (changed algo_before_prescaler to algo_after_bxomask).
+--                          Inserted read register for updated prescale factor index.
+-- HB 2016-04-06: v0.0.23 - based on v0.0.22, but bug fixed in algo_pre_scaler, prescale_factor=0 disables algos correctly.
+-- HB 2016-03-10: v0.0.22 - based on v0.0.21, but inserted L1TM_FW_UID and SVN_REVISION_NUMBER to version registers.
+-- HB 2016-03-02: v0.0.21 - based on v0.0.20, but mapping global-local index is done for masks and counters. Inserted rate-counter for veto. Updated algo_bx_mask_sim for global index.
+-- HB 2016-02-26: v0.0.20 - based on v0.0.19, but changed finor_2_mezz_lemo and veto_2_mezz_lemo (no additional delay anymore) and inserted finor_w_veto_2_mezz_lemo with
+--			    1.5bx delay.
+--			    Removed unused inputs (ec0, oc0, etc.) and fdl_status output.
+-- HB 2016-02-23: v0.0.19 - based on v0.0.18, but implemented algo-rate-counter after prescaler.
+--                                            Fixed bug for syncr. reset of counter, "resync" not used anymore. No syncr. reset for counters except begin of lumi-section.
+-- HB 2016-02-11: v0.0.18 - based on v0.0.17, but implemented L1A-rate-counter (only for monitoring and verification of incoming L1As)
+-- HB 2016-02-11: v0.0.17 - based on v0.0.16, but implemented port l1a, module algo_post_dead_time_counter (in algo_slice) and register for L1A latency delay (delaying algos for post_dead_time_counter)
+-- HB 2016-02-11: v0.0.16 - based on v0.0.15, but implemented finor-rate-counter
+-- HB 2016-01-18: v0.0.15 - based on v0.0.14, but used internal bx number for algo-bx-memory
+-- HB 2015-09-01: v0.0.14 - based on v0.0.13, but implemented "prescale_factor_set_index_reg" and "command_pulses" register. "ALGO_INPUTS_FF" is now part of generic declaration. Additionally
+--                          inserted input ports "ec0", "resync" and "oc0" for reset logic.
+-- HB 2015-08-14: v0.0.13 - based on v0.0.12, but added algo_bx_mask_sim input for simulation use. Send a delayed "finor_with_veto" (currently assumed 1.5 bx latency over FINOR-AMC502)
+--                          to ports "finor_2_mezz_lemo" and "veto_2_mezz_lemo", which go to MP7-mezzanine to send "finor gated with veto" to TCDS directly (without AMC502).
+--                          Moved constant "ALGO_INPUTS_FF" from fdl_pkg.vhd to fdl_module.vhd, fdl_pkg.vhd not used anymore.
+-- HB 2015-06-26: v0.0.12 - based on v0.0.11, but used an additional port "veto_2_mezz_lemo", which goes to MP7-mezzanine (with 3 LEMOs) to send finor and veto to FINOR-FMC on AMC502.
+-- HB 2015-05-29: v0.0.11 - based on v0.0.10, but renamed port "ser_finor_veto" to "finor_2_mezz_lemo" and inserted FDL_OUT_MEZZ_2_TCDS in generic.
+-- HB 2015-05-26: v0.0.10 - based on v0.0.9, but inserted SIM_MODE for algo_bx_mask and instanciated all modules with "entity work.xxx" and used clk160 for "serializer_2_to_1.vhd".
+-- HB 2014-12-15: v0.0.9 - based on v0.0.8, but bug fixed at "local_finor_with_veto_o" (removed FF).
+-- HB 2014-12-10: v0.0.8 - based on v0.0.7, but removed serializer.
+-- HB 2014-12-10: v0.0.7 - based on v0.0.6, but clk160 used for serializer.
+-- HB 2014-11-21: v0.0.6 - based on v0.0.5, but implemented "ser_finor_veto_2_to_1" (only"local FINOR" and "local VETO" serialized)
+--                         and "sel_finor_lemo_out" for selection of signal to finor LEMO output (on FINOR-mezzanine).
+-- HB 2014-11-18: v0.0.5 - based on v0.0.4, but "sel_local_finor_with_veto" instead of "sel_ser_finor_veto".
+-- HB 2014-10-30: v0.0.4 - based on v0.0.3, but added local_finor_with_veto_o for SPY2_FINOR.
+-- HB 2014-10-22: v0.0.3 - based on v0.0.2, but redesigned FINOR logic and added serializer for "local FINOR" and "local VETO" to send these signals to "FINOR-FMC".
+-- HB 11-08-2014: v0.0.2 - instantiate all algo_bx_mem instead of NR_ALGOS dependecies by a fixed value (0 to 15).
+-- HEPHY 08-08-2014: instantiate all algo_bx_mem instead of NR_ALGOS dependecies.
 
 library ieee;
 use ieee.std_logic_1164.ALL;
@@ -43,6 +94,7 @@ entity fdl_module is
         l1a                 : in std_logic;
         begin_lumi_section  : in std_logic;
         algo_i              : in std_logic_vector(NR_ALGOS-1 downto 0);
+        bx_nr_out : out std_logic_vector(11 downto 0);
         prescale_factor_set_index_rop : out std_logic_vector(PRESCALE_FACTOR_SET_INDEX_WIDTH-1 downto 0);
         algo_after_gtLogic_rop  : out std_logic_vector(MAX_NR_ALGOS-1 downto 0);
         algo_after_bxomask_rop     : out std_logic_vector(MAX_NR_ALGOS-1 downto 0);
@@ -55,7 +107,7 @@ entity fdl_module is
         finor_w_veto_2_mezz_lemo      : out std_logic; -- to tp_mux.vhd
         local_finor_with_veto_o       : out std_logic; -- to SPY2_FINOR
 -- HB 2016-03-02: v0.0.21 - algo_bx_mask_sim input for simulation use with MAX_NR_ALGOS (because of global index).
-        algo_bx_mask_sim    : in std_logic_vector(MAX_NR_ALGOS-1 downto 0) := (others => '1')
+        algo_bx_mask_sim    : in std_logic_vector(MAX_NR_ALGOS-1 downto 0)
     );
 end fdl_module;
 
@@ -195,14 +247,12 @@ begin
 --===============================================================================================--
 -- Version register
     read_versions_i: entity work.ipb_read_regs
-    generic map
-    (
+    generic map(
         addr_width => ADDR_WIDTH_READ_VERSIONS,
         regs_beg_index => OFFSET_BEG_READ_VERSIONS,
         regs_end_index => OFFSET_END_READ_VERSIONS
     )
-    port map
-    (
+    port map(
         clk => ipb_clk,
         reset => ipb_rst,
         ipbus_in => ipb_to_slaves(C_IPB_READ_VERSIONS),
@@ -273,47 +323,20 @@ begin
         end if;
     end process suppress_cal_trigger_p;
 
--- -- Algo-bx-memory
--- -- HB 2016-02-11: 16 (MAX_NR_ALGOS/SW_DATA_WIDTH) memory-blocks instantiated, same as defined in XML for addresses
---     algo_bx_mem_l: for i in 0 to 15 generate
---         algo_bx_mem_i: entity work.ipb_dpmem_4096_32
---         port map
---         (
---             ipbus_clk => ipb_clk,
---             reset     => ipb_rst,
---             ipbus_in  => ipb_to_slaves(C_IPB_ALGO_BX_MEM(i)),
---             ipbus_out => ipb_from_slaves(C_IPB_ALGO_BX_MEM(i)),
---             ------------------
---             clk_b     => lhc_clk,
---             enb       => '1',
--- --             enb       => en_algo_bx_mem,
---             web       => '0', -- read
--- -- HB 2016-01-18: using internal bx number for algo_bx_mem
--- --             addrb     => bx_nr(11 downto 0),
---             addrb     => bx_nr_internal(11 downto 0),
---             dinb      => X"FFFFFFFF", -- dummy
---             doutb     => algo_bx_mask_mem_out(32*i+31 downto 32*i)
---         );
---     end generate algo_bx_mem_l;
-
--- -- HB 2015-08-14: v0.0.13 - algo_bx_mask_sim input for simulation use.
---     algo_bx_mask_global <= algo_bx_mask_mem_out when not SIM_MODE else
--- 		           algo_bx_mask_sim when SIM_MODE else (others => '1');
-
+    bx_nr_out <= bx_nr_internal; -- to Algo-bx-memory
+    
 -- HB 2019-02-14: version for vivado simulation without algo-bx-mem.
-    algo_bx_mask_global <= algo_bx_mask_sim;
+    algo_bx_mask_global <=  algo_bx_mask_sim;
 
 --===============================================================================================--
 -- Rate counter before prescaler registers
     read_rate_cnt_before_prescaler_i: entity work.ipb_read_regs
-    generic map
-    (
+    generic map(
         addr_width => ADDR_WIDTH_RATE_CNT_BEFORE_PRESCALER,
         regs_beg_index => OFFSET_BEG_RATE_CNT_BEFORE_PRESCALER,
         regs_end_index => OFFSET_END_RATE_CNT_BEFORE_PRESCALER
     )
-    port map
-    (
+    port map(
         clk => ipb_clk,
         reset => ipb_rst,
         ipbus_in => ipb_to_slaves(C_IPB_RATE_CNT_BEFORE_PRESCALER),
@@ -325,14 +348,12 @@ begin
 --===============================================================================================--
 -- Rate counter after finor-mask registers
     read_rate_cnt_after_prescaler_i: entity work.ipb_read_regs
-    generic map
-    (
+    generic map(
         addr_width => ADDR_WIDTH_RATE_CNT_AFTER_PRESCALER,
         regs_beg_index => OFFSET_BEG_RATE_CNT_AFTER_PRESCALER,
         regs_end_index => OFFSET_END_RATE_CNT_AFTER_PRESCALER
     )
-    port map
-    (
+    port map(
         clk => ipb_clk,
         reset => ipb_rst,
         ipbus_in => ipb_to_slaves(C_IPB_RATE_CNT_AFTER_PRESCALER),
@@ -344,14 +365,12 @@ begin
 --===============================================================================================--
 -- Rate counter post dead time registers
     read_rate_cnt_post_dead_time_i: entity work.ipb_read_regs
-    generic map
-    (
+    generic map(
         addr_width => ADDR_WIDTH_RATE_CNT_POST_DEAD_TIME,
         regs_beg_index => OFFSET_BEG_RATE_CNT_POST_DEAD_TIME,
         regs_end_index => OFFSET_END_RATE_CNT_POST_DEAD_TIME
     )
-    port map
-    (
+    port map(
         clk => ipb_clk,
         reset => ipb_rst,
         ipbus_in => ipb_to_slaves(C_IPB_RATE_CNT_POST_DEAD_TIME),
@@ -363,15 +382,13 @@ begin
 --===============================================================================================--
 -- L1A latency delay register
     l1a_latency_delay_reg_i: entity work.ipb_write_regs
-    generic map
-    (
+    generic map(
         init_value => L1A_LATENCY_DELAY_INIT,
         addr_width => 2,
         regs_beg_index => 0,
         regs_end_index => 1
     )
-    port map
-    (
+    port map(
         clk => ipb_clk,
         reset => ipb_rst,
         ipbus_in => ipb_to_slaves(C_IPB_L1A_LATENCY_DELAY),
@@ -386,15 +403,13 @@ begin
 -- bit 31..16: end of calibration trigger gap
 -- bit 15..0: begin of calibration trigger gap
     cal_trigger_gap_reg_i: entity work.ipb_write_regs
-    generic map
-    (
+    generic map(
         init_value => CAL_TRIGGER_GAP_INIT,
         addr_width => 2,
         regs_beg_index => 0,
         regs_end_index => 1
     )
-    port map
-    (
+    port map(
         clk => ipb_clk,
         reset => ipb_rst,
         ipbus_in => ipb_to_slaves(C_IPB_CAL_TRIGGER_GAP),
@@ -409,15 +424,13 @@ begin
 --===============================================================================================--
 -- Prescale factor registers
     prescale_factor_reg_i: entity work.ipb_write_regs
-    generic map
-    (
+    generic map(
         init_value => PRESCALE_FACTOR_INIT,
         addr_width => ADDR_WIDTH_PRESCALE_FACTOR,
         regs_beg_index => OFFSET_BEG_PRESCALE_FACTOR,
         regs_end_index => OFFSET_END_PRESCALE_FACTOR
     )
-    port map
-    (
+    port map(
         clk => ipb_clk,
         reset => ipb_rst,
         ipbus_in => ipb_to_slaves(C_IPB_PRESCALE_FACTOR),
@@ -429,15 +442,13 @@ begin
 --===============================================================================================--
 -- Prescale factor set index register
     prescale_factors_set_index_i: entity work.ipb_write_regs
-    generic map
-    (
+    generic map(
         init_value => PRESCALE_FACTOR_SET_INDEX_REG_INIT,
         addr_width => 2,
         regs_beg_index => 0,
         regs_end_index => 1
     )
-    port map
-    (
+    port map(
         clk => ipb_clk,
         reset => ipb_rst,
         ipbus_in => ipb_to_slaves(C_IPB_PRESCALE_FACTOR_SET_INDEX),
@@ -479,14 +490,12 @@ begin
 -- HB 2016-04-06: requested for monitoring by TM
 -- HB 2016-10-24: inserted prescale_factor_set_index_reg_updated(1) for monitoring.
     prescale_factor_set_index_updated_reg_i: entity work.ipb_read_regs
-    generic map
-    (
+    generic map(
         addr_width => 2,
         regs_beg_index => 0,
         regs_end_index => 1
     )
-    port map
-    (
+    port map(
         clk => ipb_clk,
         reset => ipb_rst,
         ipbus_in => ipb_to_slaves(C_IPB_PRESCALE_FACTOR_SET_INDEX_UPDATED),
@@ -498,15 +507,13 @@ begin
 -- --===============================================================================================--
 -- Finor and veto masks registers (bit 0 = finor, bit 1 = veto)
     masks_reg_i: entity work.ipb_write_regs
-    generic map
-    (
+    generic map(
         init_value => MASKS_INIT,
         addr_width => ADDR_WIDTH_MASKS,
         regs_beg_index => OFFSET_BEG_MASKS,
         regs_end_index => OFFSET_END_MASKS
     )
-    port map
-    (
+    port map(
         clk => ipb_clk,
         reset => ipb_rst,
         ipbus_in => ipb_to_slaves(C_IPB_MASKS),
@@ -534,14 +541,12 @@ begin
 -- Rate counter finor register
 -- HB 2016-02-11: requested for monitoring (in legacy system part of TCS). Has to be moved to FINOR-AMC502 !!!
     read_rate_cnt_finor_i: entity work.ipb_read_regs
-    generic map
-    (
+    generic map(
         addr_width => 1,
         regs_beg_index => 0,
         regs_end_index => 0
     )
-    port map
-    (
+    port map(
         clk => ipb_clk,
         reset => ipb_rst,
         ipbus_in => ipb_to_slaves(C_IPB_RATE_CNT_FINOR),
@@ -554,14 +559,12 @@ begin
 -- Rate counter finor preview register
 -- HB 2016-12-01: register for rate counter finor for "prescaler preview" in monitoring
     read_rate_cnt_finor_preview_i: entity work.ipb_read_regs
-    generic map
-    (
+    generic map(
         addr_width => 1,
         regs_beg_index => 0,
         regs_end_index => 0
     )
-    port map
-    (
+    port map(
         clk => ipb_clk,
         reset => ipb_rst,
         ipbus_in => ipb_to_slaves(C_IPB_RATE_CNT_FINOR_PREVIEW),
@@ -574,14 +577,12 @@ begin
 -- Rate counter veto register
 -- HB 2016-03-02: for monitoring only
     read_rate_cnt_veto_i: entity work.ipb_read_regs
-    generic map
-    (
+    generic map(
         addr_width => 1,
         regs_beg_index => 0,
         regs_end_index => 0
     )
-    port map
-    (
+    port map(
         clk => ipb_clk,
         reset => ipb_rst,
         ipbus_in => ipb_to_slaves(C_IPB_RATE_CNT_VETO),
@@ -593,14 +594,12 @@ begin
 --===============================================================================================--
 -- Rate counter L1A register
     read_rate_cnt_l1a_i: entity work.ipb_read_regs
-    generic map
-    (
+    generic map(
         addr_width => 1,
         regs_beg_index => 0,
         regs_end_index => 0
     )
-    port map
-    (
+    port map(
         clk => ipb_clk,
         reset => ipb_rst,
         ipbus_in => ipb_to_slaves(C_IPB_RATE_CNT_L1A),
@@ -614,14 +613,12 @@ begin
 -- ****************************************************************************************************
 -- HB 2016-11-17: register for "prescaler preview" in monitoring
     read_rate_cnt_after_prescaler_preview_i: entity work.ipb_read_regs
-    generic map
-    (
+    generic map(
         addr_width => ADDR_WIDTH_RATE_CNT_AFTER_PRESCALER_PREVIEW,
         regs_beg_index => OFFSET_BEG_RATE_CNT_AFTER_PRESCALER_PREVIEW,
         regs_end_index => OFFSET_END_RATE_CNT_AFTER_PRESCALER_PREVIEW
     )
-    port map
-    (
+    port map(
         clk => ipb_clk,
         reset => ipb_rst,
         ipbus_in => ipb_to_slaves(C_IPB_RATE_CNT_AFTER_PRESCALER_PREVIEW),
@@ -631,15 +628,13 @@ begin
     );
 
     prescale_factor_preview_reg_i: entity work.ipb_write_regs
-    generic map
-    (
+    generic map(
         init_value => PRESCALE_FACTOR_INIT,
         addr_width => ADDR_WIDTH_PRESCALE_FACTOR_PREVIEW,
         regs_beg_index => OFFSET_BEG_PRESCALE_FACTOR_PREVIEW,
         regs_end_index => OFFSET_END_PRESCALE_FACTOR_PREVIEW
     )
-    port map
-    (
+    port map(
         clk => ipb_clk,
         reset => ipb_rst,
         ipbus_in => ipb_to_slaves(C_IPB_PRESCALE_FACTOR_PREVIEW),
@@ -649,15 +644,13 @@ begin
     );
 
     prescale_factors_preview_set_index_i: entity work.ipb_write_regs
-    generic map
-    (
+    generic map(
         init_value => PRESCALE_FACTOR_SET_INDEX_REG_INIT,
         addr_width => 2,
         regs_beg_index => 0,
         regs_end_index => 1
     )
-    port map
-    (
+    port map(
         clk => ipb_clk,
         reset => ipb_rst,
         ipbus_in => ipb_to_slaves(C_IPB_PRESCALE_FACTOR_PREVIEW_SET_INDEX),
@@ -693,14 +686,12 @@ begin
         );
 
     prescale_factor_preview_set_index_updated_reg_i: entity work.ipb_read_regs
-    generic map
-    (
+    generic map(
         addr_width => 2,
         regs_beg_index => 0,
         regs_end_index => 1
     )
-    port map
-    (
+    port map(
         clk => ipb_clk,
         reset => ipb_rst,
         ipbus_in => ipb_to_slaves(C_IPB_PRESCALE_FACTOR_PREVIEW_SET_INDEX_UPDATED),
@@ -1036,7 +1027,7 @@ begin
 
 -- Algorithms to ROP
     algo_mapping_rop_i: entity work.algo_mapping_rop
-        port map (
+        port map(
             lhc_clk => lhc_clk,
             algo_bx_masks_global => algo_bx_mask_global,
             algo_bx_masks_local => algo_bx_mask_local,

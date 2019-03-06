@@ -413,7 +413,8 @@ package gtl_pkg is
     type muon_sin_cos_vector_array is array (natural range <>) of std_logic_vector(MUON_SIN_COS_VECTOR_WIDTH-1 downto 0);
     
 -- enums
-    type obj_type is (muon,eg,jet,tau,ett,etm,htt,htm,ettem,etmhf,htmhf,towercount,mbt1hfp,mbt1hfm,mbt0hfp,mbt0hfm,asymet,asymht,asymethf,asymhthf);
+--     type obj_type is (muon,eg,jet,tau,ett,etm,htt,htm,ettem,etmhf,htmhf,towercount,mbt1hfp,mbt1hfm,mbt0hfp,mbt0hfm,asymet,asymht,asymethf,asymhthf);
+    type obj_type is (muon_t,eg_t,jet_t,tau_t,ett_t,etm_t,htt_t,htm_t,ettem_t,etmhf_t,htmhf_t,towercount_t,mbt1hfp_t,mbt1hfm_t,mbt0hfp_t,mbt0hfm_t,asymet_t,asymht_t,asymethf_t,asymhthf_t);
     type obj_type_array is array (1 to 2) of obj_type;
     type comp_mode is (GE,EQ,NE,ETA,PHI,deltaEta,deltaPhi,deltaR,mass,twoBodyPt);
 

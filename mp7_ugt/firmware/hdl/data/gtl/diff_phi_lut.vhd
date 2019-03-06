@@ -34,23 +34,23 @@ begin
     diff_phi_p: process(sub_phi)
         variable calo_calo, calo_muon, muon_muon : boolean := false;    
     begin
-        if_1: if OBJ(1) = eg or OBJ(1) = jet or OBJ(1) = tau then
-            if_2: if OBJ(2) = eg or OBJ(2) = jet or OBJ(2) = tau or OBJ(2) = etm or OBJ(2) = htm or OBJ(2) = etmhf or OBJ(2) = htmhf then
+        if_1: if OBJ(1) = eg_t or OBJ(1) = jet_t or OBJ(1) = tau_t then
+            if_2: if OBJ(2) = eg_t or OBJ(2) = jet_t or OBJ(2) = tau_t or OBJ(2) = etm_t or OBJ(2) = htm_t or OBJ(2) = etmhf_t or OBJ(2) = htmhf_t then
                 calo_calo := true;
             end if;
         end if;
-        if_3: if OBJ(1) = eg or OBJ(1) = jet or OBJ(1) = tau then
-            if_4: if OBJ(2) = muon then
+        if_3: if OBJ(1) = eg_t or OBJ(1) = jet_t or OBJ(1) = tau_t then
+            if_4: if OBJ(2) = muon_t then
                 calo_muon := true;
             end if;
         end if;
-        if_5: if OBJ(1) = muon then
-            if_6: if OBJ(2) = etm or OBJ(2) = htm or OBJ(2) = etmhf or OBJ(2) = htmhf then
+        if_5: if OBJ(1) = muon_t then
+            if_6: if OBJ(2) = etm_t or OBJ(2) = htm_t or OBJ(2) = etmhf_t or OBJ(2) = htmhf_t then
                 calo_muon := true;
             end if;
         end if;
-        if_7: if OBJ(1) = muon then
-            if_8: if OBJ(2) = muon then
+        if_7: if OBJ(1) = muon_t then
+            if_8: if OBJ(2) = muon_t then
                 muon_muon := true;
             end if;
         end if;

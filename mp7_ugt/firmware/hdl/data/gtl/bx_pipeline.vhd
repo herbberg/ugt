@@ -158,7 +158,7 @@ begin
 
         eg_conversions_i: entity work.conversions
             generic map(
-                N_EG_OBJECTS, eg
+                N_EG_OBJECTS, eg_t
             )
             port map(
                 pt => eg_bx(i).pt, eta => eg_bx(i).eta, phi => eg_bx(i).phi,
@@ -170,7 +170,7 @@ begin
             
         jet_conversions_i: entity work.conversions
             generic map(
-                N_JET_OBJECTS, jet
+                N_JET_OBJECTS, jet_t
             )
             port map(
                 pt => jet_bx(i).pt, eta => jet_bx(i).eta, phi => jet_bx(i).phi,        
@@ -182,7 +182,7 @@ begin
             
         tau_conversions_i: entity work.conversions
             generic map(
-                N_TAU_OBJECTS, tau
+                N_TAU_OBJECTS, tau_t
             )
             port map(
                 pt => tau_bx(i).pt, eta => tau_bx(i).eta, phi => tau_bx(i).phi,        
@@ -194,7 +194,7 @@ begin
             
         muon_conversions_i: entity work.conversions
             generic map(
-                N_MUON_OBJECTS, muon
+                N_MUON_OBJECTS, muon_t
             )
             port map(
                 pt => muon_bx(i).pt, eta => muon_bx(i).eta, phi => muon_bx(i).phi,        

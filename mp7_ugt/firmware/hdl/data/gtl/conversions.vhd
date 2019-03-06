@@ -51,20 +51,20 @@ architecture rtl of conversions is
 begin
 
     obj_loop: for i in 0 to N_OBJ-1 generate
-        calo_i: if ((OBJ_T = eg) or (OBJ_T = jet) or (OBJ_T = tau)) generate
-            eg_i: if (OBJ_T = eg) generate
+        calo_i: if ((OBJ_T = eg_t) or (OBJ_T = jet_t) or (OBJ_T = tau_t)) generate
+            eg_i: if (OBJ_T = eg_t) generate
                 pt_i(i)(EG_PT_HIGH-EG_PT_LOW downto 0) <= pt(i)(EG_PT_HIGH-EG_PT_LOW downto 0); 
                 eta_i(i)(EG_ETA_HIGH-EG_ETA_LOW downto 0) <= eta(i)(EG_ETA_HIGH-EG_ETA_LOW downto 0); 
                 phi_i(i)(EG_PHI_HIGH-EG_PHI_LOW downto 0) <= phi(i)(EG_PHI_HIGH-EG_PHI_LOW downto 0); 
                 pt_vector(i)(EG_PT_VECTOR_WIDTH-1 downto 0) <= CONV_STD_LOGIC_VECTOR(EG_PT_LUT(CONV_INTEGER(pt_i(i))), EG_PT_VECTOR_WIDTH);
             end generate eg_i;
-            jet_i: if (OBJ_T = jet) generate
+            jet_i: if (OBJ_T = jet_t) generate
                 pt_i(i)(JET_PT_HIGH-JET_PT_LOW downto 0) <= pt(i)(JET_PT_HIGH-JET_PT_LOW downto 0); 
                 eta_i(i)(JET_ETA_HIGH-JET_ETA_LOW downto 0) <= eta(i)(JET_ETA_HIGH-JET_ETA_LOW downto 0); 
                 phi_i(i)(JET_PHI_HIGH-JET_PHI_LOW downto 0) <= phi(i)(JET_PHI_HIGH-JET_PHI_LOW downto 0); 
                 pt_vector(i)(JET_PT_VECTOR_WIDTH-1 downto 0) <= CONV_STD_LOGIC_VECTOR(JET_PT_LUT(CONV_INTEGER(pt_i(i))), JET_PT_VECTOR_WIDTH);
             end generate jet_i;
-            tau_i: if (OBJ_T = tau) generate
+            tau_i: if (OBJ_T = tau_t) generate
                 pt_i(i)(TAU_PT_HIGH-TAU_PT_LOW downto 0) <= pt(i)(TAU_PT_HIGH-TAU_PT_LOW downto 0); 
                 eta_i(i)(TAU_ETA_HIGH-TAU_ETA_LOW downto 0) <= eta(i)(TAU_ETA_HIGH-TAU_ETA_LOW downto 0); 
                 phi_i(i)(TAU_PHI_HIGH-TAU_PHI_LOW downto 0) <= phi(i)(TAU_PHI_HIGH-TAU_PHI_LOW downto 0); 
@@ -78,7 +78,7 @@ begin
             conv_2_muon_eta_integer(i) <= CALO_ETA_CONV_2_MUON_ETA_LUT(CONV_INTEGER(eta_i(i)));
             conv_2_muon_phi_integer(i) <= conv_2_muon_phi_integer_i(i);
         end generate calo_i;
-        muon_i: if (OBJ_T = muon) generate
+        muon_i: if (OBJ_T = muon_t) generate
                 pt_i(i)(MUON_PT_HIGH-MUON_PT_LOW downto 0) <= pt(i)(MUON_PT_HIGH-MUON_PT_LOW downto 0); 
                 eta_i(i)(MUON_ETA_HIGH-MUON_ETA_LOW downto 0) <= eta(i)(MUON_ETA_HIGH-MUON_ETA_LOW downto 0); 
                 phi_i(i)(MUON_PHI_HIGH-MUON_PHI_LOW downto 0) <= phi(i)(MUON_PHI_HIGH-MUON_PHI_LOW downto 0); 

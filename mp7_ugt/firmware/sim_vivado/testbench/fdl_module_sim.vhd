@@ -68,6 +68,7 @@ use work.gt_mp7_core_pkg.ALL;
 use work.fdl_addr_decode.all;
 
 use work.math_pkg.all;
+use work.l1_menu_pkg.ALL;
 
 entity fdl_module is
     generic(

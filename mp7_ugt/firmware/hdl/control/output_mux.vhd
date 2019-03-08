@@ -14,8 +14,10 @@ use work.lhc_data_pkg.all;
 use work.gt_mp7_core_pkg.all;
 use work.mp7_ttc_decl.all;
 
+-- -- HB 2016-09-16: inserted for L1TM_UID_HASH and FW_UID_HASH
+-- use work.gtl_pkg.ALL;
 -- HB 2016-09-16: inserted for L1TM_UID_HASH and FW_UID_HASH
-use work.gtl_pkg.ALL;
+use work.l1_menu_pkg.ALL;
 
 entity output_mux is
     generic(

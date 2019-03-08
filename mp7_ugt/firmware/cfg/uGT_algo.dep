@@ -13,9 +13,11 @@ src data/data_cdc.vhd
 src data/data_cdc_lmp.vhd
 src data/gtl_fdl_wrapper.vhd
 #
+src ../l1menu/l1menu_pkg.vhd
 src data/gtl/gtl_pkg.vhd
 src data/gtl/lut_pkg.vhd
 src data/gtl/gtl_module.vhd
+src ../l1menu/l1menu.vhd
 src data/gtl/delay_pipeline.vhd
 src data/gtl/bx_pipeline.vhd
 src data/gtl/comp_signed.vhd

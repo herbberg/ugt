@@ -190,25 +190,26 @@ def main():
 
         # Read generated VHDL snippets
         src_dir = os.path.join(args.menu, 'vhdl', module_name, 'src')
+        copy_tree(os.path.join(src_dir), os.path.join(module_dir, 'firmware', 'l1menu'))
+        
+        #replace_map = {
+            #'{{algo_index}}': tb.read_file(os.path.join(src_dir, 'algo_index.vhd')),
+            #'{{ugt_constants}}': tb.read_file(os.path.join(src_dir, 'ugt_constants.vhd')),
+            #'{{gtl_module_signals}}': tb.read_file(os.path.join(src_dir, 'gtl_module_signals.vhd')),
+            #'{{gtl_module_instances}}': tb.read_file(os.path.join(src_dir, 'gtl_module_instances.vhd')),
+        #}
 
-        replace_map = {
-            '{{algo_index}}': tb.read_file(os.path.join(src_dir, 'algo_index.vhd')),
-            '{{ugt_constants}}': tb.read_file(os.path.join(src_dir, 'ugt_constants.vhd')),
-            '{{gtl_module_signals}}': tb.read_file(os.path.join(src_dir, 'gtl_module_signals.vhd')),
-            '{{gtl_module_instances}}': tb.read_file(os.path.join(src_dir, 'gtl_module_instances.vhd')),
-        }
+        ##gtl_fdl_wrapper_dir = os.path.join(local_fw_dir, 'firmware', 'hdl', 'gt_mp7_core', 'gtl_fdl_wrapper')
+        ### HB 2019-01-15: changed dir structure of FW
+        ##gtl_fdl_wrapper_dir = os.path.join(local_fw_dir, 'firmware', 'hdl')
+        #gtl_fdl_wrapper_dir = os.path.join(module_dir, 'firmware', 'hdl')
+        #gtl_dir = os.path.join(gtl_fdl_wrapper_dir, 'data', 'gtl')
+        #fdl_dir = os.path.join(gtl_fdl_wrapper_dir, 'data', 'fdl')
 
-        #gtl_fdl_wrapper_dir = os.path.join(local_fw_dir, 'firmware', 'hdl', 'gt_mp7_core', 'gtl_fdl_wrapper')
-        ## HB 2019-01-15: changed dir structure of FW
-        #gtl_fdl_wrapper_dir = os.path.join(local_fw_dir, 'firmware', 'hdl')
-        gtl_fdl_wrapper_dir = os.path.join(module_dir, 'firmware', 'hdl')
-        gtl_dir = os.path.join(gtl_fdl_wrapper_dir, 'data', 'gtl')
-        fdl_dir = os.path.join(gtl_fdl_wrapper_dir, 'data', 'fdl')
-
-        # Patch VHDL files
-        tb.template_replace(os.path.join(fdl_dir, 'algo_mapping_rop_tpl.vhd'), replace_map, os.path.join(fdl_dir, 'algo_mapping_rop.vhd'))
-        tb.template_replace(os.path.join(gtl_dir, 'gtl_pkg_tpl.vhd'), replace_map, os.path.join(gtl_dir, 'gtl_pkg.vhd'))
-        tb.template_replace(os.path.join(gtl_dir, 'gtl_module_tpl.vhd'), replace_map, os.path.join(gtl_dir, 'gtl_module.vhd'))
+        ## Patch VHDL files
+        #tb.template_replace(os.path.join(fdl_dir, 'algo_mapping_rop_tpl.vhd'), replace_map, os.path.join(fdl_dir, 'algo_mapping_rop.vhd'))
+        #tb.template_replace(os.path.join(gtl_dir, 'gtl_pkg_tpl.vhd'), replace_map, os.path.join(gtl_dir, 'gtl_pkg.vhd'))
+        #tb.template_replace(os.path.join(gtl_dir, 'gtl_module_tpl.vhd'), replace_map, os.path.join(gtl_dir, 'gtl_module.vhd'))
 
         # Run project manager
         #subprocess.check_call(['python', 'ProjectManager.py', 'vivado', local_fw_dir, '-w', module_dir])

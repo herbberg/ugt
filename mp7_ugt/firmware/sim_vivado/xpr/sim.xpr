@@ -3,7 +3,7 @@
 <!--                                                         -->
 <!-- Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.   -->
 
-<Project Version="7" Minor="38">
+<Project Version="7" Minor="38" Path="/home/bergauer/ugt_gtl_v2_x_y/mp7_ugt/0x200c/mp7fw_v2_4_1/build/L1Menu_GTL_v2_x_y_test-d1_l1menu_modules/module_0/top/sim.xpr">
   <DefaultLaunch Dir="$PRUNDIR"/>
   <Configuration>
     <Option Name="Id" Val="42e4d2d139954dbd83b39f53e8b1e86b"/>
@@ -33,7 +33,7 @@
     <Option Name="EnableBDX" Val="FALSE"/>
     <Option Name="DSAVendor" Val="xilinx"/>
     <Option Name="DSANumComputeUnits" Val="60"/>
-    <Option Name="WTXSimLaunchSim" Val="53"/>
+    <Option Name="WTXSimLaunchSim" Val="56"/>
     <Option Name="WTModelSimLaunchSim" Val="0"/>
     <Option Name="WTQuestaLaunchSim" Val="0"/>
     <Option Name="WTIesLaunchSim" Val="0"/>
@@ -92,6 +92,11 @@
         </FileInfo>
       </File>
       <File Path="$PPRDIR/../firmware/hdl/packages/lhc_data_pkg.vhd">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../firmware/l1menu/l1menu_pkg.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
@@ -307,6 +312,11 @@
         </FileInfo>
       </File>
       <File Path="$PPRDIR/../firmware/hdl/data/gtl/bx_pipeline.vhd">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
+      <File Path="$PPRDIR/../firmware/l1menu/l1menu.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>

@@ -7,7 +7,7 @@ Naming conventions:
 1.1.1 Output signals of conversions:
 
   Signal declaration for conversion signals is part of gtl_module_tpl.vhd
-  (no instantiation by VHDL Producer)
+  (no instantiation by VHDL Producer needed)
 
   signal <object type>_pt_vector : bx_<object type>_pt_vector_array;
   signal <object type>_<cos/sin>_phi : bx_<object type>_integer_array;

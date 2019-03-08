@@ -28,6 +28,7 @@ use work.gtl_pkg.all;
 use work.gt_mp7_core_pkg.all;
 use work.lhc_data_pkg.all;
 use work.fdl_addr_decode.all;
+use work.l1_menu_pkg.ALL;
 
 entity gtl_fdl_wrapper is
     generic(
@@ -63,7 +64,7 @@ end gtl_fdl_wrapper;
 
 architecture rtl of gtl_fdl_wrapper is
 
-    signal algo : std_logic_vector(nr_algos-1 downto 0);
+    signal algo : std_logic_vector(NR_ALGOS-1 downto 0);
     signal data : gtl_data_record;
 
 begin
@@ -155,7 +156,7 @@ begin
 gtl_module_i: entity work.gtl_module
     port map( 
         lhc_clk => lhc_clk,
-        data => data,
+        data_in => data,
         algo_o => algo
     );
 

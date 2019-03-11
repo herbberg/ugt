@@ -111,6 +111,15 @@ package gtl_pkg is
     constant MUON_PHI_RAW_HIGH : natural := 52;
     constant MUON_ETA_RAW_LOW : natural := 53;
     constant MUON_ETA_RAW_HIGH : natural := 61;
+    constant MUON_PHI_WIDTH: positive := MUON_PHI_HIGH-MUON_PHI_LOW+1;
+    constant MUON_PT_WIDTH: positive := MUON_PT_HIGH-MUON_PT_LOW+1;
+    constant MUON_QUAL_WIDTH: positive := MUON_QUAL_HIGH-MUON_QUAL_LOW+1;
+    constant MUON_ETA_WIDTH: positive := MUON_ETA_HIGH-MUON_ETA_LOW+1;
+    constant MUON_ISO_WIDTH: positive := MUON_ISO_HIGH-MUON_ISO_LOW+1;
+    constant MUON_CHARGE_WIDTH: positive := MUON_CHARGE_HIGH-MUON_CHARGE_LOW+1;
+    constant MUON_IDX_BITS_WIDTH: positive := MUON_IDX_BITS_HIGH-MUON_IDX_BITS_LOW+1;
+    constant MUON_PHI_RAW_WIDTH: positive := MUON_PHI_RAW_HIGH-MUON_PHI_RAW_LOW+1;
+    constant MUON_ETA_RAW_WIDTH: positive := MUON_ETA_RAW_HIGH-MUON_ETA_RAW_LOW+1;
     constant MUON_PT_VECTOR_WIDTH: positive := 12; -- max. value 255.5 GeV => 2555 (255.5 * 10**MUON_INV_MASS_PT_PRECISION) => 0x9FB
 
     -- *******************************************************************************************************
@@ -124,6 +133,10 @@ package gtl_pkg is
     constant EG_PHI_HIGH : natural := 24;
     constant EG_ISO_LOW : natural := 25;
     constant EG_ISO_HIGH : natural := 26;
+    constant EG_PT_WIDTH: positive := EG_PT_HIGH-EG_PT_LOW+1;
+    constant EG_ETA_WIDTH: positive := EG_ETA_HIGH-EG_ETA_LOW+1;
+    constant EG_PHI_WIDTH: positive := EG_PHI_HIGH-EG_PHI_LOW+1;
+    constant EG_ISO_WIDTH: positive := EG_ISO_HIGH-EG_ISO_LOW+1;
     constant EG_PT_VECTOR_WIDTH: positive := 12; -- max. value 255.5 GeV => 2555 (255.5 * 10**EG_PT_PRECISION) => 0x9FB
 
     constant JET_PT_LOW : natural := 0;
@@ -132,6 +145,9 @@ package gtl_pkg is
     constant JET_ETA_HIGH : natural := 18;
     constant JET_PHI_LOW : natural := 19;
     constant JET_PHI_HIGH : natural := 26;
+    constant JET_PT_WIDTH: positive := JET_PT_HIGH-JET_PT_LOW+1;
+    constant JET_ETA_WIDTH: positive := JET_ETA_HIGH-JET_ETA_LOW+1;
+    constant JET_PHI_WIDTH: positive := JET_PHI_HIGH-JET_PHI_LOW+1;
     constant JET_PT_VECTOR_WIDTH: positive := 14; -- max. value 1023.5 GeV => 10235 (1023.5 * 10**JET_PT_PRECISION) => 0x27FB
 
     constant TAU_PT_LOW : natural := 0;
@@ -142,6 +158,10 @@ package gtl_pkg is
     constant TAU_PHI_HIGH : natural := 24;
     constant TAU_ISO_LOW : natural := 25;
     constant TAU_ISO_HIGH : natural := 26;
+    constant TAU_PT_WIDTH: positive := TAU_PT_HIGH-TAU_PT_LOW+1;
+    constant TAU_ETA_WIDTH: positive := TAU_ETA_HIGH-TAU_ETA_LOW+1;
+    constant TAU_PHI_WIDTH: positive := TAU_PHI_HIGH-TAU_PHI_LOW+1;
+    constant TAU_ISO_WIDTH: positive := TAU_ISO_HIGH-TAU_ISO_LOW+1;
     constant TAU_PT_VECTOR_WIDTH: positive := 12; -- max. value 255.5 GeV => 2555 (255.5 * 10**TAU_PT_PRECISION) => 0x9FB
 
     constant MAX_CALO_ETA_BITS : positive := max((EG_ETA_HIGH-EG_ETA_LOW+1), (JET_ETA_HIGH-JET_ETA_LOW+1), (TAU_ETA_HIGH-TAU_ETA_LOW+1));
@@ -153,37 +173,48 @@ package gtl_pkg is
 
     constant ETT_PT_LOW : natural := 0;
     constant ETT_PT_HIGH : natural := 11;
+    constant ETT_PT_WIDTH: positive := ETT_PT_HIGH-ETT_PT_LOW+1;
 
     constant HTT_PT_LOW : natural := 0;
     constant HTT_PT_HIGH : natural := 11;
+    constant HTT_PT_WIDTH: positive := HTT_PT_HIGH-HTT_PT_LOW+1;
 
     constant ETM_PT_LOW : natural := 0;
     constant ETM_PT_HIGH : natural := 11;
     constant ETM_PHI_LOW : natural := 12;
     constant ETM_PHI_HIGH : natural := 19;
+    constant ETM_PT_WIDTH: positive := ETM_PT_HIGH-ETM_PT_LOW+1;
+    constant ETM_PHI_WIDTH: positive := ETM_PHI_HIGH-ETM_PHI_LOW+1;
     constant ETM_PT_VECTOR_WIDTH: positive := 15; -- max. value 2047.8 GeV => 20478 (2047.8 * 10**JET_PT_PRECISION) => 0x4FFE
 
     constant HTM_PT_LOW : natural := 0;
     constant HTM_PT_HIGH : natural := 11;
     constant HTM_PHI_LOW : natural := 12;
     constant HTM_PHI_HIGH : natural := 19;
+    constant HTM_PT_WIDTH: positive := HTM_PT_HIGH-HTM_PT_LOW+1;
+    constant HTM_PHI_WIDTH: positive := HTM_PHI_HIGH-HTM_PHI_LOW+1;
     constant HTM_PT_VECTOR_WIDTH: positive := 15; -- max. value 2047.8 GeV => 20478 (2047.8 * 10**JET_PT_PRECISION) => 0x4FFE
 
     constant ETTEM_IN_ETT_LOW : natural := 12;
     constant ETTEM_IN_ETT_HIGH : natural := 23;
     constant ETTEM_PT_LOW : natural := 0;
     constant ETTEM_PT_HIGH : natural := 11;
+    constant ETTEM_PT_WIDTH: positive := ETTEM_PT_HIGH-ETTEM_PT_LOW+1;
 
     constant ETMHF_PT_LOW : natural := 0;
     constant ETMHF_PT_HIGH : natural := 11;
     constant ETMHF_PHI_LOW : natural := 12;
     constant ETMHF_PHI_HIGH : natural := 19;
+    constant ETMHF_PT_WIDTH: positive := ETMHF_PT_HIGH-ETMHF_PT_LOW+1;
+    constant ETMHF_PHI_WIDTH: positive := ETMHF_PHI_HIGH-ETMHF_PHI_LOW+1;
     constant ETMHF_PT_VECTOR_WIDTH: positive := 15; -- max. value 2047.8 GeV => 20478 (2047.8 * 10**JET_PT_PRECISION) => 0x4FFE
 
     constant HTMHF_PT_LOW : natural := 0;
     constant HTMHF_PT_HIGH : natural := 11;
     constant HTMHF_PHI_LOW : natural := 12;
     constant HTMHF_PHI_HIGH : natural := 19;
+    constant HTMHF_PT_WIDTH: positive := HTMHF_PT_HIGH-HTMHF_PT_LOW+1;
+    constant HTMHF_PHI_WIDTH: positive := HTMHF_PHI_HIGH-HTMHF_PHI_LOW+1;
     constant HTMHF_PT_VECTOR_WIDTH: positive := 15; -- max. value 2047.8 GeV => 20478 (2047.8 * 10**JET_PT_PRECISION) => 0x4FFE
 
 -- *******************************************************************************************************

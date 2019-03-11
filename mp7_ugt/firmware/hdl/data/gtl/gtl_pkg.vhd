@@ -497,14 +497,13 @@ package gtl_pkg is
     
 -- *******************************************************************************************************
 -- MUON charge
-    constant NR_MUON_CHARGE_BITS : positive := MUON_CHARGE_HIGH-MUON_CHARGE_LOW+1;
-    type muon_charge_bits_array is array (0 to N_MUON_OBJECTS-1) of std_logic_vector(NR_MUON_CHARGE_BITS-1 downto 0);
-    type muon_cc_double_array is array (0 to N_MUON_OBJECTS-1, 0 to N_MUON_OBJECTS-1) of std_logic_vector(NR_MUON_CHARGE_BITS-1 downto 0);
-    type muon_cc_triple_array is array (0 to N_MUON_OBJECTS-1, 0 to N_MUON_OBJECTS-1, 0 to N_MUON_OBJECTS-1) of std_logic_vector(NR_MUON_CHARGE_BITS-1 downto 0);
-    type muon_cc_quad_array is array (0 to N_MUON_OBJECTS-1, 0 to N_MUON_OBJECTS-1, 0 to N_MUON_OBJECTS-1, 0 to N_MUON_OBJECTS-1) of std_logic_vector(NR_MUON_CHARGE_BITS-1 downto 0);
-    constant CC_NOT_VALID : std_logic_vector(NR_MUON_CHARGE_BITS-1 downto 0) := "00"; 
-    constant CC_LS : std_logic_vector(NR_MUON_CHARGE_BITS-1 downto 0) := "01"; 
-    constant CC_OS : std_logic_vector(NR_MUON_CHARGE_BITS-1 downto 0) := "10"; 
+    type muon_charge_bits_array is array (0 to N_MUON_OBJECTS-1) of std_logic_vector(MUON_CHARGE_WIDTH-1 downto 0);
+    type muon_cc_double_array is array (0 to N_MUON_OBJECTS-1, 0 to N_MUON_OBJECTS-1) of std_logic_vector(MUON_CHARGE_WIDTH-1 downto 0);
+    type muon_cc_triple_array is array (0 to N_MUON_OBJECTS-1, 0 to N_MUON_OBJECTS-1, 0 to N_MUON_OBJECTS-1) of std_logic_vector(MUON_CHARGE_WIDTH-1 downto 0);
+    type muon_cc_quad_array is array (0 to N_MUON_OBJECTS-1, 0 to N_MUON_OBJECTS-1, 0 to N_MUON_OBJECTS-1, 0 to N_MUON_OBJECTS-1) of std_logic_vector(MUON_CHARGE_WIDTH-1 downto 0);
+    constant CC_NOT_VALID : std_logic_vector(MUON_CHARGE_WIDTH-1 downto 0) := "00"; 
+    constant CC_LS : std_logic_vector(MUON_CHARGE_WIDTH-1 downto 0) := "01"; 
+    constant CC_OS : std_logic_vector(MUON_CHARGE_WIDTH-1 downto 0) := "10"; 
 
 -- *******************************************************************************************************
 -- FDL definitions

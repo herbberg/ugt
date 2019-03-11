@@ -55,8 +55,8 @@ begin
  ------------------- Instantiate  modules  -----------------
  
 l1: for i in 0 to NR_MUON_OBJECTS-1 generate
-    in_1_i(i)(NR_MUON_CHARGE_BITS-1 downto 0) <= in_1(i);
-    in_2_i(i)(NR_MUON_CHARGE_BITS-1 downto 0) <= in_2(i);
+    in_1_i(i)(MUON_CHARGE_WIDTH-1 downto 0) <= in_1(i);
+    in_2_i(i)(MUON_CHARGE_WIDTH-1 downto 0) <= in_2(i);
 end generate l1;
 
 dut_1: entity work.muon_charge_correlations

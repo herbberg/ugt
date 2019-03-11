@@ -41,8 +41,8 @@ begin
     begin
         for i in N_MUON_OBJECTS-1 downto 0 loop
             for j in N_MUON_OBJECTS-1 downto 0 loop
-                charge_bits_obj_1(i) := in_1(i)(NR_MUON_CHARGE_BITS-1 downto 0);
-                charge_bits_obj_2(i) := in_2(i)(NR_MUON_CHARGE_BITS-1 downto 0);
+                charge_bits_obj_1(i) := in_1(i)(MUON_CHARGE_WIDTH-1 downto 0);
+                charge_bits_obj_2(i) := in_2(i)(MUON_CHARGE_WIDTH-1 downto 0);
                 if (charge_bits_obj_1(i)(1)='1' and charge_bits_obj_2(j)(1)='1') then
                     if charge_bits_obj_1(i)(0)='1' and charge_bits_obj_2(j)(0)='1' then
                         cc_double(i,j) <= CC_LS;

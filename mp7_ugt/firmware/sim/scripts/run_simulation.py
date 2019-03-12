@@ -7,6 +7,7 @@ import os, sys
 import json
 import subprocess
 import logging
+from distutils.dir_util import copy_tree
 import argparse
 import time, datetime
 from threading import Thread
@@ -180,19 +181,21 @@ class Module(object):#module class and nessesary information
         uGTalgosPath = os.path.abspath(os.path.join(sim_dir, '..'))
         src_dir = os.path.join(menu_path, 'vhdl/module_%d/src' % self._id)
 
-        replace_map = {
-            '{{algo_index}}': read_file(os.path.join(src_dir, 'algo_index.vhd')),
-            '{{ugt_constants}}': read_file(os.path.join(src_dir, 'ugt_constants.vhd')),
-            '{{gtl_module_signals}}': read_file(os.path.join(src_dir, 'gtl_module_signals.vhd')),
-            '{{gtl_module_instances}}': read_file(os.path.join(src_dir, 'gtl_module_instances.vhd')),
-        }
-        gtl_fdl_wrapper_dir = os.path.join(uGTalgosPath, 'hdl', 'gt_mp7_core', 'gtl_fdl_wrapper')
-        gtl_dir = os.path.join(gtl_fdl_wrapper_dir, 'gtl')
-        fdl_dir = os.path.join(gtl_fdl_wrapper_dir, 'fdl')
-        # Patch VHDL files
-        render_template(os.path.join(fdl_dir, 'algo_mapping_rop_tpl.vhd'), '%s/vhdl/algo_mapping_rop.vhd' % self.path, replace_map)
-        render_template(os.path.join(gtl_dir, 'gtl_pkg_tpl.vhd'), '%s/vhdl/gtl_pkg.vhd' % self.path, replace_map)
-        render_template(os.path.join(gtl_dir, 'gtl_module_tpl.vhd'), '%s/vhdl/gtl_module.vhd' % self.path, replace_map)
+        #replace_map = {
+            #'{{algo_index}}': read_file(os.path.join(src_dir, 'algo_index.vhd')),
+            #'{{ugt_constants}}': read_file(os.path.join(src_dir, 'ugt_constants.vhd')),
+            #'{{gtl_module_signals}}': read_file(os.path.join(src_dir, 'gtl_module_signals.vhd')),
+            #'{{gtl_module_instances}}': read_file(os.path.join(src_dir, 'gtl_module_instances.vhd')),
+        #}
+        #gtl_fdl_wrapper_dir = os.path.join(uGTalgosPath, 'hdl', 'gt_mp7_core', 'gtl_fdl_wrapper')
+        #gtl_dir = os.path.join(gtl_fdl_wrapper_dir, 'gtl')
+        #fdl_dir = os.path.join(gtl_fdl_wrapper_dir, 'fdl')
+        ## Patch VHDL files
+        #render_template(os.path.join(fdl_dir, 'algo_mapping_rop_tpl.vhd'), '%s/vhdl/algo_mapping_rop.vhd' % self.path, replace_map)
+        #render_template(os.path.join(gtl_dir, 'gtl_pkg_tpl.vhd'), '%s/vhdl/gtl_pkg.vhd' % self.path, replace_map)
+        #render_template(os.path.join(gtl_dir, 'gtl_module_tpl.vhd'), '%s/vhdl/gtl_module.vhd' % self.path, replace_map)
+        
+        copy_tree(os.path.join(src_dir), os.path.join('%s/vhdl' % self.path))
 
 def parse():
     parser = argparse.ArgumentParser()

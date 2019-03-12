@@ -40,20 +40,17 @@ vcom -93 -work work $HDL_DIR/packages/lhc_data_pkg.vhd
 vcom -93 -work work $HDL_DIR/packages/math_pkg.vhd
 vcom -93 -work work $HDL_DIR/packages/top_decl_sim.vhd
 vcom -93 -work work $HDL_DIR/packages/gt_mp7_core_pkg.vhd
-vcom -93 -work work $MENU_DIR/gtl_pkg.vhd
+vcom -93 -work work $MENU_DIR/l1menu_pkg.vhd
 vcom -93 -work work $TB_DIR/lhc_data_debug_util_pkg.vhd
 vcom -93 -work work $TB_DIR/txt_util_pkg.vhd
 
+vcom -93 -work work $HDL_DIR/data/gtl/gtl_pkg.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/lut_pkg.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/reg_mux.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/delay_pipeline.vhd
+vcom -93 -work work $HDL_DIR/data/gtl/conversions.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/bx_pipeline.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/comp_signed.vhd
-vcom -93 -work work $HDL_DIR/data/gtl/conversions.vhd
-#vcom -93 -work work $HDL_DIR/data/gtl/eg_conversions.vhd
-#vcom -93 -work work $HDL_DIR/data/gtl/jet_conversions.vhd
-#vcom -93 -work work $HDL_DIR/data/gtl/tau_conversions.vhd
-#vcom -93 -work work $HDL_DIR/data/gtl/muon_conversions.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/lut_comparator.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/range_comparator.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/threshold_comparator.vhd
@@ -70,14 +67,13 @@ vcom -93 -work work $HDL_DIR/data/gtl/sub_phi.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/diff_phi_lut.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/cos_dphi_lut.vhd
 
-#vcom -93 -work work $HDL_DIR/data/gtl/difference_eta.vhd
-#vcom -93 -work work $HDL_DIR/data/gtl/difference_phi.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/delta_r.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/invariant_mass.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/transverse_mass.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/muon_charge_correlations.vhd
 
-vcom -93 -work work $MENU_DIR/gtl_module.vhd
+vcom -93 -work work $MENU_DIR/l1menu.vhd
+vcom -93 -work work $HDL_DIR/data/gtl/gtl_module.vhd
 vcom -93 -work work $HDL_DIR/control/delay_element.vhd
 vcom -93 -work work $HDL_DIR/data/fdl/update_process.vhd
 vcom -93 -work work $HDL_DIR/data/fdl/pulse_converter.vhd
@@ -92,7 +88,7 @@ vcom -93 -work work $HDL_DIR/ipbus/ipb_dpmem_4096_32.vhd
 vcom -93 -work work $HDL_DIR/ipbus/ipb_read_regs.vhd
 vcom -93 -work work $HDL_DIR/ipbus/ipb_write_regs.vhd
 vcom -93 -work work $HDL_DIR/ipbus/ipb_pulse_regs.vhd
-vcom -93 -work work $MENU_DIR/algo_mapping_rop.vhd
+vcom -93 -work work $HDL_DIR/data/fdl/algo_mapping_rop.vhd
 vcom -93 -work work $HDL_DIR/data/fdl/fdl_module.vhd
 vcom -93 -work work $HDL_DIR/data/gtl_fdl_wrapper.vhd
 

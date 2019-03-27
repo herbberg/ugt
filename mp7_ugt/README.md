@@ -23,12 +23,12 @@ Top hierarchy module of ugt firmware *[mp7_payload.vhd](firmware/hdl/mp7_payload
   - mp7xe_690.vhd
 * One of these branches can be used for build (see below).
 
-* The ugt branch [devel_mp7_ugt](https://gitlab.cern.ch/hbergaue/ugt) is a fork
+* The mp7_ugt branch [gtl_v2_x_y_ipbb](https://github.com/herbberg/ugt) is a fork
 of [ugt](https://gitlab.cern.ch/cms-cactus/svn2git/firmware) master.
 Following modifications are done in the branch:
-  - added [ugt_strategy.tcl](https://gitlab.cern.ch/hbergaue/ugt/blob/devel_mp7_ugt/mp7_ugt/firmware/ucf/ugt_strategy.tcl) for ugt specific strategy and inserted it
-into [top.dep](https://gitlab.cern.ch/hbergaue/ugt/blob/devel_mp7_ugt/mp7_ugt/firmware/cfg/top.dep).
-  - modified [uGT_algo.dep](https://gitlab.cern.ch/hbergaue/ugt/blob/devel_mp7_ugt/mp7_ugt/firmware/cfg/uGT_algo.dep): removed "doubled" commands (these commnads are in MP7 dep files).
+  - added [ugt_strategy.tcl](https://github.com/herbberg/ugt/blob/gtl_v2_x_y_ipbb/mp7_ugt/firmware/ucf/ugt_strategy.tcl) for ugt specific strategy and inserted it
+into [top.dep](https://github.com/herbberg/ugt/blob/gtl_v2_x_y_ipbb/mp7_ugt/firmware/cfg/top.dep).
+  - modified [uGT_algo.dep](https://github.com/herbberg/ugt/blob/gtl_v2_x_y_ipbb/mp7_ugt/firmware/cfg/uGT_algo.dep): removed "doubled" commands (these commnads are in MP7 dep files).
 
 ### Setup ###
 

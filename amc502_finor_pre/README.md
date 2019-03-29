@@ -1,10 +1,10 @@
-### Build amc502_extcond firmware with IPBB ###
+### Build amc502_finor_pre firmware with IPBB ###
 
 * This is a draft description with branches of MP7 and ugt repos.
 * A fork of [MP7](https://gitlab.cern.ch/hbergaue/mp7) firmware is available with following branches:
-  - branch "mp7fw_v2_4_1_amc502_extcond" created from tag mp7fw_v2_4_1.
-  - branch "mp7fw_v2_4_3_amc502_extcond" created from tag mp7fw_v2_4_3.
-* These branches contain modified MP7 files for amc502_extcond:
+  - branch "mp7fw_v2_4_1_amc502_finor_pre" created from tag mp7fw_v2_4_1.
+  - branch "mp7fw_v2_4_3_amc502_finor_pre" created from tag mp7fw_v2_4_3.
+* These branches contain modified MP7 files for amc502_finor_pre:
   - boards/mp7/base_fw/mp7_690es/firmware/cfg/mp7_690es.dep
   - boards/mp7/base_fw/mp7_690es/firmware/cfg/mp7_690es.tcl
   - components/mp7_readout/firmware/cfg/mp7_readout.dep
@@ -44,16 +44,16 @@
     ipbb init <build_name>
     cd <build_name>
     ipbb add git https://github.com/ipbus/ipbus-firmware.git -b master
-    ipbb add git https://:@gitlab.cern.ch:8443/hbergaue/mp7.git -b mp7fw_v2_4_1_amc502_extcond
+    ipbb add git https://:@gitlab.cern.ch:8443/hbergaue/mp7.git -b mp7fw_v2_4_1_amc502_finor_pre
     ipbb add git https://:@gitlab.cern.ch:8443/hbergaue/ugt.git -b master
 
-    # Patch file top_decl.vhd and copy to ../src/ugt/amc502_extcond/firmware/hdl
+    # Patch file top_decl.vhd and copy to ../src/ugt/amc502_finor_pre/firmware/hdl
 
     # Source Vivado
     
     # Create project 
-    ipbb proj create vivado amc502_extcond_<build_version> mp7:../ugt/amc502_extcond
-    cd proj/amc502_extcond_<build_version>
+    ipbb proj create vivado amc502_finor_pre_<build_version> mp7:../ugt/amc502_finor_pre
+    cd proj/amc502_finor_pre_<build_version>
     ipbb vivado project
 
     # Run implementation, synthesis

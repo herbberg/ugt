@@ -79,7 +79,8 @@ vcom -93 -work work $HDL_DIR/data/fdl/update_process.vhd
 vcom -93 -work work $HDL_DIR/data/fdl/pulse_converter.vhd
 vcom -93 -work work $HDL_DIR/data/fdl/fdl_addr_decode.vhd
 vcom -93 -work work $HDL_DIR/data/fdl/fdl_fabric.vhd
-vcom -93 -work work $HDL_DIR/data/fdl/algo_pre_scaler.vhd
+#vcom -93 -work work $HDL_DIR/data/fdl/algo_pre_scaler.vhd
+vcom -93 -work work $HDL_DIR/data/fdl/algo_pre_scaler_fractional.vhd
 vcom -93 -work work $HDL_DIR/data/fdl/algo_rate_counter.vhd
 vcom -93 -work work $HDL_DIR/data/fdl/algo_post_dead_time_counter.vhd
 vcom -93 -work work $HDL_DIR/data/fdl/algo_slice.vhd

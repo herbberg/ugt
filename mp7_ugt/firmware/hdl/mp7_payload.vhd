@@ -1,7 +1,10 @@
 
 -- Description:
 -- Payload for Global Trigger of MP7 firmware 
---
+
+-- use "FRAME_VERSION" as mp7_ugt release fw version (used for tag name, too)
+-- mp7_ugt (=FRAME_VERSION): v2.3.0
+
 -- Version history:
 -- HB 2019-01-22: inserted module gt_data - containing "data clock domain change", "lane mapping process" and wrapper for GTL and FDL.
 --                Renamed frame.vhd to gt_control.vhd - moved bgo_sync.vhd in gt_control.vhd (removed "data clock domain change" and "lane mapping process").

@@ -7,7 +7,9 @@
 ## the unisim libraries will be loaded from the paths set up by compxlib in
 ## your modelsim.ini file
 
-set XILINX   $env(XILINX)
+## HB 2019-04-12: setting of XILINX not clear! Not needed, removed!
+#set XILINX   $env(XILINX)
+
 if [info exists env(MTI_LIBS)] {
     set MTI_LIBS $env(MTI_LIBS)
     vlib UNISIM
@@ -18,7 +20,7 @@ if [info exists env(MTI_LIBS)] {
 
 ## set your src files directory for your design
 
-set MP7_COMPONENTS {{MP7_TAG}}/cactusupgrades/components
+set MP7_COMPONENTS {{MP7_TAG}}/components
 set VIEW_WAVE {{VIEW_WAVE}}
 
 set HDL_DIR {{SIM_DIR}}/../hdl
@@ -81,6 +83,7 @@ vcom -93 -work work $HDL_DIR/data/fdl/fdl_addr_decode.vhd
 vcom -93 -work work $HDL_DIR/data/fdl/fdl_fabric.vhd
 #vcom -93 -work work $HDL_DIR/data/fdl/algo_pre_scaler.vhd
 vcom -93 -work work $HDL_DIR/data/fdl/algo_pre_scaler_fractional.vhd
+vcom -93 -work work $HDL_DIR/data/fdl/algo_pre_scaler_fractional_pkg.vhd
 vcom -93 -work work $HDL_DIR/data/fdl/algo_rate_counter.vhd
 vcom -93 -work work $HDL_DIR/data/fdl/algo_post_dead_time_counter.vhd
 vcom -93 -work work $HDL_DIR/data/fdl/algo_slice.vhd

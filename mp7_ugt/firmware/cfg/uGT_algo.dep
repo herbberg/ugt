@@ -1,8 +1,7 @@
 ## HB 2016-08-17: moved constraints from algo_constraints.xdc to mp7_payload.tcl
-##?toolset=="ISE"?    src ../ucf/algo_constraints.ucf
 ##?toolset=="Vivado"? src ../ucf/algo_constraints.xdc
 ?toolset=="Vivado"? src ../ucf/mp7_payload.tcl
-#
+
 #
 src packages/math_pkg.vhd
 src packages/lhc_data_pkg.vhd
@@ -49,6 +48,7 @@ src data/fdl/algo_post_dead_time_counter.vhd
 src data/fdl/fdl_fabric.vhd
 #src data/fdl/algo_pre_scaler.vhd
 src data/fdl/algo_pre_scaler_fractional.vhd
+src data/fdl/algo_pre_scaler_fractional_pkg.vhd
 src data/fdl/update_process.vhd
 src data/fdl/pulse_converter.vhd
 src data/fdl/algo_slice.vhd
@@ -75,10 +75,12 @@ src ipbus/ipb_read_regs.vhd
 src ipbus/ipb_dpmem_4096_32.vhd
 src ../ngc/dp_mem_4096x32/dp_mem_4096x32.ngc
 src ../ngc/dp_mem_4096x32/dp_mem_4096x32.vhd
+#src ../ngc/dp_mem_4096x32_blk_mem_gen_v8_4/dp_mem_4096x32.xci
+#src ../ngc/dp_mem_4096x32_blk_mem_gen_v8_4/synth/dp_mem_4096x32.vhd
 
 ## HB 2019-03-22: removed - commands in MP7 dep files
 #src -c components/ipbus_slaves ipbus_reg_v.vhd
 #src -c components/ipbus_core ipbus_fabric_sel.vhd
 
-src -c components/mp7_ttc mp7_ttc_decl.vhd
-src -c boards/mp7/base_fw/common mp7_top_decl.vhd
+
+

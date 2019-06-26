@@ -13,7 +13,7 @@ use ieee.numeric_std.all;
 use work.lhc_data_pkg.all;
 use work.math_pkg.all;
 use work.gt_mp7_core_pkg.all;
-use work.l1_menu_pkg.ALL;
+use work.l1menu_pkg.ALL;
 
 package gtl_pkg is
 
@@ -509,6 +509,9 @@ package gtl_pkg is
 -- FDL definitions
 -- Definitions for prescalers (for FDL !)
     constant PRESCALER_COUNTER_WIDTH : integer := 24;
+-- HB 2019-06-03: inserted for fractional prescaler values 
+    constant PRESCALER_FRACTION_WIDTH : integer := 8; 
+    
 -- Definitions for rate counters
     constant RATE_COUNTER_WIDTH : integer := 32;
 -- HB 2014-02-28: changed vector length of init values for finor- and veto-maks, because of min. 32 bits for register

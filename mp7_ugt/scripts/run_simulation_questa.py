@@ -16,12 +16,13 @@ import time, datetime
 from threading import Thread
 from xmlmenu import XmlMenu
 from run_compile_simlib import run_compile_simlib
+from distutils.dir_util import copy_tree
 
 o, ts = os.popen('stty size', 'r').read().split()#terminal size
 ts = int(ts)
 
-failed_red = ("\033[1;31m Failed! \033[0m")
-success_green = ("\033[1;32m Success! \033[0m")
+failed_red = ("\033[1;31mFailed! \033[0m")
+success_green = ("\033[1;32mSuccess! \033[0m")
 ok_green = ("\033[1;32m OK     \033[0m")
 ignore_yellow = ("\033[1;33m IGNORE \033[0m")
 error_red = ("\033[1;31m ERROR  \033[0m")
@@ -32,9 +33,9 @@ DefaultVivadoVersion = '2018.3'
     
 DefaultQuestasimVersion = '10.7c'
 
-vhdl_snippets_names = ['algo_index', 'gtl_module_instances', 'gtl_module_signals', 'ugt_constants']
+vhdl_files_names = ['l1menu', 'l1menu_pkg']
 
-url_menu_default = 'https://raw.githubusercontent.com/herbberg/l1menus/master'
+url_menu_default = 'https://raw.githubusercontent.com/herbberg/l1menus_gtl_v2_x_y/master'
 
 DO_FILE = 'gtl_fdl_wrapper.do'
 TB_FILE_TPL = 'testbench/templates/gtl_fdl_wrapper_tb_tpl.vhd'
@@ -102,6 +103,7 @@ def bitfield(i, n=algonum):
     return [int(digit) for digit in '{0:0{1}b}'.format(i, n)][::-1]
 
 def run_vsim(vsim, module, msgmode, ini_file):#uses class module, arg msgmode and ini file path to start the simulation
+    """running simulation with 'vsim'"""
     vsim_bin = vsim + '/bin/vsim'
     with open(module.results_log,'w') as logfile:
         cmd = [vsim_bin, '-c', '-msgmode', msgmode, '-modelsimini', ini_file, '-do', 'do {filename}; quit -f'.format(vsim, filename = os.path.join(module.path, DO_FILE))]
@@ -199,22 +201,8 @@ class Module(object):#module class and nessesary information
 
         uGTalgosPath = os.path.abspath(os.path.join(sim_dir, '..'))
         src_dir = os.path.join(menu_path, 'vhdl/module_%d/src' % self._id)
-        #print "src_dir: ",src_dir
         
-        replace_map = {
-            '{{algo_index}}': read_file(os.path.join(src_dir, 'algo_index.vhd')),
-            '{{ugt_constants}}': read_file(os.path.join(src_dir, 'ugt_constants.vhd')),
-            '{{gtl_module_signals}}': read_file(os.path.join(src_dir, 'gtl_module_signals.vhd')),
-            '{{gtl_module_instances}}': read_file(os.path.join(src_dir, 'gtl_module_instances.vhd')),
-        }
-        
-        gtl_fdl_wrapper_dir = os.path.join(uGTalgosPath, 'hdl', 'gt_mp7_core', 'gtl_fdl_wrapper')
-        gtl_dir = os.path.join(gtl_fdl_wrapper_dir, 'gtl')
-        fdl_dir = os.path.join(gtl_fdl_wrapper_dir, 'fdl')
-        # Patch VHDL files
-        render_template(os.path.join(fdl_dir, 'algo_mapping_rop_tpl.vhd'), '%s/vhdl/algo_mapping_rop.vhd' % self.path, replace_map)
-        render_template(os.path.join(gtl_dir, 'gtl_pkg_tpl.vhd'), '%s/vhdl/gtl_pkg.vhd' % self.path, replace_map)
-        render_template(os.path.join(gtl_dir, 'gtl_module_tpl.vhd'), '%s/vhdl/gtl_module.vhd' % self.path, replace_map)
+        copy_tree(os.path.join(src_dir), os.path.join('%s/vhdl' % self.path))
 
 def download_file_from_url(url, filename):
     """Download files from URL."""
@@ -230,8 +218,8 @@ def download_file_from_url(url, filename):
     with open(filename, 'wb') as fp:
         fp.write(d)
 
-#def run_simulation_questa(a_mp7_tag, a_menu, a_testvector, a_vivado, a_questasim, a_questasimlibs, a_output, a_view_wave, a_wlf, a_verbose):
 def run_simulation_questa(a_mp7_tag, a_menu, a_vivado, a_questasim, a_questasimlibs, a_output, a_view_wave, a_wlf, a_verbose):
+    """preparing simulation with Questa"""
     # Check Questa sim version
     if a_questasim == '10.6a':
         questasim_path = QuestaSimPathVersion106a
@@ -281,13 +269,10 @@ def run_simulation_questa(a_mp7_tag, a_menu, a_vivado, a_questasim, a_questasiml
     # Remove "distribution number" from a_menu for testvector file name
     tv_name = "TestVector_{}{}".format((re.split("-", a_menu)[0]), '.txt') 
     testvector_filepath = os.path.join(temp_dir, tv_name)
-    url = "{}/testvectors/{}".format(url_menu, tv_name)    
+    url = "{}/testvectors/{}".format(url_menu, tv_name)
+    
     download_file_from_url(url, testvector_filepath)
     
-    # Get VHDL snippets from menu URL
-    #print "menu_filepath: ", menu_filepath
-    #print "testvector_filepath: ", testvector_filepath
-
     timestamp = time.time()#creates timestamp
     _time = datetime.datetime.fromtimestamp(timestamp).strftime('%Y-%m-%dT%H-%M-%S')#changes time apperance
 
@@ -304,7 +289,7 @@ def run_simulation_questa(a_mp7_tag, a_menu, a_vivado, a_questasim, a_questasiml
         temp_dir_module = os.path.join(temp_dir, vhdl_src_path)
         if not os.path.exists(temp_dir_module): os.makedirs(temp_dir_module)#makes folders
         #print "temp_dir_module: ", temp_dir_module
-        for vhdl_name in vhdl_snippets_names:
+        for vhdl_name in vhdl_files_names:
             vhdl_name_ext = vhdl_name + ".vhd"
             vhdl_file_local_path = os.path.join(temp_dir_module, vhdl_name_ext)
             #print "vhdl_file_local_path: ", vhdl_file_local_path
@@ -461,14 +446,16 @@ def run_simulation_questa(a_mp7_tag, a_menu, a_vivado, a_questasim, a_questasiml
 
     print ("")
 
+    if os.path.exists(os.path.join(sim_dir, "temp_dir")): shutil.rmtree(os.path.join(sim_dir, "temp_dir"))
+    logging.info("removed temporary directory ('temp_dir') ...")
+    logging.info("===========================================================================")
+   
     if success:
         logging.info(success_green)
     else:
         logging.error(failed_red)
-    
-    logging.info("===========================================================================")
-    logging.info("removed temporary directory ('temp_dir') ...")
-    if os.path.exists(os.path.join(sim_dir, "temp_dir")): shutil.rmtree(os.path.join(sim_dir, "temp_dir"))
+        logging.info("===========================================================================")
+        raise RuntimeError('Exit on simulation error !!!')
 
 def parse():
     parser = argparse.ArgumentParser()

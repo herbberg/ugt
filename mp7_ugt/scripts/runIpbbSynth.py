@@ -35,15 +35,15 @@ DefaultFirmwareDir = os.path.expanduser("~/work_ipbb")
 """Default output directory for firmware builds."""
 
 DefaultGitlabUrlIPB = 'https://github.com/ipbus/ipbus-firmware.git'
-"""Default URL of gitlab IPB repo."""
+"""Default URL of github IPB repo."""
 
 #DefaultGitlabUrlMP7 = 'https://:@gitlab.cern.ch:8443/hbergaue/mp7.git'
 """Default URL of gitlab MP7 repo."""
 
-#DefaultGitlabUrlUgt = 'https://:@gitlab.cern.ch:8443/hbergaue/ugt.git'
-"""Default URL of gitlab ugt repo."""
+#DefaultGitlabUrlUgt = 'https://github.com/herbberg/ugt.git'
+"""Default URL of github ugt GTL_v2_x_y repo."""
 
-DefaultMenuUrl = 'https://raw.githubusercontent.com/herbberg/l1menus/master'
+DefaultMenuUrl = 'https://raw.githubusercontent.com/herbberg/l1menus_gtl_v2_x_y/master'
     
 DefaultVivadoVersion = '2018.3'
     
@@ -55,7 +55,8 @@ DefaultQuestasimVersion = '10.7c'
 
 mp7fw_ugt_suffix = '_mp7_ugt'
 
-vhdl_snippets = ('algo_index.vhd','gtl_module_instances.vhd','gtl_module_signals.vhd','ugt_constants.vhd')
+#vhdl_snippets = ('algo_index.vhd','gtl_module_instances.vhd','gtl_module_signals.vhd','ugt_constants.vhd')
+vhdl_menu_files = ('l1menu.vhd','l1menu_pkg.vhd')
 
 # For Questa simulation
 QuestaSimPathVersion107c = '/opt/mentor/questasim'
@@ -80,26 +81,6 @@ def download_file_from_url(url, filename):
     d = d.replace(', default=os.getlogin()', '')
     with open(filename, 'wb') as fp:
         fp.write(d)
-
-def replace_vhdl_templates(vhdl_snippets_dir, src_fw_dir, dest_fw_dir):
-    """Replace VHDL templates with snippets from VHDL Producer."""
-    #Read generated VHDL snippets
-    logging.info("replace VHDL templates with snippets from VHDL Producer ...")
-    replace_map = {
-        '{{algo_index}}': tb.read_file(os.path.join(vhdl_snippets_dir, 'algo_index.vhd')),
-        '{{ugt_constants}}': tb.read_file(os.path.join(vhdl_snippets_dir, 'ugt_constants.vhd')),
-        '{{gtl_module_signals}}': tb.read_file(os.path.join(vhdl_snippets_dir, 'gtl_module_signals.vhd')),
-        '{{gtl_module_instances}}': tb.read_file(os.path.join(vhdl_snippets_dir, 'gtl_module_instances.vhd')),
-    }
-
-    gtl_fdl_wrapper_dir = os.path.join(src_fw_dir, 'hdl', 'gt_mp7_core', 'gtl_fdl_wrapper')
-    gtl_dir = os.path.join(gtl_fdl_wrapper_dir, 'gtl')
-    fdl_dir = os.path.join(gtl_fdl_wrapper_dir, 'fdl')
-
-    #Patch VHDL files in IPBB area (
-    tb.template_replace(os.path.join(fdl_dir, 'algo_mapping_rop_tpl.vhd'), replace_map, os.path.join(dest_fw_dir, 'algo_mapping_rop.vhd'))
-    tb.template_replace(os.path.join(gtl_dir, 'gtl_pkg_tpl.vhd'), replace_map, os.path.join(dest_fw_dir, 'gtl_pkg.vhd'))
-    tb.template_replace(os.path.join(gtl_dir, 'gtl_module_tpl.vhd'), replace_map, os.path.join(dest_fw_dir, 'gtl_module.vhd'))
 
 def parse_args():
     """Parse command line arguments."""
@@ -219,27 +200,23 @@ def main():
         ipbb_dest_fw_dir = os.path.abspath(os.path.join(ipbb_dir, 'src', module_name))
         os.makedirs(ipbb_dest_fw_dir)
 
-        #Download generated VHDL snippets from repository and replace VHDL templates
+        #Download generated VHDL files from repository
         logging.info("===========================================================================")
         logging.info(" *** module %s ***", module_id)
         logging.info("===========================================================================")
-        logging.info("download generated VHDL snippets from L1Menu repository for module %s and replace VHDL templates ...", module_id)
-        vhdl_snippets_dir = os.path.join(ipbb_dest_fw_dir, 'vhdl_snippets')
-        os.makedirs(vhdl_snippets_dir)
+        logging.info("download generated VHDL menu files from L1Menu repository for module %s ...", module_id)
         
-        for i in range(len(vhdl_snippets)):
-            vhdl_snippet = vhdl_snippets[i]
-            filename = os.path.join(vhdl_snippets_dir, vhdl_snippet)
-            url = "{url_menu}/vhdl/{module_name}/src/{vhdl_snippet}".format(**locals())
+        for i in range(len(vhdl_menu_files)):
+            vhdl_menu_file = vhdl_menu_files[i]
+            filename = os.path.join(ipbb_dest_fw_dir, vhdl_menu_file)
+            url = "{url_menu}/vhdl/{module_name}/src/{vhdl_menu_file}".format(**locals())
             download_file_from_url(url, filename)
 
-        replace_vhdl_templates(vhdl_snippets_dir, ipbb_src_fw_dir, ipbb_dest_fw_dir)        
-
         logging.info("patch the target package with current UNIX timestamp/username/hostname ...")
-        top_pkg_tpl = os.path.join(ipbb_src_fw_dir, 'hdl', 'gt_mp7_top_pkg_tpl.vhd')
-        top_pkg = os.path.join(ipbb_src_fw_dir, 'hdl', 'gt_mp7_top_pkg.vhd')
+        top_pkg_tpl = os.path.join(ipbb_src_fw_dir, 'hdl', 'packages', 'top_decl_tpl.vhd')
+        top_pkg = os.path.join(ipbb_src_fw_dir, 'hdl', 'packages', 'top_decl.vhd')
         subprocess.check_call(['python', os.path.join(ipbb_src_fw_dir, '..', 'scripts', 'pkgpatch.py'), '--build', args.build, top_pkg_tpl, top_pkg])
-
+        
         #Vivado settings
         settings64 = os.path.join(vivado_base_dir, args.vivado, 'settings64.sh')
         if not os.path.isfile(settings64):
@@ -264,7 +241,7 @@ def main():
         cmd_ipbb_impl = "ipbb vivado impl"
         cmd_ipbb_bitfile = "ipbb vivado package"
         
-        #Set variable "module_id" for tcl script (l1menu_files.tcl in uGT_algo.dep)
+        #Set variable "module_id" for tcl script (l1menu_files.tcl in top.dep)
         command = 'bash -c "cd; {cmd_source_ipbb}; source {settings64}; cd {ipbb_dir}/proj/{project_type}_{args.build}_{module_id}; module_id={module_id} {cmd_ipbb_project} && {cmd_ipbb_synth} && {cmd_ipbb_impl} && {cmd_ipbb_bitfile}"'.format(**locals())
 
         session = "build_{project_type}_{args.build}_{module_id}".format(**locals())

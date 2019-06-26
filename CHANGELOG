@@ -4,7 +4,6 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-
 ================================
 Versions of ugt with new GTL structure (v2.0.0 and higher)
 
@@ -15,7 +14,15 @@ Versions of ugt with new GTL structure (v2.0.0 and higher)
 
 ### Changed
 - bug fix in gtl_pkg.vhd and fdl_module.vhd
-
+- deleted obsolete files:
+  ../hdl/control/rb_pkg_sim.vhd
+  ../hdl/data/fdl/algo_mapping_rop_tpl.vhd
+  ../hdl/data/gtl/gtl_module_tpl.vhd
+  ../hdl/data/gtl/gtl_pkg_sim.vhd
+  ../hdl/data/gtl/gtl_pkg_tpl.vhd
+  ../hdl/packages/gt_mp7_core_pkg_sim.vhd
+ - script run_simulation_questa.py (exit on error)
+ 
 ## [mp7_ugt_v2_0_0] - 2019-06-26 => no tag created !!!
 
 ### Comment

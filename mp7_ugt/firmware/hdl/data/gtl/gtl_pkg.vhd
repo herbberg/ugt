@@ -13,7 +13,7 @@ use ieee.numeric_std.all;
 use work.lhc_data_pkg.all;
 use work.math_pkg.all;
 use work.gt_mp7_core_pkg.all;
-use work.l1_menu_pkg.ALL;
+use work.l1menu_pkg.ALL;
 
 package gtl_pkg is
 

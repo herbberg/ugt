@@ -469,6 +469,9 @@ def run_simulation_questa(a_mp7_tag, a_menu, a_vivado, a_questasim, a_questasiml
     logging.info("===========================================================================")
     logging.info("removed temporary directory ('temp_dir') ...")
     if os.path.exists(os.path.join(sim_dir, "temp_dir")): shutil.rmtree(os.path.join(sim_dir, "temp_dir"))
+    
+    if not success:
+        raise RuntimeError('Exit on simulation error !!!')
 
 def parse():
     parser = argparse.ArgumentParser()

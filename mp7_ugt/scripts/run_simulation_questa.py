@@ -283,10 +283,8 @@ def run_simulation_questa(a_mp7_tag, a_menu, a_vivado, a_questasim, a_questasiml
     download_file_from_url(url, menu_filepath)
     # Remove "distribution number" from a_menu for testvector file name
     tv_name = "TestVector_{}{}".format((re.split("-", a_menu)[0]), '.txt') 
-    print "tv_name: ",tv_name
     testvector_filepath = os.path.join(temp_dir, tv_name)
     url = "{}/testvectors/{}".format(url_menu, tv_name)
-    print "url: ",url
     
     download_file_from_url(url, testvector_filepath)
     

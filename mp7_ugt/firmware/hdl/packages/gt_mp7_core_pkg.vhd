@@ -1,11 +1,11 @@
 
 -- actual versions:
 -- use "FRAME_VERSION" as mp7_ugt release fw version (used for tag name)
--- mp7_ugt (=FRAME_VERSION): v2.3.0
+-- mp7_ugt (=FRAME_VERSION): v2.0.2
 --
---  control (frame): v2.2.0
---  gtl: v2.0.0
---  fdl: v1.3.0
+--  control: v2.0.0
+--  gtl: v2.0.1
+--  fdl: v1.3.1
 
 -- HB 2019-01-24: moved replacement of "IPBUS_TIMESTAMP", etc. from gt_mp7_top_pkg (which is obsolete now). [Therefore changed "makeProject.py" script]
 -- HB 2019-01-22: cleaned up
@@ -36,8 +36,8 @@ package gt_mp7_core_pkg is
 -- ==================================================================================================
 -- CONTROL = FRAME version (given by the editor of control.vhd)
     constant FRAME_MAJOR_VERSION : integer range 0 to 255 := 2;
-    constant FRAME_MINOR_VERSION : integer range 0 to 255 := 3;
-    constant FRAME_REV_VERSION   : integer range 0 to 255 := 0;
+    constant FRAME_MINOR_VERSION : integer range 0 to 255 := 0;
+    constant FRAME_REV_VERSION   : integer range 0 to 255 := 2;
 	constant FRAME_VERSION : std_logic_vector(31 downto 0) := X"00" &
            std_logic_vector(to_unsigned(FRAME_MAJOR_VERSION, 8)) &
            std_logic_vector(to_unsigned(FRAME_MINOR_VERSION, 8)) &
@@ -45,11 +45,11 @@ package gt_mp7_core_pkg is
 -- GTL firmware (fix part) version
     constant GTL_FW_MAJOR_VERSION : integer range 0 to 255 := 2;
     constant GTL_FW_MINOR_VERSION : integer range 0 to 255 := 0;
-    constant GTL_FW_REV_VERSION   : integer range 0 to 255 := 0;
+    constant GTL_FW_REV_VERSION   : integer range 0 to 255 := 1;
 -- FDL firmware version
     constant FDL_FW_MAJOR_VERSION : integer range 0 to 255 := 1;
     constant FDL_FW_MINOR_VERSION : integer range 0 to 255 := 3;
-    constant FDL_FW_REV_VERSION   : integer range 0 to 255 := 0;
+    constant FDL_FW_REV_VERSION   : integer range 0 to 255 := 1;
 -- ==================================================================================================
 
     constant MAX_NR_ALGOS : integer := 512;

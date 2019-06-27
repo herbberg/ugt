@@ -28,7 +28,7 @@ use work.gtl_pkg.all;
 use work.gt_mp7_core_pkg.all;
 use work.lhc_data_pkg.all;
 use work.fdl_addr_decode.all;
-use work.l1_menu_pkg.ALL;
+use work.l1menu_pkg.ALL;
 
 entity gtl_fdl_wrapper is
     generic(

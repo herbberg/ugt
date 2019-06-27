@@ -7,7 +7,7 @@ library ieee;
 use ieee.std_logic_1164.all;
 
 use work.gtl_pkg.all;
-use work.l1_menu_pkg.ALL;
+use work.l1menu_pkg.ALL;
 
 entity gtl_module is
     port(

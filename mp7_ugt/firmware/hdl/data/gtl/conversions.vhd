@@ -2,6 +2,7 @@
 -- Conversion logic.
 
 -- Version-history:
+-- HB 2019-06-27: Changed type of outputs.
 -- HB 2018-11-26: First design.
 
 library ieee;
@@ -25,15 +26,6 @@ entity conversions is
         pt : in obj_parameter_array;
         eta : in obj_parameter_array;
         phi : in obj_parameter_array;
---         pt_vector : out pt_vector_array(0 to N_OBJ-1) := (others => (others => '0'));
---         cos_phi : out integer_array(0 to N_OBJ-1) := (others => 0);
---         sin_phi : out integer_array(0 to N_OBJ-1) := (others => 0);
---         conv_mu_cos_phi : out integer_array(0 to N_OBJ-1) := (others => 0);
---         conv_mu_sin_phi : out integer_array(0 to N_OBJ-1) := (others => 0);
---         conv_2_muon_eta_integer : out integer_array(0 to N_OBJ-1) := (others => 0);
---         conv_2_muon_phi_integer : out integer_array(0 to N_OBJ-1) := (others => 0);
---         eta_integer : out integer_array(0 to N_OBJ-1) := (others => 0);
---         phi_integer : out integer_array(0 to N_OBJ-1) := (others => 0)
         pt_vector : out conv_pt_vector_array;
         cos_phi : out conv_integer_array;
         sin_phi : out conv_integer_array;
@@ -55,7 +47,7 @@ architecture rtl of conversions is
     type phi_i_array is array (0 to N_OBJ-1) of std_logic_vector(MAX_PHI_WIDTH-1 downto 0);
     signal phi_i : phi_i_array := (others => (others => '0'));
     
-    signal conv_2_muon_phi_integer_i : conv_integer_array;
+    signal conv_2_muon_phi_integer_i : integer_array(0 to N_OBJ-1) := (others => 0);
         
 begin
 

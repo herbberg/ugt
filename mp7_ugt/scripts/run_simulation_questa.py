@@ -455,7 +455,9 @@ def run_simulation_questa(a_mp7_tag, a_menu, a_vivado, a_questasim, a_questasiml
     else:
         logging.error(failed_red)
         logging.info("===========================================================================")
-        raise RuntimeError('Exit on simulation error !!!')
+        #raise RuntimeError('Exit on simulation error !!!')
+        print ("\033[1;31mExit on simulation error !!! \033[0m")
+        sys.exit()
 
 def parse():
     parser = argparse.ArgumentParser()

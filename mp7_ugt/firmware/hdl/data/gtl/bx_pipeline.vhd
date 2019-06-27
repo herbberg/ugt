@@ -2,6 +2,7 @@
 -- Pipeline for +/-2 bx data.
 
 -- Version-history: 
+-- HB 2019-06-27: Changed type of conversion outputs.
 -- HB 2019-03-07: used records for pipeline and conversion data..
 -- HB 2019-02-25: included conversions for eg, jet, tau and muon.
 -- HB 2019-01-23: included additional delay for centrality and ext_cond (no comparators and conditions)

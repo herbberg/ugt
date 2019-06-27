@@ -1,6 +1,7 @@
 -- Description:
 -- Global Trigger Logic module.
 
+-- HB 2019-06-27: Changed type of conversion signals.
 -- HB 2019-03-08: new strcture with instance of l1menu.vhd
 
 library ieee;

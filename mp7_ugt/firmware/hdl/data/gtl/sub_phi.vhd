@@ -2,6 +2,7 @@
 -- Differences in phi.
 
 -- Version-history:
+-- HB 2019-06-27: Changed type of inputs.
 -- HB 2019-01-11: First design.
 
 library ieee;
@@ -17,8 +18,6 @@ entity sub_phi is
         PHI_HALF_RANGE : positive
     );
     port(
---         phi_1 : in integer_array(0 to N_OBJ_1-1);
---         phi_2 : in integer_array(0 to N_OBJ_2-1);
         phi_1 : in conv_integer_array;
         phi_2 : in conv_integer_array;
         sub_phi_o : out dim2_max_phi_range_array(0 to N_OBJ_1-1, 0 to N_OBJ_2-1)

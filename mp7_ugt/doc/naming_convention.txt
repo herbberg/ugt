@@ -1,4 +1,4 @@
-Naming conventions:
+Naming conventions of signals in l1menu.vhd:
 
 1. Conversions and calculations
 
@@ -6,7 +6,7 @@ Naming conventions:
 
 1.1.1 Output signals of conversions:
 
-  Signal declaration for conversion signals is part of gtl_module_tpl.vhd
+  Signal declaration for conversion signals is part of gtl_module.vhd
   (no instantiation by VHDL Producer needed)
 
   signal <object type>_pt_vector : bx_<object type>_pt_vector_array;

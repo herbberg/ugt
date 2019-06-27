@@ -68,7 +68,8 @@ package gtl_pkg is
 -- Global constants
 
     constant MAX_N_REQ : positive := 4; -- max. number of requirements for combinatorial conditions
-    constant MAX_N_OBJ : positive := 12; -- max. number of objects
+--     constant MAX_N_OBJ : positive := 12; -- max. number of objects
+    constant MAX_N_OBJ : positive := MAX_N_OBJECTS; -- max. number of objects
     constant MAX_LUT_WIDTH : positive := 16; -- muon qual lut
     constant MAX_OBJ_BITS : positive := 64; -- muon
 
@@ -472,29 +473,47 @@ package gtl_pkg is
     type integer_2dim_array is array (natural range <>, natural range <>) of integer;
     
 -- bx arrays for conversion signals
-    type bx_eg_integer_array is array (0 to BX_PIPELINE_STAGES-1) of integer_array(0 to N_EG_OBJECTS-1);
-    type bx_jet_integer_array is array (0 to BX_PIPELINE_STAGES-1) of integer_array(0 to N_JET_OBJECTS-1);
-    type bx_tau_integer_array is array (0 to BX_PIPELINE_STAGES-1) of integer_array(0 to N_TAU_OBJECTS-1);
-    type bx_muon_integer_array is array (0 to BX_PIPELINE_STAGES-1) of integer_array(0 to N_MUON_OBJECTS-1);
-    type bx_eg_pt_vector_array is array (0 to BX_PIPELINE_STAGES-1) of pt_vector_array(0 to N_EG_OBJECTS-1);
-    type bx_jet_pt_vector_array is array (0 to BX_PIPELINE_STAGES-1) of pt_vector_array(0 to N_JET_OBJECTS-1);
-    type bx_tau_pt_vector_array is array (0 to BX_PIPELINE_STAGES-1) of pt_vector_array(0 to N_TAU_OBJECTS-1);
-    type bx_muon_pt_vector_array is array (0 to BX_PIPELINE_STAGES-1) of pt_vector_array(0 to N_MUON_OBJECTS-1);
+--     type bx_eg_integer_array is array (0 to BX_PIPELINE_STAGES-1) of integer_array(0 to N_EG_OBJECTS-1);
+--     type bx_jet_integer_array is array (0 to BX_PIPELINE_STAGES-1) of integer_array(0 to N_JET_OBJECTS-1);
+--     type bx_tau_integer_array is array (0 to BX_PIPELINE_STAGES-1) of integer_array(0 to N_TAU_OBJECTS-1);
+--     type bx_muon_integer_array is array (0 to BX_PIPELINE_STAGES-1) of integer_array(0 to N_MUON_OBJECTS-1);
+--     type bx_eg_pt_vector_array is array (0 to BX_PIPELINE_STAGES-1) of pt_vector_array(0 to N_EG_OBJECTS-1);
+--     type bx_jet_pt_vector_array is array (0 to BX_PIPELINE_STAGES-1) of pt_vector_array(0 to N_JET_OBJECTS-1);
+--     type bx_tau_pt_vector_array is array (0 to BX_PIPELINE_STAGES-1) of pt_vector_array(0 to N_TAU_OBJECTS-1);
+--     type bx_muon_pt_vector_array is array (0 to BX_PIPELINE_STAGES-1) of pt_vector_array(0 to N_MUON_OBJECTS-1);
+--     
+--     type conversions_record is record
+--         eg_pt_vector : bx_eg_pt_vector_array;
+--         eg_cos_phi, eg_sin_phi, eg_cos_phi_conv_muon, eg_sin_phi_conv_muon,
+--         eg_eta_conv_muon, eg_phi_conv_muon, eg_eta, eg_phi : bx_eg_integer_array;
+--         jet_pt_vector : bx_jet_pt_vector_array;
+--         jet_cos_phi, jet_sin_phi, jet_cos_phi_conv_muon, jet_sin_phi_conv_muon,
+--         jet_eta_conv_muon, jet_phi_conv_muon, jet_eta, jet_phi : bx_jet_integer_array;
+--         tau_pt_vector : bx_tau_pt_vector_array;
+--         tau_cos_phi, tau_sin_phi, tau_cos_phi_conv_muon, tau_sin_phi_conv_muon,
+--         tau_eta_conv_muon, tau_phi_conv_muon, tau_eta, tau_phi : bx_tau_integer_array;
+--         muon_pt_vector : bx_muon_pt_vector_array;
+--         muon_cos_phi, muon_sin_phi, muon_eta, muon_phi : bx_muon_integer_array;
+--     end record conversions_record;
     
-    type conversions_record is record
-        eg_pt_vector : bx_eg_pt_vector_array;
-        eg_cos_phi, eg_sin_phi, eg_cos_phi_conv_muon, eg_sin_phi_conv_muon,
-        eg_eta_conv_muon, eg_phi_conv_muon, eg_eta, eg_phi : bx_eg_integer_array;
-        jet_pt_vector : bx_jet_pt_vector_array;
-        jet_cos_phi, jet_sin_phi, jet_cos_phi_conv_muon, jet_sin_phi_conv_muon,
-        jet_eta_conv_muon, jet_phi_conv_muon, jet_eta, jet_phi : bx_jet_integer_array;
-        tau_pt_vector : bx_tau_pt_vector_array;
-        tau_cos_phi, tau_sin_phi, tau_cos_phi_conv_muon, tau_sin_phi_conv_muon,
-        tau_eta_conv_muon, tau_phi_conv_muon, tau_eta, tau_phi : bx_tau_integer_array;
-        muon_pt_vector : bx_muon_pt_vector_array;
-        muon_cos_phi, muon_sin_phi, muon_eta, muon_phi : bx_muon_integer_array;
-    end record conversions_record;
+    type conv_pt_vector_array is array (0 to MAX_N_OBJECTS-1) of std_logic_vector(MAX_PT_VECTOR_WIDTH-1 downto 0);    
+    type conv_integer_array is array (0 to MAX_N_OBJECTS-1) of integer;    
     
+    type conv_bx_record is record
+        pt_vector : conv_pt_vector_array;
+        cos_phi, sin_phi,
+        cos_phi_conv_muon, sin_phi_conv_muon,
+        eta_conv_muon, phi_conv_muon,
+        eta, phi : conv_integer_array;
+    end record conv_bx_record;
+    
+    type array_conv_bx_record is array (0 to BX_PIPELINE_STAGES-1) of conv_bx_record; -- used for outputs of bx_pipeline module  
+
+    type conv_pipeline_record is record
+        muon, eg, jet, tau : array_conv_bx_record; 
+    end record conv_pipeline_record;
+    
+
 -- *******************************************************************************************************
 -- MUON charge
     type muon_charge_bits_array is array (0 to N_MUON_OBJECTS-1) of std_logic_vector(MUON_CHARGE_WIDTH-1 downto 0);

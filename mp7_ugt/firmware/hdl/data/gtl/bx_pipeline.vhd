@@ -17,7 +17,7 @@ entity bx_pipeline is
         clk : in std_logic;
         data_in : in gtl_data_record;
         data_pipe_o : out data_pipeline_record;
-        conv_o : out conversions_record
+        conv_o : out conv_pipeline_record
     );
 end bx_pipeline;
 
@@ -129,10 +129,10 @@ begin
             )
             port map(
                 pt => data_pipe_internal.eg(i).pt, eta => data_pipe_internal.eg(i).eta, phi => data_pipe_internal.eg(i).phi,
-                pt_vector => conv_o.eg_pt_vector(i), cos_phi => conv_o.eg_cos_phi(i), sin_phi => conv_o.eg_sin_phi(i),
-                conv_mu_cos_phi => conv_o.eg_cos_phi_conv_muon(i), conv_mu_sin_phi => conv_o.eg_sin_phi_conv_muon(i),
-                conv_2_muon_eta_integer => conv_o.eg_eta_conv_muon(i), conv_2_muon_phi_integer => conv_o.eg_phi_conv_muon(i),
-                eta_integer => conv_o.eg_eta(i), phi_integer => conv_o.eg_phi(i) 
+                pt_vector => conv_o.eg(i).pt_vector, cos_phi => conv_o.eg(i).cos_phi, sin_phi => conv_o.eg(i).sin_phi,
+                conv_mu_cos_phi => conv_o.eg(i).cos_phi_conv_muon, conv_mu_sin_phi => conv_o.eg(i).sin_phi_conv_muon,
+                conv_2_muon_eta_integer => conv_o.eg(i).eta_conv_muon, conv_2_muon_phi_integer => conv_o.eg(i).phi_conv_muon,
+                eta_integer => conv_o.eg(i).eta, phi_integer => conv_o.eg(i).phi 
             );
 
         jet_conversions_i: entity work.conversions
@@ -141,10 +141,10 @@ begin
             )
             port map(
                 pt => data_pipe_internal.jet(i).pt, eta => data_pipe_internal.jet(i).eta, phi => data_pipe_internal.jet(i).phi,
-                pt_vector => conv_o.jet_pt_vector(i), cos_phi => conv_o.jet_cos_phi(i), sin_phi => conv_o.jet_sin_phi(i),
-                conv_mu_cos_phi => conv_o.jet_cos_phi_conv_muon(i), conv_mu_sin_phi => conv_o.jet_sin_phi_conv_muon(i),
-                conv_2_muon_eta_integer => conv_o.jet_eta_conv_muon(i), conv_2_muon_phi_integer => conv_o.jet_phi_conv_muon(i),
-                eta_integer => conv_o.jet_eta(i), phi_integer => conv_o.jet_phi(i) 
+                pt_vector => conv_o.jet(i).pt_vector, cos_phi => conv_o.jet(i).cos_phi, sin_phi => conv_o.jet(i).sin_phi,
+                conv_mu_cos_phi => conv_o.jet(i).cos_phi_conv_muon, conv_mu_sin_phi => conv_o.jet(i).sin_phi_conv_muon,
+                conv_2_muon_eta_integer => conv_o.jet(i).eta_conv_muon, conv_2_muon_phi_integer => conv_o.jet(i).phi_conv_muon,
+                eta_integer => conv_o.jet(i).eta, phi_integer => conv_o.jet(i).phi 
             );
             
         tau_conversions_i: entity work.conversions
@@ -153,10 +153,10 @@ begin
             )
             port map(
                 pt => data_pipe_internal.tau(i).pt, eta => data_pipe_internal.tau(i).eta, phi => data_pipe_internal.tau(i).phi,
-                pt_vector => conv_o.tau_pt_vector(i), cos_phi => conv_o.tau_cos_phi(i), sin_phi => conv_o.tau_sin_phi(i),
-                conv_mu_cos_phi => conv_o.tau_cos_phi_conv_muon(i), conv_mu_sin_phi => conv_o.tau_sin_phi_conv_muon(i),
-                conv_2_muon_eta_integer => conv_o.tau_eta_conv_muon(i), conv_2_muon_phi_integer => conv_o.tau_phi_conv_muon(i),
-                eta_integer => conv_o.tau_eta(i), phi_integer => conv_o.tau_phi(i) 
+                pt_vector => conv_o.tau(i).pt_vector, cos_phi => conv_o.tau(i).cos_phi, sin_phi => conv_o.tau(i).sin_phi,
+                conv_mu_cos_phi => conv_o.tau(i).cos_phi_conv_muon, conv_mu_sin_phi => conv_o.tau(i).sin_phi_conv_muon,
+                conv_2_muon_eta_integer => conv_o.tau(i).eta_conv_muon, conv_2_muon_phi_integer => conv_o.tau(i).phi_conv_muon,
+                eta_integer => conv_o.tau(i).eta, phi_integer => conv_o.tau(i).phi 
             );
             
         muon_conversions_i: entity work.conversions
@@ -165,8 +165,8 @@ begin
             )
             port map(
                 pt => data_pipe_internal.muon(i).pt, eta => data_pipe_internal.muon(i).eta, phi => data_pipe_internal.muon(i).phi,
-                pt_vector => conv_o.muon_pt_vector(i), cos_phi => conv_o.muon_cos_phi(i), sin_phi => conv_o.muon_sin_phi(i),
-                eta_integer => conv_o.muon_eta(i), phi_integer => conv_o.muon_phi(i) 
+                pt_vector => conv_o.muon(i).pt_vector, cos_phi => conv_o.muon(i).cos_phi, sin_phi => conv_o.muon(i).sin_phi,
+                eta_integer => conv_o.muon(i).eta, phi_integer => conv_o.muon(i).phi 
             );
             
     end generate bx_l;

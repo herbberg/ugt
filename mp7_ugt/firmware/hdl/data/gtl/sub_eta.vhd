@@ -16,8 +16,10 @@ entity sub_eta is
         N_OBJ_2 : positive
     );
     port(
-        eta_1 : in integer_array(0 to N_OBJ_1-1);
-        eta_2 : in integer_array(0 to N_OBJ_2-1);
+--         eta_1 : in integer_array(0 to N_OBJ_1-1);
+--         eta_2 : in integer_array(0 to N_OBJ_2-1);
+        eta_1 : in conv_integer_array;
+        eta_2 : in conv_integer_array;
         sub_eta_o : out dim2_max_eta_range_array(0 to N_OBJ_1-1, 0 to N_OBJ_2-1)
     );
 end sub_eta;

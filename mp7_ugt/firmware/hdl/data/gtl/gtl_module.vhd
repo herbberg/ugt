@@ -7,7 +7,7 @@ library ieee;
 use ieee.std_logic_1164.all;
 
 use work.gtl_pkg.all;
-use work.l1_menu_pkg.ALL;
+use work.l1menu_pkg.ALL;
 
 entity gtl_module is
     port(
@@ -19,7 +19,7 @@ end gtl_module;
 architecture rtl of gtl_module is
     
     signal data_p : data_pipeline_record;
-    signal conv : conversions_record;
+    signal conv : conv_pipeline_record;
     signal algo : std_logic_vector(NR_ALGOS-1 downto 0) := (others => '0');
 
 begin

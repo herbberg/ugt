@@ -19,7 +19,6 @@ entity sub_eta is
     port(
         eta_1 : in conv_integer_array;
         eta_2 : in conv_integer_array;
---         sub_eta_o : out dim2_max_eta_range_array(0 to N_OBJ_1-1, 0 to N_OBJ_2-1)
         sub_eta_o : out max_eta_range_array := (others => (others => 0))
     );
 end sub_eta;

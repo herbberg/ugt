@@ -20,7 +20,6 @@ entity sub_phi is
     port(
         phi_1 : in conv_integer_array;
         phi_2 : in conv_integer_array;
---         sub_phi_o : out dim2_max_phi_range_array(0 to N_OBJ_1-1, 0 to N_OBJ_2-1)
         sub_phi_o : out max_phi_range_array := (others => (others => 0))
     );
 end sub_phi;

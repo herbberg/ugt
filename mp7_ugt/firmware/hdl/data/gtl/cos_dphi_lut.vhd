@@ -1,5 +1,5 @@
 -- Description:
--- COS LUTs of Differences in eta.
+-- COS LUTs of Differences in phi.
 
 -- Version-history:
 -- HB 2019-06-27: Changed type of inputs.
@@ -23,9 +23,8 @@ entity cos_dphi_lut is
         OBJ : obj_type_array
     );
     port(
---         sub_phi : in dim2_max_phi_range_array(0 to N_OBJ_1-1, 0 to N_OBJ_2-1);
         sub_phi : in max_phi_range_array;
-        cos_dphi_o : out cosh_cos_vector_array(0 to N_OBJ_1-1, 0 to N_OBJ_2-1) := (others => (others => (others => '0')))
+        cos_dphi_o : out cosh_cos_vector_array := (others => (others => (others => '0')))
     );
 end cos_dphi_lut;
 

@@ -1,5 +1,5 @@
---- Description:
--- Differences in phi LUTs.
+-- Description:
+-- Differences in phi with LUTs.
 
 -- Version-history:
 -- HB 2019-06-27: Changed type of inputs.

@@ -23,9 +23,8 @@ entity cosh_deta_lut is
         OBJ : obj_type_array
     );
     port(
---         sub_eta : in dim2_max_eta_range_array(0 to N_OBJ_1-1, 0 to N_OBJ_2-1);
         sub_eta : in max_eta_range_array;
-        cosh_deta_o : out cosh_cos_vector_array(0 to N_OBJ_1-1, 0 to N_OBJ_2-1) := (others => (others => (others => '0')))
+        cosh_deta_o : out cosh_cos_vector_array := (others => (others => (others => '0')))
     );
 end cosh_deta_lut;
 

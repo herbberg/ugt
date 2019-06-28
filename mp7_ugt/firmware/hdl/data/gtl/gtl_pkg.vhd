@@ -1,6 +1,7 @@
 -- Description:
 -- Package for constant and type definitions of GTL firmware in Global Trigger Upgrade system.
 
+-- HB 2019-06-28: Deleted obsolete types
 -- HB 2019-06-27: Inserted new records for conversions
 -- HB 2019-03-08: L1Menu depending definition moved to l1menu_pkg.vhd
 -- HB 2018-12-06: changed structure for GTL_v2.x.y.
@@ -81,7 +82,9 @@ package gtl_pkg is
     constant MAX_ETA_WIDTH : positive := 9; -- max. eta width(muon eta = 9)
     constant MAX_PHI_WIDTH : positive := 10; -- max. phi width (muon phi = 10)
     constant MAX_PT_VECTOR_WIDTH : positive := 15; -- esums - max. value 2047.8 GeV => 20478 (2047.8 * 10**1) => 0x4FFE
-
+    
+    constant MAX_SIN_COS_WIDTH: positive := 11; -- log2c(1000-(-1000));
+    
     constant IN_REG_COMP: boolean := true; -- actually input register in comparator modules used
     constant OUT_REG_COMP: boolean := true; -- actually output register in comparator modules used
     constant OUT_REG_COND: boolean := false; -- actually no output register in condition modules used
@@ -297,14 +300,9 @@ package gtl_pkg is
 -- Constants for correlation cuts
 
     constant DETA_DPHI_PRECISION: positive := 3;
-    constant DETA_DPHI_VECTOR_WIDTH: positive := log2c(max(integer(ETA_RANGE_REAL*(real(10**DETA_DPHI_PRECISION))),integer(PHI_MAX*(real(10**DETA_DPHI_PRECISION)))));
-
-    constant CALO_CALO_COSH_COS_VECTOR_WIDTH: positive := 24; -- max. value cosh_deta-cos_dphi => [10597282-(-1000)]=10598282 => 0xA1B78A
+    constant DETA_DPHI_VECTOR_WIDTH: positive := log2c(max(integer(ETA_RANGE_REAL*(real(10**DETA_DPHI_PRECISION))),integer(PHI_MAX*(real(10**DETA_DPHI_PRECISION)))));    constant CALO_CALO_COSH_COS_VECTOR_WIDTH: positive := 24; -- max. value cosh_deta-cos_dphi => [10597282-(-1000)]=10598282 => 0xA1B78A
     constant CALO_MUON_COSH_COS_VECTOR_WIDTH: positive := 27; -- max. value cosh_deta-cos_dphi => [109487199-(-10000)]=109497199 => 0x686CB6F
     constant MUON_MUON_COSH_COS_VECTOR_WIDTH: positive := 20; -- max. value cosh_deta-cos_dphi => [667303-(-10000)]=677303 => 0xA55B7
-
-    constant CALO_SIN_COS_VECTOR_WIDTH: positive := 11; -- log2c(1000-(-1000));
-    constant MUON_SIN_COS_VECTOR_WIDTH: positive := 15; -- log2c(10000-(-10000));
 
 -- *******************************************************************************
 -- Record declarations
@@ -426,9 +424,6 @@ package gtl_pkg is
         count : obj_parameter_array;
     end record obj_bx_record;
     
--- *******************************************************************************
--- Type declarations
--- bx pipeline
     type array_obj_bx_record is array (0 to BX_PIPELINE_STAGES-1) of obj_bx_record; -- used for outputs of bx_pipeline module  
     type centrality_array is array (0 to BX_PIPELINE_STAGES-1) of std_logic_vector(NR_CENTRALITY_BITS-1 downto 0); -- used for centrality outputs of bx_pipeline module    
     type ext_cond_array is array (0 to BX_PIPELINE_STAGES-1) of std_logic_vector(EXTERNAL_CONDITIONS_DATA_WIDTH-1 downto 0); -- used for ext_cond outputs of bx_pipeline module 
@@ -442,35 +437,6 @@ package gtl_pkg is
         centrality : centrality_array;
         ext_cond : ext_cond_array;
     end record data_pipeline_record;
-    
--- correlation cuts
-    type pt_array is array (natural range <>) of std_logic_vector((MAX_PT_WIDTH)-1 downto 0);
-    type pt_vector_array is array (natural range <>) of std_logic_vector(MAX_PT_VECTOR_WIDTH-1 downto 0);
-    type cosh_cos_vector_array is array (natural range <>, natural range <>) of std_logic_vector(MAX_COSH_COS_WIDTH-1 downto 0); 
-    type mass_vector_array is array (natural range <>, natural range <>) of std_logic_vector((2*MAX_PT_WIDTH+MAX_COSH_COS_WIDTH)-1 downto 0);
-    type calo_cosh_cos_vector_array is array (natural range <>, natural range <>) of std_logic_vector(CALO_CALO_COSH_COS_VECTOR_WIDTH-1 downto 0);
-    type calo_muon_cosh_cos_vector_array is array (natural range <>, natural range <>) of std_logic_vector(CALO_MUON_COSH_COS_VECTOR_WIDTH-1 downto 0);
-    type muon_cosh_cos_vector_array is array (natural range <>, natural range <>) of std_logic_vector(MUON_MUON_COSH_COS_VECTOR_WIDTH-1 downto 0);
-    type calo_sin_cos_vector_array is array (natural range <>) of std_logic_vector(CALO_SIN_COS_VECTOR_WIDTH-1 downto 0);
-    type muon_sin_cos_vector_array is array (natural range <>) of std_logic_vector(MUON_SIN_COS_VECTOR_WIDTH-1 downto 0);
-    
--- enums
---     type obj_type is (muon,eg,jet,tau,ett,etm,htt,htm,ettem,etmhf,htmhf,towercount,mbt1hfp,mbt1hfm,mbt0hfp,mbt0hfm,asymet,asymht,asymethf,asymhthf);
-    type obj_type is (muon_t,eg_t,jet_t,tau_t,ett_t,etm_t,htt_t,htm_t,ettem_t,etmhf_t,htmhf_t,towercount_t,mbt1hfp_t,mbt1hfm_t,mbt0hfp_t,mbt0hfm_t,asymet_t,asymht_t,asymethf_t,asymhthf_t);
-    type obj_type_array is array (1 to 2) of obj_type;
-    type comp_mode is (GE,EQ,NE,ETA,PHI,deltaEta,deltaPhi,deltaR,mass,twoBodyPt);
-
--- slices
-    type slices_type is array (0 to 1) of natural; -- index 0 contains lower slice value, index 1 contains upper slice value
-    type slices_type_array is array (1 to MAX_N_REQ) of slices_type;
-
--- more dimensional
-    type std_logic_1dim_array is array (natural range <>) of std_logic;
-    type std_logic_2dim_array is array (natural range <>, natural range <>) of std_logic;
-    type std_logic_3dim_array is array (natural range <>, natural range <>, natural range <>) of std_logic;
-    type std_logic_4dim_array is array (natural range <>, natural range <>, natural range <>, natural range <>) of std_logic;
-    type integer_array is array (natural range <>) of integer;
-    type integer_2dim_array is array (natural range <>, natural range <>) of integer;
     
 -- conversions
     type conv_pt_vector_array is array (0 to MAX_N_OBJECTS-1) of std_logic_vector(MAX_PT_VECTOR_WIDTH-1 downto 0);    
@@ -503,7 +469,12 @@ package gtl_pkg is
         
     type corr_cuts_array is array (natural range <>, natural range <>) of std_logic;
 
-    -- *******************************************************************************************************
+    type cosh_cos_vector_array is array (0 to MAX_N_OBJ-1, 0 to MAX_N_OBJ-1) of std_logic_vector(MAX_COSH_COS_WIDTH-1 downto 0);
+    type obj_bx_cosh_cos_vector_array is array (0 to BX_PIPELINE_STAGES-1, 0 to BX_PIPELINE_STAGES-1) of cosh_cos_vector_array;
+    
+    type sin_cos_vector_array is array (0 to MAX_N_OBJ-1, 0 to MAX_N_OBJ-1) of std_logic_vector(MAX_SIN_COS_WIDTH-1 downto 0);
+    type obj_bx_sin_cos_vector_array is array (0 to BX_PIPELINE_STAGES-1, 0 to BX_PIPELINE_STAGES-1) of sin_cos_vector_array;
+    
 -- MUON charge
     type muon_charge_bits_array is array (0 to N_MUON_OBJECTS-1) of std_logic_vector(MUON_CHARGE_WIDTH-1 downto 0);
     type muon_cc_double_array is array (0 to N_MUON_OBJECTS-1, 0 to N_MUON_OBJECTS-1) of std_logic_vector(MUON_CHARGE_WIDTH-1 downto 0);
@@ -519,6 +490,19 @@ package gtl_pkg is
     type muon_cc_triple_std_logic_array is array (0 to N_MUON_OBJECTS-1, 0 to N_MUON_OBJECTS-1, 0 to N_MUON_OBJECTS-1) of std_logic;
     type muon_cc_quad_std_logic_array is array (0 to N_MUON_OBJECTS-1, 0 to N_MUON_OBJECTS-1, 0 to N_MUON_OBJECTS-1, 0 to N_MUON_OBJECTS-1) of std_logic;
 
+-- *******************************************************************************
+-- correlation cuts
+    type pt_array is array (natural range <>) of std_logic_vector((MAX_PT_WIDTH)-1 downto 0);
+    
+-- enums
+    type obj_type is (muon_t,eg_t,jet_t,tau_t,ett_t,etm_t,htt_t,htm_t,ettem_t,etmhf_t,htmhf_t,towercount_t,mbt1hfp_t,mbt1hfm_t,mbt0hfp_t,mbt0hfm_t,asymet_t,asymht_t,asymethf_t,asymhthf_t);
+    type obj_type_array is array (1 to 2) of obj_type;
+    type comp_mode is (GE,EQ,NE,ETA,PHI,deltaEta,deltaPhi,deltaR,mass,twoBodyPt);
+
+-- slices
+    type slices_type is array (0 to 1) of natural; -- index 0 contains lower slice value, index 1 contains upper slice value
+    type slices_type_array is array (1 to MAX_N_REQ) of slices_type;
+    
 -- *******************************************************************************************************
 -- FDL definitions
 -- Definitions for prescalers (for FDL !)

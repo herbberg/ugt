@@ -1,5 +1,9 @@
+-- Description:
+-- Delay pipelines.
 
--- Version-history: 
+-- Version history:
+-- HB 2019-06-28: Updated comments.
+-- HB 2018-11-26: First design.
 
 library ieee;
 use ieee.std_logic_1164.all;

@@ -1,5 +1,5 @@
 -- Description:
--- Differences in eta LUTs.
+-- Differences in eta with LUTs.
 
 -- Version-history:
 -- HB 2019-06-27: Changed type of inputs.
@@ -23,7 +23,6 @@ entity diff_eta_lut is
         OBJ : obj_type_array
     );
     port(
---         sub_eta : in dim2_max_eta_range_array(0 to N_OBJ_1-1, 0 to N_OBJ_2-1);
         sub_eta : in max_eta_range_array;
         diff_eta_o : out deta_dphi_vector_array := (others => (others => (others => '0')))
     );

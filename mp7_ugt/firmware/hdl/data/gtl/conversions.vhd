@@ -1,5 +1,5 @@
 -- Description:
--- Conversion logic.
+-- Conversion logic for object parameters.
 
 -- Version-history:
 -- HB 2019-06-27: Changed type of outputs.
@@ -47,7 +47,8 @@ architecture rtl of conversions is
     type phi_i_array is array (0 to N_OBJ-1) of std_logic_vector(MAX_PHI_WIDTH-1 downto 0);
     signal phi_i : phi_i_array := (others => (others => '0'));
     
-    signal conv_2_muon_phi_integer_i : integer_array(0 to N_OBJ-1) := (others => 0);
+    type integer_array is array (0 to N_OBJ-1) of integer;
+    signal conv_2_muon_phi_integer_i : integer_array := (others => 0);
         
 begin
 

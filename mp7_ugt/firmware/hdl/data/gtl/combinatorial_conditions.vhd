@@ -25,7 +25,7 @@ entity combinatorial_conditions is
         in_2 : in std_logic_vector(0 to N_OBJ-1) := (others => '0');
         in_3 : in std_logic_vector(0 to N_OBJ-1) := (others => '0');
         in_4 : in std_logic_vector(0 to N_OBJ-1) := (others => '0');
-        tbpt : in std_logic_2dim_array(0 to N_OBJ-1, 0 to N_OBJ-1) := (others => (others => '0'));
+        tbpt : in corr_cuts_array(0 to N_OBJ-1, 0 to N_OBJ-1) := (others => (others => '1'));
         charge_corr_double : in muon_cc_double_std_logic_array := (others => (others => '1'));
         charge_corr_triple : in muon_cc_triple_std_logic_array := (others => (others => (others => '1')));
         charge_corr_quad : in muon_cc_quad_std_logic_array := (others => (others => (others => (others => '1'))));
@@ -40,14 +40,17 @@ architecture rtl of combinatorial_conditions is
     constant N_SLICE_3 : positive := SLICES(3)(1) - SLICES(3)(0) + 1;
     constant N_SLICE_4 : positive := SLICES(4)(1) - SLICES(4)(0) + 1;
     
-    type req_obj_array is array (1 to N_REQ) of std_logic_1dim_array(0 to N_OBJ-1);    
+    type single_array is array (0 to N_OBJ-1) of std_logic;
+    type req_obj_array is array (1 to N_REQ) of single_array;    
     signal pt_i, eta_w1_i, eta_w2_i, eta_w3_i, eta_w4_i, eta_w5_i, phi_w1_i,phi_w2_i, iso_i, qual_i, charge_i, cond_and_i : req_obj_array;
     
-    signal cc_double_i : std_logic_2dim_array(0 to N_OBJ-1, 0 to N_OBJ-1) := (others => (others => '1'));
-    signal cc_triple_i : std_logic_3dim_array(0 to N_OBJ-1, 0 to N_OBJ-1, 0 to N_OBJ-1) := (others => (others => (others => '1')));
-    signal cc_quad_i : std_logic_4dim_array(0 to N_OBJ-1, 0 to N_OBJ-1, 0 to N_OBJ-1, 0 to N_OBJ-1) := (others => (others => (others => (others => '1'))));
-    signal tbpt_i : std_logic_2dim_array(0 to N_OBJ-1, 0 to N_OBJ-1);
-    signal cond_and : std_logic_2dim_array(1 to N_REQ, 0 to N_OBJ-1);
+    type double_array is array (0 to N_OBJ-1, 0 to N_OBJ-1) of std_logic;
+    type triple_array is array (0 to N_OBJ-1, 0 to N_OBJ-1, 0 to N_OBJ-1) of std_logic;
+    type quad_array is array (0 to N_OBJ-1, 0 to N_OBJ-1, 0 to N_OBJ-1, 0 to N_OBJ-1) of std_logic;
+    signal cc_double_i : double_array := (others => (others => '1'));
+    signal cc_triple_i : triple_array := (others => (others => (others => '1')));
+    signal cc_quad_i : quad_array := (others => (others => (others => (others => '1'))));
+    signal tbpt_i : corr_cuts_array(0 to N_OBJ-1, 0 to N_OBJ-1);
     signal cond_and_or, cond_o_v : std_logic_vector(0 to 0);
 
 begin

@@ -1,3 +1,10 @@
+-- Description:
+-- Signed comparator for eta.
+
+-- Version-history:
+-- HB 2019-06-28: Updated comments.
+-- HB 2018-11-26: First design.
+
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.std_logic_signed.all; -- for eta comparison with "signed", because of Eta-scale with Two's Complement notation for HW index.

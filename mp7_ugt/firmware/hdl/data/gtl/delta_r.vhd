@@ -2,6 +2,7 @@
 -- Calculation of invariant mass or transverse mass based on LUTs.
 
 -- Version history:
+-- HB 2019-06-27: Changed type of outputs.
 -- HB 2018-11-26: First design.
 
 library ieee;
@@ -22,9 +23,10 @@ entity delta_r is
         N_OBJ_2 : positive
     );
     port(
-        diff_eta : in deta_dphi_vector_array(0 to N_OBJ_1-1, 0 to N_OBJ_2-1);
-        diff_phi : in deta_dphi_vector_array(0 to N_OBJ_1-1, 0 to N_OBJ_2-1);
-        dr_squared_o : out std_logic_3dim_array(0 to N_OBJ_1-1, 0 to N_OBJ_2-1, (2*DETA_DPHI_VECTOR_WIDTH)-1 downto 0)
+        diff_eta : in deta_dphi_vector_array;
+        diff_phi : in deta_dphi_vector_array;
+--         dr_squared_o : out std_logic_3dim_array(0 to N_OBJ_1-1, 0 to N_OBJ_2-1, (2*DETA_DPHI_VECTOR_WIDTH)-1 downto 0)
+        dr_squared_o : out corr_cuts_std_logic_array := (others => (others => (others => '0')))
     );
 end delta_r;
 

@@ -448,7 +448,6 @@ package gtl_pkg is
     type pt_vector_array is array (natural range <>) of std_logic_vector(MAX_PT_VECTOR_WIDTH-1 downto 0);
     type cosh_cos_vector_array is array (natural range <>, natural range <>) of std_logic_vector(MAX_COSH_COS_WIDTH-1 downto 0); 
     type mass_vector_array is array (natural range <>, natural range <>) of std_logic_vector((2*MAX_PT_WIDTH+MAX_COSH_COS_WIDTH)-1 downto 0);
-    type deta_dphi_vector_array is array (natural range <>, natural range <>) of std_logic_vector(DETA_DPHI_VECTOR_WIDTH-1 downto 0);
     type calo_cosh_cos_vector_array is array (natural range <>, natural range <>) of std_logic_vector(CALO_CALO_COSH_COS_VECTOR_WIDTH-1 downto 0);
     type calo_muon_cosh_cos_vector_array is array (natural range <>, natural range <>) of std_logic_vector(CALO_MUON_COSH_COS_VECTOR_WIDTH-1 downto 0);
     type muon_cosh_cos_vector_array is array (natural range <>, natural range <>) of std_logic_vector(MUON_MUON_COSH_COS_VECTOR_WIDTH-1 downto 0);
@@ -491,15 +490,34 @@ package gtl_pkg is
         muon, eg, jet, tau : array_conv_bx_record; 
     end record conv_pipeline_record;
     
--- *******************************************************************************************************
+    type max_eta_range_array is array (0 to MAX_N_OBJ-1, 0 to MAX_N_OBJ-1) of integer range 0 to integer(ETA_RANGE_REAL/MUON_ETA_STEP)-1; -- 10.0/0.010875 = 919.54 => rounded(919.54) = 920 - number of bins with muon bin width for full (calo) eta range
+    type obj_bx_max_eta_range_array is array (0 to BX_PIPELINE_STAGES-1, 0 to BX_PIPELINE_STAGES-1) of max_eta_range_array;
+    type max_phi_range_array is array (0 to MAX_N_OBJ-1, 0 to MAX_N_OBJ-1) of integer range 0 to max(MUON_PHI_BINS, CALO_PHI_BINS)-1; -- number of bins with muon bin width (=576)
+    type obj_bx_max_phi_range_array is array (0 to BX_PIPELINE_STAGES-1, 0 to BX_PIPELINE_STAGES-1) of max_phi_range_array;
+    
+    type deta_dphi_vector_array is array (0 to MAX_N_OBJ-1, 0 to MAX_N_OBJ-1) of std_logic_vector(DETA_DPHI_VECTOR_WIDTH-1 downto 0);
+    type obj_bx_deta_dphi_vector_array is array (0 to BX_PIPELINE_STAGES-1, 0 to BX_PIPELINE_STAGES-1) of deta_dphi_vector_array;
+    
+    type corr_cuts_std_logic_array is array (0 to MAX_N_OBJ-1, 0 to MAX_N_OBJ-1,  MAX_CORR_CUTS_WIDTH-1 downto 0) of std_logic;
+    type obj_bx_corr_cuts_std_logic_array is array (0 to BX_PIPELINE_STAGES-1, 0 to BX_PIPELINE_STAGES-1) of corr_cuts_std_logic_array;
+        
+    type corr_cuts_array is array (natural range <>, natural range <>) of std_logic;
+
+    -- *******************************************************************************************************
 -- MUON charge
     type muon_charge_bits_array is array (0 to N_MUON_OBJECTS-1) of std_logic_vector(MUON_CHARGE_WIDTH-1 downto 0);
     type muon_cc_double_array is array (0 to N_MUON_OBJECTS-1, 0 to N_MUON_OBJECTS-1) of std_logic_vector(MUON_CHARGE_WIDTH-1 downto 0);
+    type obj_bx_muon_cc_double_array is array (0 to BX_PIPELINE_STAGES-1, 0 to BX_PIPELINE_STAGES-1) of muon_cc_double_array;
     type muon_cc_triple_array is array (0 to N_MUON_OBJECTS-1, 0 to N_MUON_OBJECTS-1, 0 to N_MUON_OBJECTS-1) of std_logic_vector(MUON_CHARGE_WIDTH-1 downto 0);
+    type obj_bx_muon_cc_triple_array is array (0 to BX_PIPELINE_STAGES-1, 0 to BX_PIPELINE_STAGES-1) of muon_cc_triple_array;
     type muon_cc_quad_array is array (0 to N_MUON_OBJECTS-1, 0 to N_MUON_OBJECTS-1, 0 to N_MUON_OBJECTS-1, 0 to N_MUON_OBJECTS-1) of std_logic_vector(MUON_CHARGE_WIDTH-1 downto 0);
+    type obj_bx_muon_cc_quad_array is array (0 to BX_PIPELINE_STAGES-1, 0 to BX_PIPELINE_STAGES-1) of muon_cc_quad_array;
     constant CC_NOT_VALID : std_logic_vector(MUON_CHARGE_WIDTH-1 downto 0) := "00"; 
     constant CC_LS : std_logic_vector(MUON_CHARGE_WIDTH-1 downto 0) := "01"; 
     constant CC_OS : std_logic_vector(MUON_CHARGE_WIDTH-1 downto 0) := "10"; 
+    type muon_cc_double_std_logic_array is array (0 to N_MUON_OBJECTS-1, 0 to N_MUON_OBJECTS-1) of std_logic;
+    type muon_cc_triple_std_logic_array is array (0 to N_MUON_OBJECTS-1, 0 to N_MUON_OBJECTS-1, 0 to N_MUON_OBJECTS-1) of std_logic;
+    type muon_cc_quad_std_logic_array is array (0 to N_MUON_OBJECTS-1, 0 to N_MUON_OBJECTS-1, 0 to N_MUON_OBJECTS-1, 0 to N_MUON_OBJECTS-1) of std_logic;
 
 -- *******************************************************************************************************
 -- FDL definitions

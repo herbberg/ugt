@@ -278,11 +278,12 @@ constant JET_MU_SIN_COS_PRECISION : positive := 4;
 constant TAU_MU_SIN_COS_PRECISION : positive := 4;
 constant MU_MU_SIN_COS_PRECISION : positive := 4;
 
--- subtypes used in sub_eta_integer_obj_vs_obj.vhd and sub_phi_integer_obj_vs_obj
-subtype max_eta_range_integer is integer range 0 to integer(ETA_RANGE_REAL/MUON_ETA_STEP)-1; -- 10.0/0.010875 = 919.54 => rounded(919.54) = 920 - number of bins with muon bin width for full (calo) eta range
-type dim2_max_eta_range_array is array (natural range <>, natural range <>) of max_eta_range_integer;
-subtype max_phi_range_integer is integer range 0 to max(MUON_PHI_BINS, CALO_PHI_BINS)-1; -- number of bins with muon bin width (=576)
-type dim2_max_phi_range_array is array (natural range <>, natural range <>) of max_phi_range_integer;
+-- -- HB 2019-06-28: not used anymore
+-- -- subtypes used in sub_eta_integer_obj_vs_obj.vhd and sub_phi_integer_obj_vs_obj
+-- subtype max_eta_range_integer is integer range 0 to integer(ETA_RANGE_REAL/MUON_ETA_STEP)-1; -- 10.0/0.010875 = 919.54 => rounded(919.54) = 920 - number of bins with muon bin width for full (calo) eta range
+-- type dim2_max_eta_range_array is array (natural range <>, natural range <>) of max_eta_range_integer;
+-- subtype max_phi_range_integer is integer range 0 to max(MUON_PHI_BINS, CALO_PHI_BINS)-1; -- number of bins with muon bin width (=576)
+-- type dim2_max_phi_range_array is array (natural range <>, natural range <>) of max_phi_range_integer;
 
 -- HB 2017-10-02: Max. vector width for limits of correlation cuts
 constant MAX_WIDTH_DETA_DPHI_LIMIT_VECTOR : positive := 32;

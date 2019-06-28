@@ -2,11 +2,13 @@
 -- Correlation conditions
 
 -- Version-history:
+-- HB 2019-06-28: Changed types, inserted use clause.
 -- HB 2018-12-21: First design.
 
 library ieee;
 use ieee.std_logic_1164.all;
 
+use work.lhc_data_pkg.all;
 use work.gtl_pkg.all;
 
 entity correlation_conditions is
@@ -26,13 +28,13 @@ entity correlation_conditions is
         clk : in std_logic;
         in_1 : in std_logic_vector(0 to N_OBJ_1-1);
         in_2 : in std_logic_vector(0 to N_OBJ_2-1);        
-        deta : in std_logic_2dim_array(0 to N_OBJ_1-1, 0 to N_OBJ_2-1) := (others => (others => '1'));
-        dphi : in std_logic_2dim_array(0 to N_OBJ_1-1, 0 to N_OBJ_2-1) := (others => (others => '1'));
-        delta_r : in std_logic_2dim_array(0 to N_OBJ_1-1, 0 to N_OBJ_2-1) := (others => (others => '1'));
-        inv_mass : in std_logic_2dim_array(0 to N_OBJ_1-1, 0 to N_OBJ_2-1) := (others => (others => '1'));
-        trans_mass : in std_logic_2dim_array(0 to N_OBJ_1-1, 0 to N_OBJ_2-1) := (others => (others => '1'));
-        tbpt : in std_logic_2dim_array(0 to N_OBJ_1-1, 0 to N_OBJ_2-1) := (others => (others => '1'));
-        charge_corr_double : in std_logic_2dim_array(0 to N_OBJ_1-1, 0 to N_OBJ_2-1) := (others => (others => '1'));
+        deta : in corr_cuts_array(0 to N_OBJ_1-1, 0 to N_OBJ_2-1) := (others => (others => '1'));
+        dphi : in corr_cuts_array(0 to N_OBJ_1-1, 0 to N_OBJ_2-1) := (others => (others => '1'));
+        delta_r : in corr_cuts_array(0 to N_OBJ_1-1, 0 to N_OBJ_2-1) := (others => (others => '1'));
+        inv_mass : in corr_cuts_array(0 to N_OBJ_1-1, 0 to N_OBJ_2-1) := (others => (others => '1'));
+        trans_mass : in corr_cuts_array(0 to N_OBJ_1-1, 0 to N_OBJ_2-1) := (others => (others => '1'));
+        tbpt : in corr_cuts_array(0 to N_OBJ_1-1, 0 to N_OBJ_2-1) := (others => (others => '1'));
+        charge_corr_double : in muon_cc_double_std_logic_array := (others => (others => '1'));
         cond_o : out std_logic
     );
 end correlation_conditions;
@@ -41,14 +43,14 @@ architecture rtl of correlation_conditions is
 
     constant N_SLICE_1 : positive := SLICES(1)(1) - SLICES(1)(0) + 1;
     constant N_SLICE_2 : positive := SLICES(2)(1) - SLICES(2)(0) + 1;
-    constant DEF_VAL_2DIM : std_logic_2dim_array(0 to N_OBJ_1-1, 0 to N_OBJ_2-1) := (others => (others => '1'));
-    signal deta_i : std_logic_2dim_array(0 to N_OBJ_1-1, 0 to N_OBJ_2-1);
-    signal dphi_i : std_logic_2dim_array(0 to N_OBJ_1-1, 0 to N_OBJ_2-1);
-    signal dr_i : std_logic_2dim_array(0 to N_OBJ_1-1, 0 to N_OBJ_2-1);
-    signal inv_mass_i : std_logic_2dim_array(0 to N_OBJ_1-1, 0 to N_OBJ_2-1);
-    signal trans_mass_i : std_logic_2dim_array(0 to N_OBJ_1-1, 0 to N_OBJ_2-1);
-    signal tbpt_i : std_logic_2dim_array(0 to N_OBJ_1-1, 0 to N_OBJ_2-1);
-    signal cc_double_i : std_logic_2dim_array(0 to N_OBJ_1-1, 0 to N_OBJ_2-1);
+    constant DEF_VAL_2DIM : corr_cuts_array(0 to N_OBJ_1-1, 0 to N_OBJ_2-1) := (others => (others => '1'));
+    signal deta_i : corr_cuts_array(0 to N_OBJ_1-1, 0 to N_OBJ_2-1);
+    signal dphi_i : corr_cuts_array(0 to N_OBJ_1-1, 0 to N_OBJ_2-1);
+    signal dr_i : corr_cuts_array(0 to N_OBJ_1-1, 0 to N_OBJ_2-1);
+    signal inv_mass_i : corr_cuts_array(0 to N_OBJ_1-1, 0 to N_OBJ_2-1);
+    signal trans_mass_i : corr_cuts_array(0 to N_OBJ_1-1, 0 to N_OBJ_2-1);
+    signal tbpt_i : corr_cuts_array(0 to N_OBJ_1-1, 0 to N_OBJ_2-1);
+    signal cc_double_i : corr_cuts_array(0 to N_OBJ_1-1, 0 to N_OBJ_2-1) := (others => (others => '1'));
     signal cond_and_or, cond_o_v : std_logic_vector(0 to 0);
 
 begin
@@ -59,7 +61,14 @@ begin
     inv_mass_i <= inv_mass when INV_MASS_SEL else DEF_VAL_2DIM;
     trans_mass_i <= trans_mass when TRANS_MASS_SEL else DEF_VAL_2DIM;
     tbpt_i <= tbpt when TBPT_SEL else DEF_VAL_2DIM;
-    cc_double_i <= charge_corr_double when CHARGE_CORR_SEL else DEF_VAL_2DIM;
+    
+    cc_i: if CHARGE_CORR_SEL generate
+        l1: for i in 0 to N_MUON_OBJECTS-1 generate
+            l2: for j in 0 to N_MUON_OBJECTS-1 generate
+                cc_double_i(i,j) <= charge_corr_double(i,j);
+             end generate;    
+        end generate;    
+    end generate;    
 
     and_or_p: process(in_1, in_2, deta_i, dphi_i, dr_i, inv_mass_i, trans_mass_i, tbpt_i, cc_double_i)
         variable index : integer := 0;

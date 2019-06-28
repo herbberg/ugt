@@ -2,6 +2,7 @@
 -- Comparators for correlation cuts comparisons.
 
 -- Version-history:
+-- HB 2019-06-27: Changed type of inputs.
 -- HB 2018-11-26: First design.
 
 library ieee;
@@ -20,8 +21,9 @@ entity comparators_corr_cuts is
     );
     port(
         clk : in std_logic;
-        data : in std_logic_3dim_array(0 to N_OBJ_1-1, 0 to N_OBJ_2-1, DATA_WIDTH-1 downto 0) := (others => (others => (others => '0')));
-        comp_o : out std_logic_2dim_array(0 to N_OBJ_1-1, 0 to N_OBJ_2-1) := (others => (others => '0'))
+--         data : in std_logic_3dim_array(0 to N_OBJ_1-1, 0 to N_OBJ_2-1, DATA_WIDTH-1 downto 0) := (others => (others => (others => '0')));
+        data : in corr_cuts_std_logic_array;
+        comp_o : out corr_cuts_array(0 to N_OBJ_1-1, 0 to N_OBJ_2-1) := (others => (others => '0'))
     );
 end comparators_corr_cuts;
 

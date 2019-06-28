@@ -2,6 +2,7 @@
 -- Comparators for object cuts comparisons (except with LUTs).
 
 -- Version-history:
+-- HB 2019-06-28: Changed types.
 -- HB 2018-11-26: First design.
 
 library ieee;
@@ -22,9 +23,9 @@ entity comparator_muon_charge_corr is
         cc_double: in muon_cc_double_array := (others => (others => (others => '0')));
         cc_triple: in muon_cc_triple_array := (others => (others => (others => (others => '0'))));
         cc_quad: in muon_cc_quad_array := (others => (others => (others => (others => (others => '0')))));
-        comp_o_double : out std_logic_2dim_array(0 to N_MUON_OBJECTS-1, 0 to N_MUON_OBJECTS-1);
-        comp_o_triple : out std_logic_3dim_array(0 to N_MUON_OBJECTS-1, 0 to N_MUON_OBJECTS-1, 0 to N_MUON_OBJECTS-1);
-        comp_o_quad : out std_logic_4dim_array(0 to N_MUON_OBJECTS-1, 0 to N_MUON_OBJECTS-1, 0 to N_MUON_OBJECTS-1, 0 to N_MUON_OBJECTS-1)
+        comp_o_double : out muon_cc_double_std_logic_array;
+        comp_o_triple : out muon_cc_triple_std_logic_array;
+        comp_o_quad : out muon_cc_quad_std_logic_array
     );
 end comparator_muon_charge_corr;
 

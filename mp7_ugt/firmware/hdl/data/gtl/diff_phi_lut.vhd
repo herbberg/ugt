@@ -2,6 +2,7 @@
 -- Differences in phi LUTs.
 
 -- Version-history:
+-- HB 2019-06-27: Changed type of inputs.
 -- HB 2019-01-11: First design.
 
 library ieee;
@@ -22,8 +23,9 @@ entity diff_phi_lut is
         OBJ : obj_type_array
     );
     port(
-        sub_phi : in dim2_max_phi_range_array(0 to N_OBJ_1-1, 0 to N_OBJ_2-1);
-        diff_phi_o : out deta_dphi_vector_array(0 to N_OBJ_1-1, 0 to N_OBJ_2-1) := (others => (others => (others => '0')))
+--         sub_phi : in dim2_max_phi_range_array(0 to N_OBJ_1-1, 0 to N_OBJ_2-1);
+        sub_phi : in max_phi_range_array;
+        diff_phi_o : out deta_dphi_vector_array := (others => (others => (others => '0')))
     );
 end diff_phi_lut;
 

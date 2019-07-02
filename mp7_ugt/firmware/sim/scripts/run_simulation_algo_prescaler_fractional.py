@@ -7,7 +7,7 @@ questasimDefaultPath = '/opt/mentor/questasim/bin/vsim' # v10.7c
 
 do_tpl_file_name = 'scripts/algo_pre_scaler_fractional_loop_test_tpl.do'
 do_file_name = 'scripts/algo_pre_scaler_fractional_loop_test.do'
-pkg_file_name = '../hdl/gt_mp7_core/gtl_fdl_wrapper/fdl/algo_pre_scaler_fractional_pkg.vhd'
+pkg_file_name = '../hdl/data/fdl/algo_pre_scaler_fractional_pkg.vhd'
 
 find_str = 'PRESCALER_MODE_SEQ_LEN' # in pkg file
 
@@ -53,7 +53,7 @@ def main():
             
     # check PRESCALER_MODE_SEQ_LEN
     if not (prescaler_mode_seq_len == 1 or prescaler_mode_seq_len == 10 or prescaler_mode_seq_len == 20 or prescaler_mode_seq_len == 100):
-        print "\033[1;31m=== ERROR: wrong value for PRESCALER_MODE_SEQ_LEN (= %d) in '../hdl/gt_mp7_core/gtl_fdl_wrapper/fdl/algo_pre_scaler_fractional_pkg.vhd' !!!\033[0m" % prescaler_mode_seq_len
+        print "\033[1;31m=== ERROR: wrong value for PRESCALER_MODE_SEQ_LEN (= %d) in '../hdl/data/fdl/algo_pre_scaler_fractional_pkg.vhd' !!!\033[0m" % prescaler_mode_seq_len
         exit()
         
     #sys.exit()
@@ -114,6 +114,8 @@ def main():
             diff_percent = float((diff / prescale_value_required) * 100.0)
 
             print ""        
+            print '=== Algos: \033[1;32mX"{}"\033[0m'.format(algos)
+            print '=== Prescaled Algos: \033[1;32mX"{}"\033[0m'.format(prescaled_algos)
             print '=== Prescale value in testbench (and register): \033[1;32mX"{}"\033[0m'.format(prescale_value_tb)
             print "=== Simulation \033[1;32m%d/%d\033[0m [prescale value: \033[1;32m%.2f\033[0m] done" % (loop, max_loops, prescale_value_required)
             print "=== Prescale values difference (simulated minus required): \033[1;32m%.10f\033[0m" % diff        

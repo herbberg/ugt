@@ -32,6 +32,7 @@ vcom -93 -work work $GT_SRC/data/fdl/algo_pre_scaler_fractional_pkg.vhd
 vcom -93 -work work $GT_SRC/data/fdl/algo_pre_scaler_fractional.vhd
 
 #Testbench
+vcom -93 -work work $TESTBENCH/algo_pre_scaler_fractional_tb_pkg.vhd
 vcom -93 -work work $TESTBENCH/algo_pre_scaler_fractional_tb.vhd
 
 #Load Design

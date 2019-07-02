@@ -16,7 +16,7 @@ Versions of ugt with new GTL structure (v2.0.0 and higher)
 - ../hdl/data/gtl/twobody_pt.vhd
  
 ### Changed
-- moved all VHDL package files to ..hdl/packages:
+- moved all VHDL package files to ../hdl/packages:
   ../hdl/control/frame_addr_decode.vhd
   ../hdl/control/rb_pkg.vhd
   ../hdl/data/gtl/gtl_pkg.vhd

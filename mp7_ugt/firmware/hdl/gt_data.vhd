@@ -1,5 +1,5 @@
-
 -- Description:
+-- Instantiation of "line mapping process" of data and "gtl fdl wrapper"
 
 library ieee;
 use ieee.std_logic_1164.all;

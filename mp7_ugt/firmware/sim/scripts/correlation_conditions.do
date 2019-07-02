@@ -28,12 +28,12 @@ vmap work work
 
 #Top Entity the design
 vcom -93 -work work $GT_SRC/lhc_data_pkg.vhd
-vcom -93 -work work $GT_SRC/gt_mp7_core/gt_mp7_core_pkg_sim.vhd
-vcom -93 -work work $GT_SRC/math_pkg.vhd
-vcom -93 -work work $GT_SRC/gt_mp7_core/gtl_fdl_wrapper/gtl/gtl_pkg_sim.vhd
-vcom -93 -work work $GT_SRC/gt_mp7_core/gtl_fdl_wrapper/gtl/out_reg_mux.vhd
-vcom -93 -work work $GT_SRC/gt_mp7_core/gtl_fdl_wrapper/gtl/combinatorial_and.vhd
-vcom -93 -work work $GT_SRC/gt_mp7_core/gtl_fdl_wrapper/gtl/correlation_conditions.vhd
+vcom -93 -work work $GT_SRC/data/gt_mp7_core_pkg.vhd
+vcom -93 -work work $GT_SRC/packages/math_pkg.vhd
+vcom -93 -work work $GT_SRC/data/gtl/gtl_pkg.vhd
+vcom -93 -work work $GT_SRC/data/gtl/out_reg_mux.vhd
+vcom -93 -work work $GT_SRC/data/gtl/combinatorial_and.vhd
+vcom -93 -work work $GT_SRC/data/gtl/correlation_conditions.vhd
 
 #Testbench
 vcom -93 -work work $TESTBENCH/correlation_conditions_tb.vhd

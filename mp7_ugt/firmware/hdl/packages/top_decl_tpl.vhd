@@ -8,8 +8,6 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.all;
 
 use work.mp7_top_decl.all;
--- use work.gt_mp7_core_pkg.all;
--- use work.gt_mp7_top_pkg.all;
 
 package top_decl is
 
@@ -24,9 +22,6 @@ package top_decl is
     
     constant MODULE_TYPE : std_logic_vector(31 downto 0) := (others => '0');
 
---     constant ALGO_REV: std_logic_vector(31 downto 0) := TOP_BUILD_VERSION; -- JW 11.11.2015 use unique uGT build version (eg. 0x1038) as algo_rev value
---     constant BUILDSYS_BUILD_TIME: std_logic_vector(31 downto 0) := TOP_TIMESTAMP; -- JW 03.03.2016
---     constant BUILDSYS_BLAME_HASH: std_logic_vector(31 downto 0) := TOP_USERNAME(31 downto 0); -- JW 03.03.2016
     constant ALGO_REV: std_logic_vector(31 downto 0) := BUILD_VERSION; -- JW 11.11.2015 use unique uGT build version (eg. 0x1038) as algo_rev value
     constant BUILDSYS_BUILD_TIME: std_logic_vector(31 downto 0) := TIMESTAMP; -- JW 03.03.2016
     constant BUILDSYS_BLAME_HASH: std_logic_vector(31 downto 0) := USERNAME(31 downto 0); -- JW 03.03.2016

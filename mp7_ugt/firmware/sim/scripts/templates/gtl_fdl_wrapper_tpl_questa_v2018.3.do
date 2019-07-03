@@ -43,6 +43,7 @@ vcom -93 -work work $HDL_DIR/packages/math_pkg.vhd
 vcom -93 -work work $HDL_DIR/packages/top_decl_sim.vhd
 vcom -93 -work work $HDL_DIR/packages/gt_mp7_core_pkg.vhd
 vcom -93 -work work $HDL_DIR/packages/gtl_pkg.vhd
+vcom -93 -work work $HDL_DIR/packages/fdl_pkg.vhd
 vcom -93 -work work $HDL_DIR/packages/lut_pkg.vhd
 vcom -93 -work work $HDL_DIR/packages/fdl_addr_decode.vhd
 vcom -93 -work work $MENU_DIR/l1menu_pkg.vhd

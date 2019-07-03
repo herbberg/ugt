@@ -1,6 +1,7 @@
 -- Description:
 -- Package for constant and type definitions of GTL firmware in Global Trigger Upgrade system.
 
+-- HB 2019-07-03: Moved constants and types for FDL to fdl_pkg.vhd
 -- HB 2019-06-28: Deleted obsolete types
 -- HB 2019-06-27: Inserted new records for conversions
 -- HB 2019-03-08: L1Menu depending definition moved to l1menu_pkg.vhd

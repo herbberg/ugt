@@ -7,10 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ================================
 Versions of ugt with new GTL structure (v2.0.0 and higher)
 
-## [mp7_ugt_v2_1_1] - 2019-07-02
+## [mp7_ugt_v2_1_0] - 2019-07-03
 
 ### Comment
-- mp7_ugt firmware release v2.1.2 is created, based on control v2.0.1, gtl v2.1.0 and fdl v1.3.2.
+- mp7_ugt firmware release v2.1.0
 
 ### Added
 - ../hdl/data/gtl/twobody_pt.vhd
@@ -21,7 +21,6 @@ Versions of ugt with new GTL structure (v2.0.0 and higher)
 ### Changed
 - moved all VHDL package files to ../hdl/packages:
   ../hdl/control/frame_addr_decode.vhd
-  ../hdl/control/rb_pkg.vhd
   ../hdl/data/gtl/gtl_pkg.vhd
   ../hdl/data/gtl/lut_pkg.vhd
   ../hdl/data/fdl/fdl_addr_decode.vhd
@@ -34,7 +33,7 @@ Versions of ugt with new GTL structure (v2.0.0 and higher)
 ## [mp7_ugt_v2_0_2] - 2019-06-26
 
 ### Comment
-- mp7_ugt firmware release v2.0.2 is created, based on control v2.0.0, gtl v2.0.1 and fdl v1.3.1.
+- mp7_ugt firmware release v2.0.2
 
 ### Changed
 - bug fix in gtl_pkg.vhd and fdl_module.vhd
@@ -50,7 +49,7 @@ Versions of ugt with new GTL structure (v2.0.0 and higher)
 ## [mp7_ugt_v2_0_0] - 2019-06-26 => no tag created !!!
 
 ### Comment
-- mp7_ugt firmware release v2.0.0 is created, based on control v2.0.0, gtl v2.0.0 and fdl v1.3.0.
+- mp7_ugt firmware release v2.0.0
 
 ### Changed
 - GTL structure (v2.0.0), init version.

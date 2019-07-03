@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ================================
 Versions of ugt with new GTL structure (v2.0.0 and higher)
 
+## [mp7_ugt_v2_2_0] - 
+
+### Comment
+- mp7_ugt firmware release v2.2.0
+
+### Added
+
+### Changed
+- deleted ../firmware/sim_vivado, not used anymore, simulation is done with Questa simulator
+
 ## [mp7_ugt_v2_1_0] - 2019-07-03
 
 ### Comment

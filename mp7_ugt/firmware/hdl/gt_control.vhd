@@ -1,6 +1,7 @@
 -- Description:
 -- Contains control part ("framework") of Global Trigger firmware.
 
+-- HB 2019-07-03: v2.0.1 - used control_pkg.vhd (with all definitions of "control" part) instead of rb_pkg. 
 -- HB 2019-01-21: v2.0.0 - renamed frame.vhd to gt_control.vhd and inplemented bgo_sync.vhd to this module. 
 
 -- HB 2017-10-10: v1.2.3 - bug fix "simmem_in_use_i" input of spytrig.
@@ -41,7 +42,7 @@ use work.mp7_data_types.all;
 use work.lhc_data_pkg.all;
 use work.frame_addr_decode.all;
 use work.gt_mp7_core_pkg.all;
-use work.rb_pkg.all;
+use work.control_pkg.all;
 use work.mp7_ttc_decl.all;
 use work.fdl_addr_decode.all;
 

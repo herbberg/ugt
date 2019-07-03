@@ -1,11 +1,13 @@
 
+-- HB 2019-07-03: used control_pkg.vhd (with all definitions of "control" part) instead of rb_pkg. 
+
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 use work.gt_mp7_core_pkg.all;
 use work.top_decl.all;
-use work.rb_pkg.all;
+use work.control_pkg.all;
 
 use work.math_pkg.all;
 

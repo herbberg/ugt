@@ -1,4 +1,5 @@
 
+-- HB 2019-07-03: used control_pkg.vhd (with all definitions of "control" part) instead of rb_pkg. 
 -- HB 2016-09-19: Removed "resync" and "stop" from port, not used anymore.
 -- HB 2016-07-04: Signal err_det not used anymore, but remained in the sw_reg_out (used by swatch ?). Removed err_det_reset_old from record, not used anymore.
 -- HB 2016-06-30: Inserted new logic for "start_lumisection" with "oc0" (to prevent 50ns pulse of "start_lumisection" after OC0).
@@ -16,7 +17,7 @@ use IEEE.numeric_std.all;
 library work;
 use work.top_decl.all;
 use work.gt_mp7_core_pkg.all;
-use work.rb_pkg.all;
+use work.control_pkg.all;
 use work.mp7_ttc_decl.all;
 
 entity tcm is

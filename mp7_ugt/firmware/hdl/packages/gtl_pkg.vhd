@@ -1,7 +1,7 @@
 -- Description:
 -- Package for constant and type definitions of GTL firmware in Global Trigger Upgrade system.
 
--- HB 2019-07-03: Moved constants and types for FDL to fdl_pkg.vhd
+-- HB 2019-07-03: Moved constants and types for FDL to fdl_pkg.vhd. Removed MAX_N_OBJ.
 -- HB 2019-06-28: Deleted obsolete types
 -- HB 2019-06-27: Inserted new records for conversions
 -- HB 2019-03-08: L1Menu depending definition moved to l1menu_pkg.vhd
@@ -29,12 +29,6 @@ package gtl_pkg is
            std_logic_vector(to_unsigned(GTL_FW_MAJOR_VERSION, 8)) &
            std_logic_vector(to_unsigned(GTL_FW_MINOR_VERSION, 8)) &
            std_logic_vector(to_unsigned(GTL_FW_REV_VERSION, 8));
-
--- -- FDL firmware version
---     constant FDL_FW_VERSION : std_logic_vector(31 downto 0) := X"00" &
---            std_logic_vector(to_unsigned(FDL_FW_MAJOR_VERSION, 8)) &
---            std_logic_vector(to_unsigned(FDL_FW_MINOR_VERSION, 8)) &
---            std_logic_vector(to_unsigned(FDL_FW_REV_VERSION, 8));
 
 -- *******************************************************************************
 -- Definitions for GTL v2.x.y
@@ -71,8 +65,6 @@ package gtl_pkg is
 -- Global constants
 
     constant MAX_N_REQ : positive := 4; -- max. number of requirements for combinatorial conditions
---     constant MAX_N_OBJ : positive := 12; -- max. number of objects
-    constant MAX_N_OBJ : positive := MAX_N_OBJECTS; -- max. number of objects
     constant MAX_LUT_WIDTH : positive := 16; -- muon qual lut
     constant MAX_OBJ_BITS : positive := 64; -- muon
 
@@ -128,7 +120,7 @@ package gtl_pkg is
     constant MUON_ETA_RAW_WIDTH: positive := MUON_ETA_RAW_HIGH-MUON_ETA_RAW_LOW+1;
     constant MUON_PT_VECTOR_WIDTH: positive := 12; -- max. value 255.5 GeV => 2555 (255.5 * 10**MUON_INV_MASS_PT_PRECISION) => 0x9FB
 
-    -- *******************************************************************************************************
+-- *******************************************************************************************************
 -- CALO objects parameter definition
 
     constant EG_PT_LOW : natural := 0;
@@ -301,7 +293,8 @@ package gtl_pkg is
 -- Constants for correlation cuts
 
     constant DETA_DPHI_PRECISION: positive := 3;
-    constant DETA_DPHI_VECTOR_WIDTH: positive := log2c(max(integer(ETA_RANGE_REAL*(real(10**DETA_DPHI_PRECISION))),integer(PHI_MAX*(real(10**DETA_DPHI_PRECISION)))));    constant CALO_CALO_COSH_COS_VECTOR_WIDTH: positive := 24; -- max. value cosh_deta-cos_dphi => [10597282-(-1000)]=10598282 => 0xA1B78A
+    constant DETA_DPHI_VECTOR_WIDTH: positive := log2c(max(integer(ETA_RANGE_REAL*(real(10**DETA_DPHI_PRECISION))),integer(PHI_MAX*(real(10**DETA_DPHI_PRECISION))))); 
+    constant CALO_CALO_COSH_COS_VECTOR_WIDTH: positive := 24; -- max. value cosh_deta-cos_dphi => [10597282-(-1000)]=10598282 => 0xA1B78A
     constant CALO_MUON_COSH_COS_VECTOR_WIDTH: positive := 27; -- max. value cosh_deta-cos_dphi => [109487199-(-10000)]=109497199 => 0x686CB6F
     constant MUON_MUON_COSH_COS_VECTOR_WIDTH: positive := 20; -- max. value cosh_deta-cos_dphi => [667303-(-10000)]=677303 => 0xA55B7
 
@@ -457,23 +450,23 @@ package gtl_pkg is
         muon, eg, jet, tau : array_conv_bx_record; 
     end record conv_pipeline_record;
     
-    type max_eta_range_array is array (0 to MAX_N_OBJ-1, 0 to MAX_N_OBJ-1) of integer range 0 to integer(ETA_RANGE_REAL/MUON_ETA_STEP)-1; -- 10.0/0.010875 = 919.54 => rounded(919.54) = 920 - number of bins with muon bin width for full (calo) eta range
+    type max_eta_range_array is array (0 to MAX_N_OBJECTS-1, 0 to MAX_N_OBJECTS-1) of integer range 0 to integer(ETA_RANGE_REAL/MUON_ETA_STEP)-1; -- 10.0/0.010875 = 919.54 => rounded(919.54) = 920 - number of bins with muon bin width for full (calo) eta range
     type obj_bx_max_eta_range_array is array (0 to BX_PIPELINE_STAGES-1, 0 to BX_PIPELINE_STAGES-1) of max_eta_range_array;
-    type max_phi_range_array is array (0 to MAX_N_OBJ-1, 0 to MAX_N_OBJ-1) of integer range 0 to max(MUON_PHI_BINS, CALO_PHI_BINS)-1; -- number of bins with muon bin width (=576)
+    type max_phi_range_array is array (0 to MAX_N_OBJECTS-1, 0 to MAX_N_OBJECTS-1) of integer range 0 to max(MUON_PHI_BINS, CALO_PHI_BINS)-1; -- number of bins with muon bin width (=576)
     type obj_bx_max_phi_range_array is array (0 to BX_PIPELINE_STAGES-1, 0 to BX_PIPELINE_STAGES-1) of max_phi_range_array;
     
-    type deta_dphi_vector_array is array (0 to MAX_N_OBJ-1, 0 to MAX_N_OBJ-1) of std_logic_vector(DETA_DPHI_VECTOR_WIDTH-1 downto 0);
+    type deta_dphi_vector_array is array (0 to MAX_N_OBJECTS-1, 0 to MAX_N_OBJECTS-1) of std_logic_vector(DETA_DPHI_VECTOR_WIDTH-1 downto 0);
     type obj_bx_deta_dphi_vector_array is array (0 to BX_PIPELINE_STAGES-1, 0 to BX_PIPELINE_STAGES-1) of deta_dphi_vector_array;
     
-    type corr_cuts_std_logic_array is array (0 to MAX_N_OBJ-1, 0 to MAX_N_OBJ-1,  MAX_CORR_CUTS_WIDTH-1 downto 0) of std_logic;
+    type corr_cuts_std_logic_array is array (0 to MAX_N_OBJECTS-1, 0 to MAX_N_OBJECTS-1,  MAX_CORR_CUTS_WIDTH-1 downto 0) of std_logic;
     type obj_bx_corr_cuts_std_logic_array is array (0 to BX_PIPELINE_STAGES-1, 0 to BX_PIPELINE_STAGES-1) of corr_cuts_std_logic_array;
         
     type corr_cuts_array is array (natural range <>, natural range <>) of std_logic;
 
-    type cosh_cos_vector_array is array (0 to MAX_N_OBJ-1, 0 to MAX_N_OBJ-1) of std_logic_vector(MAX_COSH_COS_WIDTH-1 downto 0);
+    type cosh_cos_vector_array is array (0 to MAX_N_OBJECTS-1, 0 to MAX_N_OBJECTS-1) of std_logic_vector(MAX_COSH_COS_WIDTH-1 downto 0);
     type obj_bx_cosh_cos_vector_array is array (0 to BX_PIPELINE_STAGES-1, 0 to BX_PIPELINE_STAGES-1) of cosh_cos_vector_array;
     
-    type sin_cos_vector_array is array (0 to MAX_N_OBJ-1, 0 to MAX_N_OBJ-1) of std_logic_vector(MAX_SIN_COS_WIDTH-1 downto 0);
+    type sin_cos_vector_array is array (0 to MAX_N_OBJECTS-1, 0 to MAX_N_OBJECTS-1) of std_logic_vector(MAX_SIN_COS_WIDTH-1 downto 0);
     type obj_bx_sin_cos_vector_array is array (0 to BX_PIPELINE_STAGES-1, 0 to BX_PIPELINE_STAGES-1) of sin_cos_vector_array;
     
 -- MUON charge
@@ -524,27 +517,6 @@ package gtl_pkg is
     type slices_type is array (0 to 1) of natural; -- index 0 contains lower slice value, index 1 contains upper slice value
     type slices_type_array is array (1 to MAX_N_REQ) of slices_type;
     
--- *******************************************************************************************************
--- -- FDL definitions
--- -- Definitions for prescalers (for FDL !)
---     constant PRESCALER_COUNTER_WIDTH : integer := 24;
--- -- HB 2019-06-03: inserted for fractional prescaler values 
---     constant PRESCALER_FRACTION_WIDTH : integer := 8; 
---     
--- -- Definitions for rate counters
---     constant RATE_COUNTER_WIDTH : integer := 32;
--- -- HB 2014-02-28: changed vector length of init values for finor- and veto-maks, because of min. 32 bits for register
---     constant MASKS_INIT : ipb_regs_array(0 to MAX_NR_ALGOS-1) := (others => X"00000001"); --Finor and veto masks registers (bit 0 = finor, bit 1 = veto)
---     constant PRESCALE_FACTOR_INIT : ipb_regs_array(0 to MAX_NR_ALGOS-1) := (others => X"00000001"); -- written by TME
--- 
--- -- HB HB 2016-03-02: type definition for "global" index use.
---     type prescale_factor_global_array is array (MAX_NR_ALGOS-1 downto 0) of std_logic_vector(31 downto 0);
---     type prescale_factor_array is array (NR_ALGOS-1 downto 0) of std_logic_vector(31 downto 0); -- same width as PCIe data
--- 
--- -- HB HB 2016-03-02: type definition for "global" index use.
---     type rate_counter_global_array is array (MAX_NR_ALGOS-1 downto 0) of std_logic_vector(RATE_COUNTER_WIDTH-1 downto 0);
---     type rate_counter_array is array (NR_ALGOS-1 downto 0) of std_logic_vector(RATE_COUNTER_WIDTH-1 downto 0);
-
 -- *******************************************************************************************************
     function bx(i : integer) return natural;
     

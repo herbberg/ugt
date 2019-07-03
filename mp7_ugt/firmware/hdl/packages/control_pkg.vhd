@@ -5,6 +5,8 @@
 
 library ieee;
 use IEEE.std_logic_1164.all;
+use ieee.std_logic_unsigned.all;
+use IEEE.numeric_std.all;
 
 library work;
 use work.ipbus.all;

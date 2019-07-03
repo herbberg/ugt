@@ -8,6 +8,7 @@ use IEEE.std_logic_1164.all;
 
 library work;
 use work.ipbus.all;
+use work.math_pkg.all;
 use work.gt_mp7_core_pkg.all;
 use work.top_decl.all;
 

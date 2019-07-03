@@ -2,6 +2,7 @@
 -- Mapping of algo indexes for ROP
 
 -- Version-history:
+-- HB 2019-07-03: inserted use clause fdl_pkg.
 -- HB 2019-06-26: used "l1menu_pkg".
 -- HB 2016-11-17: changed for "prescaler preview" in monitoring. Removed "finor_masks".
 -- HB 2016-09-29: changed to a template which is base for generation of algo_mapping_rop.vhd by script (makeProject.py) during build (similar to "gt_mp7_top_pkg_tpl.vhd").
@@ -13,6 +14,7 @@ use ieee.std_logic_arith.all;
 use ieee.std_logic_unsigned.all;
 
 use work.gtl_pkg.ALL;
+use work.fdl_pkg.ALL;
 use work.gt_mp7_core_pkg.all;
 use work.l1menu_pkg.ALL;
 

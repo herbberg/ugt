@@ -490,6 +490,17 @@ package gtl_pkg is
     type muon_cc_triple_std_logic_array is array (0 to N_MUON_OBJECTS-1, 0 to N_MUON_OBJECTS-1, 0 to N_MUON_OBJECTS-1) of std_logic;
     type muon_cc_quad_std_logic_array is array (0 to N_MUON_OBJECTS-1, 0 to N_MUON_OBJECTS-1, 0 to N_MUON_OBJECTS-1, 0 to N_MUON_OBJECTS-1) of std_logic;
 
+-- HB 2019-07-02: subtypes for l1menu.vhd signals
+
+    subtype eg_obj_t is std_logic_vector(N_EG_OBJECTS-1 downto 0);  
+    subtype jet_obj_t is std_logic_vector(N_JET_OBJECTS-1 downto 0);  
+    subtype tau_obj_t is std_logic_vector(N_TAU_OBJECTS-1 downto 0);  
+    subtype muon_obj_t is std_logic_vector(N_MUON_OBJECTS-1 downto 0);  
+    subtype muon_cc_double_t is muon_cc_double_std_logic_array;  
+    subtype muon_cc_triple_t is muon_cc_triple_std_logic_array;  
+    subtype muon_cc_quad_t is muon_cc_quad_std_logic_array;  
+    subtype eg_jet_t is corr_cuts_array(N_EG_OBJECTS-1 downto 0, N_JET_OBJECTS-1 downto 0);
+    
 -- *******************************************************************************
 -- correlation cuts
     type pt_array is array (natural range <>) of std_logic_vector((MAX_PT_WIDTH)-1 downto 0);

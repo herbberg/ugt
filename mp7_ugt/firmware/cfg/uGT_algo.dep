@@ -8,7 +8,7 @@ src packages/lhc_data_pkg.vhd
 src packages/gt_mp7_core_pkg.vhd
 src packages/gt_mp7_core_addr_decode.vhd
 src packages/frame_addr_decode.vhd
-src packages/rb_pkg.vhd
+src packages/control_pkg.vhd
 src packages/gtl_pkg.vhd
 src packages/fdl_pkg.vhd
 src packages/lut_pkg.vhd

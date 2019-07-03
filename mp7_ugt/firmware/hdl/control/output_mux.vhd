@@ -1,4 +1,7 @@
+-- Description:
+-- Composing structure for read-out record
 
+-- HB 2016-09-16: inserted for L1TM_UID_HASH and FW_UID_HASH
 -- HB 2016-09-16: changed port names for algos for new read-out record structure (see proposal "https://twiki.cern.ch/twiki/bin/view/CMS/UGT_readout_proposal")
 -- JW 2015-11-04: included local veto and finor, included prescale_factor_set_index in readout
 
@@ -17,7 +20,7 @@ use work.mp7_ttc_decl.all;
 -- -- HB 2016-09-16: inserted for L1TM_UID_HASH and FW_UID_HASH
 -- use work.gtl_pkg.ALL;
 -- HB 2016-09-16: inserted for L1TM_UID_HASH and FW_UID_HASH
-use work.l1_menu_pkg.ALL;
+use work.l1menu_pkg.ALL;
 
 entity output_mux is
     generic(

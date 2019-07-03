@@ -5,14 +5,13 @@
 
 library ieee;
 use ieee.std_logic_1164.all;
--- use ieee.std_logic_arith.all;
+use ieee.std_logic_arith.all;
 use ieee.std_logic_unsigned.all;
--- use ieee.numeric_std.all;
+use ieee.numeric_std.all;
 
 use work.lhc_data_pkg.all;
--- use work.math_pkg.all;
 use work.gt_mp7_core_pkg.all;
--- use work.l1menu_pkg.ALL;
+use work.l1menu_pkg.ALL;
 
 package fdl_pkg is
 

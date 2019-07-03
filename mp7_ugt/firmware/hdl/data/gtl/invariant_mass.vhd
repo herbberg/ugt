@@ -2,6 +2,7 @@
 -- Calculation of invariant mass based on LUTs.
 
 -- Version history:
+-- HB 2019-06-28: Changed types.
 -- HB 2019-01-14: No output register.
 -- HB 2018-11-26: First design.
 
@@ -24,9 +25,9 @@ entity invariant_mass is
     port(
         pt1 : in pt_array(N_OBJ_1-1 downto 0);
         pt2 : in pt_array(N_OBJ_2-1 downto 0);
-        cosh_deta : in cosh_cos_vector_array(N_OBJ_1-1 downto 0, N_OBJ_2-1 downto 0);
-        cos_dphi : in cosh_cos_vector_array(N_OBJ_1-1 downto 0, N_OBJ_2-1 downto 0);
-        inv_mass_o : out std_logic_3dim_array(0 to N_OBJ_1-1, 0 to N_OBJ_2-1, (PT1_WIDTH*PT2_WIDTH+COSH_COS_WIDTH)-1 downto 0) := (others => (others => (others => '0')))
+        cosh_deta : in cosh_cos_vector_array;
+        cos_dphi : in cosh_cos_vector_array;
+        inv_mass_o : out corr_cuts_std_logic_array := (others => (others => (others => '0')))
     );
 end invariant_mass;
 

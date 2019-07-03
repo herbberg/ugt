@@ -1,7 +1,10 @@
 -- Description:
 -- Global Trigger Logic module.
 
--- HB 2019-03-08: new strcture with instance of l1menu.vhd
+-- Version-history:
+-- HB 2019-07-03: v2.1.0: created twobody_pt module.
+-- HB 2019-06-27: v2.0.1: changed type of conversion signals.
+-- HB 2019-03-08: v2.0.0: new structure with instance of l1menu.vhd
 
 library ieee;
 use ieee.std_logic_1164.all;
@@ -19,7 +22,7 @@ end gtl_module;
 architecture rtl of gtl_module is
     
     signal data_p : data_pipeline_record;
-    signal conv : conversions_record;
+    signal conv : conv_pipeline_record;
     signal algo : std_logic_vector(NR_ALGOS-1 downto 0) := (others => '0');
 
 begin

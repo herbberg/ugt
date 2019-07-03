@@ -1,6 +1,8 @@
 -- Description:
 -- Testbench for simulation of conversions.vhd
 
+-- HB 2019-07-03: used control_pkg.vhd (with all definitions of "control" part) instead of rb_pkg. 
+
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.std_logic_arith.all;
@@ -12,7 +14,7 @@ use std.textio.all;
 
 use work.gt_mp7_core_pkg.all;
 use work.gtl_pkg.all;
-use work.rb_pkg.all;
+use work.control_pkg.all;
 
 entity tcm_tb is
 end tcm_tb;

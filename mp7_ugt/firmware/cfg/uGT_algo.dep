@@ -7,6 +7,12 @@ src packages/math_pkg.vhd
 src packages/lhc_data_pkg.vhd
 src packages/gt_mp7_core_pkg.vhd
 src packages/gt_mp7_core_addr_decode.vhd
+src packages/frame_addr_decode.vhd
+src packages/control_pkg.vhd
+src packages/gtl_pkg.vhd
+src packages/fdl_pkg.vhd
+src packages/lut_pkg.vhd
+src packages/fdl_addr_decode.vhd
 #
 ## HB 2019-06-26: l1menu.vhd and l1menu_pkg.vhd added via tcl script for every module in top.dep
 
@@ -14,8 +20,6 @@ src data/data_cdc.vhd
 src data/data_cdc_lmp.vhd
 src data/gtl_fdl_wrapper.vhd
 #
-src data/gtl/gtl_pkg.vhd
-src data/gtl/lut_pkg.vhd
 src data/gtl/gtl_module.vhd
 src data/gtl/delay_pipeline.vhd
 src data/gtl/bx_pipeline.vhd
@@ -41,7 +45,6 @@ src data/gtl/muon_charge_correlations.vhd
 src data/gtl/reg_mux.vhd
 #
 src data/fdl/algo_mapping_rop.vhd
-src data/fdl/fdl_addr_decode.vhd
 src data/fdl/fdl_module.vhd
 src data/fdl/algo_rate_counter.vhd
 src data/fdl/algo_post_dead_time_counter.vhd
@@ -54,12 +57,10 @@ src data/fdl/pulse_converter.vhd
 src data/fdl/algo_slice.vhd
 #
 src control/bgo_sync.vhd
-src control/rb_pkg.vhd
 src control/rb.vhd
 src control/tcm.vhd
 src control/spytrig.vhd
 src control/frame_fabric.vhd
-src control/frame_addr_decode.vhd
 src control/frame_module_info.vhd
 src control/delay_element.vhd
 src control/mux.vhd

@@ -28,11 +28,11 @@ vmap work work
 
 #Top Entity the design
 vcom -93 -work work $GT_SRC/lhc_data_pkg.vhd
-vcom -93 -work work $GT_SRC/gt_mp7_core/gt_mp7_core_pkg_sim.vhd
-vcom -93 -work work $GT_SRC/math_pkg.vhd
-vcom -93 -work work $GT_SRC/gt_mp7_core/gtl_fdl_wrapper/gtl/gtl_pkg_sim.vhd
-vcom -93 -work work $GT_SRC/gt_mp7_core/gtl_fdl_wrapper/gtl/muon_charge_correlations.vhd
-vcom -93 -work work $GT_SRC/gt_mp7_core/gtl_fdl_wrapper/gtl/comparator_muon_charge_corr.vhd
+vcom -93 -work work $GT_SRC/data/gt_mp7_core_pkg.vhd
+vcom -93 -work work $GT_SRC/packages/math_pkg.vhd
+vcom -93 -work work $GT_SRC/data/gtl/gtl_pkg.vhd
+vcom -93 -work work $GT_SRC/data/gtl/muon_charge_correlations.vhd
+vcom -93 -work work $GT_SRC/data/gtl/comparator_muon_charge_corr.vhd
 
 #Testbench
 vcom -93 -work work $TESTBENCH/muon_charge_correlation_tb.vhd

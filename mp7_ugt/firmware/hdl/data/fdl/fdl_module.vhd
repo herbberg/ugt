@@ -2,6 +2,8 @@
 -- FDL structure
 
 -- Version-history:
+-- HB 2019-07-03: v1.3.2 - based on v1.3.1, inserted use clause fdl_pkg.
+-- HB 2019-06-28: v1.3.1 - based on v1.3.0, fixed typo.
 -- HB 2019-06-14: v1.3.0 - based on v1.2.2, implemented possibility for fractional pre-scaler values.
 -- HB 2017-01-10: v1.2.2 - based on v1.2.1, but fixed bug with 1 bx delay for "begin_lumi_per" (in algo_slice.vhd) for rate counter after pre-scaler.
 -- HB 2016-12-01: v1.2.1 - based on v1.2.0, but inserted rate counter and register for finor with "prescaler preview" in monitoring.
@@ -62,6 +64,7 @@ use ieee.std_logic_unsigned.ALL; -- for function "CONV_INTEGER"
 use work.ipbus.all;
 
 use work.gtl_pkg.ALL;
+use work.fdl_pkg.ALL;
 
 use work.gt_mp7_core_pkg.ALL;
 use work.fdl_addr_decode.all;

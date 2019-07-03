@@ -27,10 +27,10 @@ vlib work
 vmap work work
 
 #Top Entity the design
-vcom -93 -work work $GT_SRC/math_pkg.vhd
-vcom -93 -work work $GT_SRC/gt_mp7_core/gt_mp7_core_pkg.vhd
-vcom -93 -work work $GT_SRC/gt_mp7_core/frame/dm/delay_element.vhd
-vcom -93 -work work $GT_SRC/gt_mp7_core/gtl_fdl_wrapper/fdl/algo_post_dead_time_counter.vhd
+vcom -93 -work work $GT_SRC/packages/math_pkg.vhd
+vcom -93 -work work $GT_SRC/data/gt_mp7_core_pkg.vhd
+vcom -93 -work work $GT_SRC/control/delay_element.vhd
+vcom -93 -work work $GT_SRC/data/fdl/algo_post_dead_time_counter.vhd
 
 #Testbench
 vcom -93 -work work $TESTBENCH/algo_post_dead_time_counter_tb.vhd

@@ -1,7 +1,9 @@
 -- Description:
--- Package for LUTs of GTL firmware in Global Trigger Upgrade system.
+-- Package for LUTs of GTL firmware.
 
--- HB 2018-12-06: separated from gtl_pkg.vhd.
+-- Version history:
+-- HB 2019-06-28: Deleted obsolete constants and types.
+-- HB 2018-12-06: Separated from gtl_pkg.vhd.
 
 library ieee;
 use ieee.std_logic_1164.all;
@@ -16,75 +18,6 @@ use work.gt_mp7_core_pkg.all;
 use work.gtl_pkg.all;
 
 package lut_pkg is
-
--- constant EG_EG_DETA_PRECISION: positive := 3;
--- constant EG_JET_DETA_PRECISION: positive := 3;
--- constant EG_TAU_DETA_PRECISION: positive := 3;
--- constant JET_EG_DETA_PRECISION: positive := 3;
--- constant JET_JET_DETA_PRECISION: positive := 3;
--- constant JET_TAU_DETA_PRECISION: positive := 3;
--- constant TAU_EG_DETA_PRECISION: positive := 3;
--- constant TAU_JET_DETA_PRECISION: positive := 3;
--- constant TAU_TAU_DETA_PRECISION: positive := 3;
--- constant EG_MUON_DETA_PRECISION: positive := 3;
--- constant JET_MUON_DETA_PRECISION: positive := 3;
--- constant TAU_MUON_DETA_PRECISION: positive := 3;
--- constant MUON_MUON_DETA_PRECISION: positive := 3;
--- 
--- constant EG_EG_DPHI_PRECISION: positive := 3;
--- constant EG_JET_DPHI_PRECISION: positive := 3;
--- constant EG_TAU_DPHI_PRECISION: positive := 3;
--- constant JET_EG_DPHI_PRECISION: positive := 3;
--- constant JET_JET_DPHI_PRECISION: positive := 3;
--- constant JET_TAU_DPHI_PRECISION: positive := 3;
--- constant TAU_EG_DPHI_PRECISION: positive := 3;
--- constant TAU_JET_DPHI_PRECISION: positive := 3;
--- constant TAU_TAU_DPHI_PRECISION: positive := 3;
--- constant EG_MUON_DPHI_PRECISION: positive := 3;
--- constant JET_MUON_DPHI_PRECISION: positive := 3;
--- constant TAU_MUON_DPHI_PRECISION: positive := 3;
--- constant MUON_MUON_DPHI_PRECISION: positive := 3;
--- 
--- constant EG_ETM_DPHI_PRECISION: positive := 3;
--- constant JET_ETM_DPHI_PRECISION: positive := 3;
--- constant TAU_ETM_DPHI_PRECISION: positive := 3;
--- constant MUON_ETM_DPHI_PRECISION: positive := 3;
--- constant EG_HTM_DPHI_PRECISION: positive := 3;
--- constant JET_HTM_DPHI_PRECISION: positive := 3;
--- constant TAU_HTM_DPHI_PRECISION: positive := 3;
--- constant MUON_HTM_DPHI_PRECISION: positive := 3;
--- constant EG_ETMHF_DPHI_PRECISION: positive := 3;
--- constant JET_ETMHF_DPHI_PRECISION: positive := 3;
--- constant TAU_ETMHF_DPHI_PRECISION: positive := 3;
--- constant MUON_ETMHF_DPHI_PRECISION: positive := 3;
--- -- HB 2017-06-21: for correlation conditions v2
--- constant MU_ETM_DPHI_PRECISION: positive := 3;
--- constant MU_HTM_DPHI_PRECISION: positive := 3;
--- constant MU_ETMHF_DPHI_PRECISION: positive := 3;
--- 
--- constant EG_EG_DETA_DPHI_PRECISION: positive := max(EG_EG_DETA_PRECISION, EG_EG_DPHI_PRECISION);
--- constant EG_JET_DETA_DPHI_PRECISION: positive := max(EG_JET_DETA_PRECISION, EG_JET_DPHI_PRECISION);
--- constant EG_TAU_DETA_DPHI_PRECISION: positive := max(EG_TAU_DETA_PRECISION, EG_TAU_DPHI_PRECISION);
--- constant JET_EG_DETA_DPHI_PRECISION: positive := max(JET_EG_DETA_PRECISION, JET_EG_DPHI_PRECISION);
--- constant JET_JET_DETA_DPHI_PRECISION: positive := max(JET_JET_DETA_PRECISION, JET_JET_DPHI_PRECISION);
--- constant JET_TAU_DETA_DPHI_PRECISION: positive := max(JET_TAU_DETA_PRECISION, JET_TAU_DPHI_PRECISION);
--- constant TAU_EG_DETA_DPHI_PRECISION: positive := max(TAU_EG_DETA_PRECISION, TAU_EG_DPHI_PRECISION);
--- constant TAU_JET_DETA_DPHI_PRECISION: positive := max(TAU_JET_DETA_PRECISION, TAU_JET_DPHI_PRECISION);
--- constant TAU_TAU_DETA_DPHI_PRECISION: positive := max(TAU_TAU_DETA_PRECISION, TAU_TAU_DPHI_PRECISION);
--- constant EG_MUON_DETA_DPHI_PRECISION: positive := max(EG_MUON_DETA_PRECISION, EG_MUON_DPHI_PRECISION);
--- constant JET_MUON_DETA_DPHI_PRECISION: positive := max(JET_MUON_DETA_PRECISION, JET_MUON_DPHI_PRECISION);
--- constant TAU_MUON_DETA_DPHI_PRECISION: positive := max(TAU_MUON_DETA_PRECISION, TAU_MUON_DPHI_PRECISION);
--- constant MUON_MUON_DETA_DPHI_PRECISION: positive := max(MUON_MUON_DETA_PRECISION, MUON_MUON_DPHI_PRECISION);
--- -- HB 2017-01-20: for correlation conditions v2
--- constant EG_MU_DETA_DPHI_PRECISION: positive := max(EG_MUON_DETA_PRECISION, EG_MUON_DPHI_PRECISION);
--- constant JET_MU_DETA_DPHI_PRECISION: positive := max(JET_MUON_DETA_PRECISION, JET_MUON_DPHI_PRECISION);
--- constant TAU_MU_DETA_DPHI_PRECISION: positive := max(TAU_MUON_DETA_PRECISION, TAU_MUON_DPHI_PRECISION);
--- constant MU_MU_DETA_DPHI_PRECISION: positive := max(MUON_MUON_DETA_PRECISION, MUON_MUON_DPHI_PRECISION);
--- 
--- constant MAX_DETA_DPHI_TEMP_1: positive := max(EG_EG_DETA_DPHI_PRECISION, EG_JET_DETA_DPHI_PRECISION, EG_TAU_DETA_DPHI_PRECISION);
--- constant MAX_DETA_DPHI_TEMP_2: positive := max(JET_JET_DETA_DPHI_PRECISION, JET_TAU_DETA_DPHI_PRECISION, TAU_TAU_DETA_DPHI_PRECISION);
--- constant MAX_DETA_DPHI_TEMP_3: positive := max(EG_MUON_DETA_DPHI_PRECISION, JET_MUON_DETA_DPHI_PRECISION, TAU_MUON_DETA_DPHI_PRECISION);
--- constant MAX_DETA_DPHI_TEMP_4: positive := max(MUON_MUON_DETA_DPHI_PRECISION, MAX_DETA_DPHI_TEMP_1, MAX_DETA_DPHI_TEMP_2);
 
 -- subtypes for ranges of limits
 subtype diff_eta_range_real is real range 0.0 to ETA_RANGE_REAL;
@@ -142,10 +75,6 @@ constant ETM_PT_PRECISION : positive := 1;
 constant ETMHF_PT_PRECISION : positive := 1;
 constant HTM_PT_PRECISION : positive := 1;
 constant HTMHF_PT_PRECISION : positive := 1;
--- moved to gtl_pkg.vhd
--- constant ETM_PT_VECTOR_WIDTH: positive := log2c((2**(ETM_PT_HIGH-ETM_PT_LOW+1)-1)*(10**ETM_PT_PRECISION));
--- constant ETMHF_PT_VECTOR_WIDTH: positive := log2c((2**(ETMHF_PT_HIGH-ETMHF_PT_LOW+1)-1)*(10**ETMHF_PT_PRECISION));
--- constant HTM_PT_VECTOR_WIDTH: positive := log2c((2**(HTM_PT_HIGH-HTM_PT_LOW+1)-1)*(10**HTM_PT_PRECISION));
 
 -- constant CALO_INV_MASS_COSH_COS_PRECISION : positive := 3; -- 3 digits after decimal point (after roundimg to the 5th digit)
 constant EG_EG_COSH_COS_PRECISION : positive := 3;
@@ -166,27 +95,6 @@ constant TAU_ETMHF_COSH_COS_PRECISION : positive := 3;
 constant EG_HTM_COSH_COS_PRECISION : positive := 3;
 constant JET_HTM_COSH_COS_PRECISION : positive := 3;
 constant TAU_HTM_COSH_COS_PRECISION : positive := 3;
-
--- constant EG_EG_COSH_COS_VECTOR_WIDTH: positive := log2c(10597282-(-1000)); -- [10597282-(-1000)]=10598282 => 0xA1B78A
--- constant EG_JET_COSH_COS_VECTOR_WIDTH: positive := log2c(10597282-(-1000));
--- constant EG_TAU_COSH_COS_VECTOR_WIDTH: positive := log2c(10597282-(-1000));
--- constant JET_EG_COSH_COS_VECTOR_WIDTH: positive := log2c(10597282-(-1000));
--- constant JET_JET_COSH_COS_VECTOR_WIDTH: positive := log2c(10597282-(-1000));
--- constant JET_TAU_COSH_COS_VECTOR_WIDTH: positive := log2c(10597282-(-1000));
--- constant TAU_EG_COSH_COS_VECTOR_WIDTH: positive := log2c(10597282-(-1000));
--- constant TAU_JET_COSH_COS_VECTOR_WIDTH: positive := log2c(10597282-(-1000));
--- constant TAU_TAU_COSH_COS_VECTOR_WIDTH: positive := log2c(10597282-(-1000));
--- constant EG_ETM_COSH_COS_VECTOR_WIDTH: positive := log2c(10597282-(-1000));
--- constant EG_ETMHF_COSH_COS_VECTOR_WIDTH: positive := log2c(10597282-(-1000));
--- constant EG_HTM_COSH_COS_VECTOR_WIDTH: positive := log2c(10597282-(-1000));
--- constant JET_ETM_COSH_COS_VECTOR_WIDTH: positive := log2c(10597282-(-1000));
--- constant JET_ETMHF_COSH_COS_VECTOR_WIDTH: positive := log2c(10597282-(-1000));
--- constant JET_HTM_COSH_COS_VECTOR_WIDTH: positive := log2c(10597282-(-1000));
--- constant TAU_ETM_COSH_COS_VECTOR_WIDTH: positive := log2c(10597282-(-1000));
--- constant TAU_ETMHF_COSH_COS_VECTOR_WIDTH: positive := log2c(10597282-(-1000));
--- constant TAU_HTM_COSH_COS_VECTOR_WIDTH: positive := log2c(10597282-(-1000));
--- -- HB 2017-01-19: fix value for CALO_COSH_COS_VECTOR_WIDTH
--- constant CALO_COSH_COS_VECTOR_WIDTH: positive := log2c(10597282-(-1000));
 
 -- HB 2016-12-13: Calos -> type definition for twobody-pt calculation
 constant EG_ETM_PT_PRECISION : positive := 1;
@@ -277,12 +185,6 @@ constant EG_MU_SIN_COS_PRECISION : positive := 4;
 constant JET_MU_SIN_COS_PRECISION : positive := 4;
 constant TAU_MU_SIN_COS_PRECISION : positive := 4;
 constant MU_MU_SIN_COS_PRECISION : positive := 4;
-
--- subtypes used in sub_eta_integer_obj_vs_obj.vhd and sub_phi_integer_obj_vs_obj
-subtype max_eta_range_integer is integer range 0 to integer(ETA_RANGE_REAL/MUON_ETA_STEP)-1; -- 10.0/0.010875 = 919.54 => rounded(919.54) = 920 - number of bins with muon bin width for full (calo) eta range
-type dim2_max_eta_range_array is array (natural range <>, natural range <>) of max_eta_range_integer;
-subtype max_phi_range_integer is integer range 0 to max(MUON_PHI_BINS, CALO_PHI_BINS)-1; -- number of bins with muon bin width (=576)
-type dim2_max_phi_range_array is array (natural range <>, natural range <>) of max_phi_range_integer;
 
 -- HB 2017-10-02: Max. vector width for limits of correlation cuts
 constant MAX_WIDTH_DETA_DPHI_LIMIT_VECTOR : positive := 32;

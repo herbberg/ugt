@@ -1,4 +1,5 @@
 
+-- HB 2019-07-03: used control_pkg.vhd (with all definitions of "control" part) instead of rb_pkg. 
 -- HB 2017-10-12: removed sw_reset (frame v1.2.3)
 -- HB 2017-09-08: reduced registers for frame v1.2.1 - no dm, no dsmux
 
@@ -11,7 +12,7 @@ use work.ipbus.all;
 use work.ipbus_reg_types.all;
 use work.gt_mp7_core_pkg.all;
 use work.math_pkg.all;
-use work.rb_pkg.all;
+use work.control_pkg.all;
 
 entity rb is
     port

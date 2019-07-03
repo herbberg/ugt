@@ -294,10 +294,15 @@ def run_simulation_questa(a_mp7_tag, a_menu, a_vivado, a_questasim, a_questasiml
             vhdl_file_local_path = os.path.join(temp_dir_module, vhdl_name_ext)
             #print "vhdl_file_local_path: ", vhdl_file_local_path
             vhdl_file_path = os.path.join(vhdl_src_path, vhdl_name_ext)
-            url = "{}/{}".format(url_menu, vhdl_file_path)    
-            #print "url: ", url
-            download_file_from_url(url, vhdl_file_local_path)
- 
+            #url = "{}/{}".format(url_menu, vhdl_file_path)    
+            ##print "url: ", url
+            #download_file_from_url(url, vhdl_file_local_path)
+            
+        # Using local repo for tests (l1menu.vhd and l1menu_pkg.vhd)
+        vhdl_local_src = "/home/bergauer/github/herbberg/l1menus_gtl_v2_x_y/{}/{}".format(a_menu, vhdl_src_path)
+        #print "vhdl_local_src: ", vhdl_local_src
+        copy_tree(vhdl_local_src, temp_dir_module)    
+            
     if not os.path.exists(menu_filepath):#checks for menu
         raise RuntimeError('Missing %s File' % menu_filepath)#help
     if not os.path.exists(testvector_filepath):#checks for testvector
@@ -324,7 +329,6 @@ def run_simulation_questa(a_mp7_tag, a_menu, a_vivado, a_questasim, a_questasiml
 
         logging.debug('Module_%d created at %s' % (module._id, base_dir))
 
-        #module.make_files(sim_dir, a_view_wave, a_mp7_tag, a_menu)#sim_dir, view_wave, mp7_tag, menu_path
         module.make_files(sim_dir, a_view_wave, a_mp7_tag, temp_dir)#sim_dir, view_wave, mp7_tag, temp_dir
 
     logging.info('finished creating modules and masks')
@@ -455,7 +459,9 @@ def run_simulation_questa(a_mp7_tag, a_menu, a_vivado, a_questasim, a_questasiml
     else:
         logging.error(failed_red)
         logging.info("===========================================================================")
-        raise RuntimeError('Exit on simulation error !!!')
+        #raise RuntimeError('Exit on simulation error !!!')
+        print ("\033[1;31mExit on simulation error !!! \033[0m")
+        sys.exit()
 
 def parse():
     parser = argparse.ArgumentParser()

@@ -27,6 +27,7 @@ Versions of ugt with new GTL structure (v2.0.0 and higher)
   ../sim/scripts/templates/gtl_fdl_wrapper_tpl_questa_v2018.2.do
   ../sim/scripts/templates/gtl_fdl_wrapper_tpl_questa_v2018.3.do
   ../cfg/uGT_algo.dep
+- inserted use clause fdl_pkg in files
 
 ## [mp7_ugt_v2_0_2] - 2019-06-26
 

@@ -15,8 +15,11 @@ Versions of ugt with new GTL structure (v2.0.0 and higher)
 ### Added
 
 ### Changed
-- deleted directory ../firmware/sim_vivado, not used anymore, simulation is done with Questa simulator
-- deleted ../hdl/packages/rb_pkg.vhd, not used anymore (see control_pkg.vhd)
+- types for inputs and outputs in diff_eta_lut.vhd, diff_phi_lut.vhd and delta_r.vhd
+
+### Removed
+- directory ../firmware/sim_vivado, not used anymore, simulation is done with Questa simulator
+- ../hdl/packages/rb_pkg.vhd, not used anymore (see control_pkg.vhd)
 
 ## [mp7_ugt_v2_1_0] - 2019-07-03
 

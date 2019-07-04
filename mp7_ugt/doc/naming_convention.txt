@@ -1,31 +1,36 @@
 Naming conventions of signals in l1menu.vhd:
 
 1. Calculations outputs
+
+1.1. Differences
+    signal sub_eta_<obj type 1>_<obj type 2> : obj_bx_max_eta_range_array;
+    signal sub_phi_<obj type 1>_<obj type 2> : obj_bx_max_phi_range_array;
+
+1.2. Correlation cuts
+    signal <correlation cut>_<obj type 1>_<obj type 2> : obj_bx_corr_cuts_std_logic_array;
+
+1.3. Muon charge correlation
     signal cc_double : obj_bx_muon_cc_double_array;
     signal cc_triple : obj_bx_muon_cc_triple_array;
     signal cc_quad : obj_bx_muon_cc_quad_array;
-    signal sub_eta_<obj type 1>_<obj type 2> : obj_bx_max_eta_range_array;
-    signal sub_phi_<obj type 1>_<obj type 2> : obj_bx_max_phi_range_array;
-    signal deta_<obj type 1>_<obj type 2> : obj_bx_deta_dphi_vector_array;
-    signal dphi_<obj type 1>_<obj type 2> : obj_bx_deta_dphi_vector_array;
-    signal dr_<obj type 1>_<obj type 2> : obj_bx_corr_cuts_std_logic_array;
-    signal inv_mass_<obj type 1>_<obj type 2> : obj_bx_corr_cuts_std_logic_array;
-    signal trans_mass_<obj type 1>_<obj type 2> : obj_bx_corr_cuts_std_logic_array;
-    signal tbpt_<obj type 1>_<obj type 2> : obj_bx_corr_cuts_std_logic_array;
 
 2. Comparators outputs
+
 2.1. Object cuts
-    signal comp_<cut type>_<number> : <obj type>_obj_t;
+    signal <obj type>_<cut type>_<number> : <obj type>_obj_t;
+
 2.2. Correlation cuts
-    signal comp_<cut type>_<number> : <obj type 1>_<obj type 2>_obj_t;
+    signal <obj type 1>_<obj type 2>_<cut type>_<number> : <obj type 1>_<obj type 2>_obj_t;
+
 2.3. Muon charge correlation
-    signal comp_cc_double_<number> : muon_cc_double_t;
-    signal comp_cc_triple_<number> : muon_cc_triple_t;
-    signal comp_cc_quad_<number> : muon_cc_quad_t;
+    signal cc_double_<number> : muon_cc_double_t;
+    signal cc_triple_<number> : muon_cc_triple_t;
+    signal cc_quad_<number> : muon_cc_quad_t;
 
 3. Conditions inputs
+
 3.1. Object cuts
-    signal <name>_<number> : <obj type>_obj_t;
+    signal <obj type>_cuts_and_<number> : <obj type>_obj_t;
 
 4. Conditions outputs
     signal <condition name> : std_logic;

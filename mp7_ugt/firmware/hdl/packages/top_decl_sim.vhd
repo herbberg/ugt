@@ -7,7 +7,7 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.all;
 
-use work.mp7_top_decl.all;
+-- use work.mp7_top_decl.all;
 
 package top_decl is
 

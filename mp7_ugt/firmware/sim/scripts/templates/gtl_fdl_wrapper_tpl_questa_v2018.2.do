@@ -38,6 +38,7 @@ vmap work work
 vcom -93 -work work $MP7_COMPONENTS/mp7_datapath/firmware/hdl/mp7_data_types.vhd
 vcom -93 -work work $MP7_COMPONENTS/ipbus_core/firmware/hdl/ipbus_package.vhd
 vcom -93 -work work $MP7_COMPONENTS/ipbus_core/firmware/hdl/ipbus_trans_decl.vhd
+vcom -93 -work work $MENU_DIR/l1menu_pkg.vhd
 vcom -93 -work work $HDL_DIR/packages/lhc_data_pkg.vhd
 vcom -93 -work work $HDL_DIR/packages/math_pkg.vhd
 vcom -93 -work work $HDL_DIR/packages/top_decl_sim.vhd
@@ -46,7 +47,6 @@ vcom -93 -work work $HDL_DIR/packages/gtl_pkg.vhd
 vcom -93 -work work $HDL_DIR/packages/fdl_pkg.vhd
 vcom -93 -work work $HDL_DIR/packages/lut_pkg.vhd
 vcom -93 -work work $HDL_DIR/packages/fdl_addr_decode.vhd
-vcom -93 -work work $MENU_DIR/l1menu_pkg.vhd
 vcom -93 -work work $TB_DIR/lhc_data_debug_util_pkg.vhd
 vcom -93 -work work $TB_DIR/txt_util_pkg.vhd
 

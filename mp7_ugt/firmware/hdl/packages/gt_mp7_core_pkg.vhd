@@ -1,5 +1,16 @@
+-- Description:
+-- Package for versions and global definitions of ugt.
 
--- actual versions:
+-- Version-history of gt_mp7_core_pkg:
+-- HB 2019-07-03: moved TCM part and functions to control_pkg.vhd
+-- HB 2019-07-03: cleaned up MAX_CALO_OBJECTS and MAX_N_OBJECTS
+-- HB 2019-01-24: moved replacement of "IPBUS_TIMESTAMP", etc. from gt_mp7_top_pkg (which is obsolete now). [Therefore changed "makeProject.py" script]
+-- HB 2019-01-22: cleaned up
+-- HB 2016-09-19: removed more unused constants
+-- HB 2016-06-30: removed unused constants and cleaned up
+
+-- ===================================================================================
+-- actual versions of ugt:
 -- use "FRAME_VERSION" as mp7_ugt release fw version (used for tag name)
 -- mp7_ugt (=FRAME_VERSION): v2.2.0
 --
@@ -7,12 +18,11 @@
 --  gtl: v2.1.0
 --  fdl: v1.3.2
 
--- HB 2019-07-03: moved TCM part and functions to control_pkg.vhd
--- HB 2019-07-03: cleaned up MAX_CALO_OBJECTS and MAX_N_OBJECTS
--- HB 2019-01-24: moved replacement of "IPBUS_TIMESTAMP", etc. from gt_mp7_top_pkg (which is obsolete now). [Therefore changed "makeProject.py" script]
--- HB 2019-01-22: cleaned up
--- HB 2016-09-19: removed more unused constants
--- HB 2016-06-30: removed unused constants and cleaned up
+-- Version-history of GTL part:
+-- HB 2019-07-03: v2.1.0: created twobody_pt.vhd module.
+-- HB 2019-06-27: v2.0.1: changed type of conversion signals in bx_pipeline.vhd.
+-- HB 2019-03-08: v2.0.0: new structure with instance of l1menu.vhd in gtl_module.vhd
+-- ===================================================================================
 
 library IEEE;
 use ieee.std_logic_1164.all;

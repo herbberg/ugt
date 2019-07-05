@@ -30,7 +30,7 @@ Naming conventions of signals in l1menu.vhd:
 3. Conditions inputs
 
 3.1. Object cuts
-    signal <obj type>_cuts_and_<number> : <obj type>_obj_t;
+    signal <obj type>_cuts_<number> : <obj type>_obj_t;
 
 4. Conditions outputs
     signal <condition name> : std_logic;

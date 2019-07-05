@@ -390,18 +390,12 @@ package gtl_pkg is
         htt : htt_record;
         etm : etm_record;
         htm : htm_record;
-        mbt1hfp : mb_record;
-        mbt1hfm : mb_record;
-        mbt0hfp : mb_record;
-        mbt0hfm : mb_record;
+        mbt1hfp, mbt1hfm, mbt0hfp, mbt0hfm : mb_record;
         ettem : ettem_record;
         etmhf : etmhf_record;
         htmhf : htmhf_record;
         towercount : towercount_record;
-        asymet : asym_record;
-        asymht : asym_record;
-        asymethf : asym_record;
-        asymhthf : asym_record;
+        asymet, asymht, asymethf, asymhthf : asym_record;
         centrality : std_logic_vector(NR_CENTRALITY_BITS-1 downto 0);
         external_conditions : std_logic_vector(EXTERNAL_CONDITIONS_DATA_WIDTH-1 downto 0);
     end record gtl_data_record;
@@ -409,13 +403,7 @@ package gtl_pkg is
     type obj_parameter_array is array (0 to MAX_N_OBJECTS-1) of std_logic_vector(MAX_OBJ_PARAMETER_WIDTH-1 downto 0);    
     
     type obj_bx_record is record
-        pt : obj_parameter_array;
-        eta : obj_parameter_array;
-        phi : obj_parameter_array;
-        iso : obj_parameter_array;
-        qual : obj_parameter_array;
-        charge : obj_parameter_array;
-        count : obj_parameter_array;
+        pt, eta, phi, iso, qual, charge, count : obj_parameter_array;
     end record obj_bx_record;
     
     type array_obj_bx_record is array (0 to BX_PIPELINE_STAGES-1) of obj_bx_record; -- used for outputs of bx_pipeline module  

@@ -2,6 +2,7 @@
 -- Correlation conditions
 
 -- Version-history:
+-- HB 2019-07-16: Cleaned up.
 -- HB 2019-06-28: Changed types, inserted use clause.
 -- HB 2018-12-21: First design.
 
@@ -43,25 +44,12 @@ architecture rtl of correlation_conditions is
 
     constant N_SLICE_1 : positive := SLICES(1)(1) - SLICES(1)(0) + 1;
     constant N_SLICE_2 : positive := SLICES(2)(1) - SLICES(2)(0) + 1;
-    constant DEF_VAL_2DIM : corr_cuts_array(0 to N_OBJ_1-1, 0 to N_OBJ_2-1) := (others => (others => '1'));
-    signal deta_i : corr_cuts_array(0 to N_OBJ_1-1, 0 to N_OBJ_2-1);
-    signal dphi_i : corr_cuts_array(0 to N_OBJ_1-1, 0 to N_OBJ_2-1);
-    signal dr_i : corr_cuts_array(0 to N_OBJ_1-1, 0 to N_OBJ_2-1);
-    signal inv_mass_i : corr_cuts_array(0 to N_OBJ_1-1, 0 to N_OBJ_2-1);
-    signal trans_mass_i : corr_cuts_array(0 to N_OBJ_1-1, 0 to N_OBJ_2-1);
-    signal tbpt_i : corr_cuts_array(0 to N_OBJ_1-1, 0 to N_OBJ_2-1);
     signal cc_double_i : corr_cuts_array(0 to N_OBJ_1-1, 0 to N_OBJ_2-1) := (others => (others => '1'));
     signal cond_and_or, cond_o_v : std_logic_vector(0 to 0);
 
 begin
 
-    deta_i <= deta when DETA_SEL else DEF_VAL_2DIM;
-    dphi_i <= dphi when DPHI_SEL else DEF_VAL_2DIM;
-    dr_i <= delta_r when DR_SEL else DEF_VAL_2DIM;
-    inv_mass_i <= inv_mass when INV_MASS_SEL else DEF_VAL_2DIM;
-    trans_mass_i <= trans_mass when TRANS_MASS_SEL else DEF_VAL_2DIM;
-    tbpt_i <= tbpt when TBPT_SEL else DEF_VAL_2DIM;
-    
+-- Creating internal charge correlations for muon objects
     cc_i: if CHARGE_CORR_SEL generate
         l1: for i in 0 to N_MUON_OBJECTS-1 generate
             l2: for j in 0 to N_MUON_OBJECTS-1 generate
@@ -70,7 +58,8 @@ begin
         end generate;    
     end generate;    
 
-    and_or_p: process(in_1, in_2, deta_i, dphi_i, dr_i, inv_mass_i, trans_mass_i, tbpt_i, cc_double_i)
+-- AND-OR matrix
+    and_or_p: process(in_1, in_2, deta, dphi, delta_r, inv_mass, trans_mass, tbpt, cc_double_i)
         variable index : integer := 0;
         variable and_vec : std_logic_vector((N_SLICE_1*N_SLICE_2) downto 1) := (others => '0');
         variable tmp : std_logic := '0';
@@ -81,8 +70,8 @@ begin
         for i in SLICES(1)(0) to SLICES(1)(1) loop
             for j in SLICES(2)(0) to SLICES(2)(1) loop
                 index := index + 1;
-                and_vec(index) := in_1(i) and in_2(j) and deta_i(i,j) and dphi_i(i,j) and dr_i(i,j) and 
-                    inv_mass_i(i,j) and trans_mass_i(i,j) and tbpt_i(i,j) and cc_double_i(i,j);
+                and_vec(index) := in_1(i) and in_2(j) and deta(i,j) and dphi(i,j) and delta_r(i,j) and 
+                    inv_mass(i,j) and trans_mass(i,j) and tbpt(i,j) and cc_double_i(i,j);
             end loop;
         end loop;
         for i in 1 to index loop
@@ -91,6 +80,7 @@ begin
         cond_and_or(0) <= tmp;
     end process and_or_p;
 
+-- Condition output register (default setting: no register)
     out_reg_i : entity work.reg_mux
         generic map(1, OUT_REG_COND)  
         port map(clk, cond_and_or, cond_o_v);

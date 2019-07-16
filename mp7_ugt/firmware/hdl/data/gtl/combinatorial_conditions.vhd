@@ -2,6 +2,7 @@
 -- Combinatorial conditions
 
 -- Version-history:
+-- HB 2019-07-16: Cleaned up.
 -- HB 2019-06-28: Changed types, inserted use clause.
 -- HB 2018-12-21: First design.
 
@@ -37,23 +38,17 @@ architecture rtl of combinatorial_conditions is
     constant N_SLICE_3 : positive := SLICES(3)(1) - SLICES(3)(0) + 1;
     constant N_SLICE_4 : positive := SLICES(4)(1) - SLICES(4)(0) + 1;
     
-    type single_array is array (0 to N_OBJ-1) of std_logic;
-    type req_obj_array is array (1 to N_REQ) of single_array;    
-    signal pt_i, eta_w1_i, eta_w2_i, eta_w3_i, eta_w4_i, eta_w5_i, phi_w1_i,phi_w2_i, iso_i, qual_i, charge_i, cond_and_i : req_obj_array;
-    
     type double_array is array (0 to N_OBJ-1, 0 to N_OBJ-1) of std_logic;
     type triple_array is array (0 to N_OBJ-1, 0 to N_OBJ-1, 0 to N_OBJ-1) of std_logic;
     type quad_array is array (0 to N_OBJ-1, 0 to N_OBJ-1, 0 to N_OBJ-1, 0 to N_OBJ-1) of std_logic;
     signal cc_double_i : double_array := (others => (others => '1'));
     signal cc_triple_i : triple_array := (others => (others => (others => '1')));
     signal cc_quad_i : quad_array := (others => (others => (others => (others => '1'))));
-    signal tbpt_i : corr_cuts_array(0 to N_OBJ-1, 0 to N_OBJ-1);
     signal cond_and_or, cond_o_v : std_logic_vector(0 to 0);
 
 begin
 
-    tbpt_i <= tbpt when TBPT_SEL else (others => (others => '1'));
-    
+-- Creating internal charge correlations for muon objects
     cc_i: if CHARGE_CORR_SEL generate
         l1: for i in 0 to N_MUON_OBJECTS-1 generate
             l2: for j in 0 to N_MUON_OBJECTS-1 generate
@@ -68,7 +63,8 @@ begin
         end generate;    
     end generate;    
 
-    and_or_p: process(comb, cc_double_i, cc_triple_i, cc_quad_i, tbpt_i)
+-- AND-OR matrix
+    and_or_p: process(comb, cc_double_i, cc_triple_i, cc_quad_i, tbpt)
         variable index : integer := 0;
         variable and_vec : std_logic_vector((N_SLICE_1*N_SLICE_2*N_SLICE_3*N_SLICE_4) downto 1) := (others => '0');
         variable tmp : std_logic := '0';
@@ -84,7 +80,7 @@ begin
             for j in SLICES(2)(0) to SLICES(2)(1) loop
                 if N_REQ = 2 and (j/=i) then
                     index := index + 1;
-                    and_vec(index) := comb(i) and comb(j) and cc_double_i(i,j) and tbpt_i(i,j);
+                    and_vec(index) := comb(i) and comb(j) and cc_double_i(i,j) and tbpt(i,j);
                 end if;
                 for k in SLICES(3)(0) to SLICES(3)(1) loop
                     if N_REQ = 3 and (j/=i and k/=i and k/=j) then
@@ -106,6 +102,7 @@ begin
         cond_and_or(0) <= tmp;
     end process and_or_p;
 
+-- Condition output register (default setting: no register)
     out_reg_i : entity work.reg_mux
         generic map(1, OUT_REG_COND)  
         port map(clk, cond_and_or, cond_o_v);

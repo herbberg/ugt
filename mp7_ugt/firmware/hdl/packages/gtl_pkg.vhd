@@ -1,6 +1,8 @@
 -- Description:
 -- Package for constant and type definitions of GTL firmware in Global Trigger Upgrade system.
 
+-- Version-history:
+-- HB 2019-07-16: Changed subtypes declaration to ascending range.
 -- HB 2019-07-03: Moved constants and types for FDL to fdl_pkg.vhd. Removed MAX_N_OBJ.
 -- HB 2019-06-28: Deleted obsolete types
 -- HB 2019-06-27: Inserted new records for conversions
@@ -474,23 +476,39 @@ package gtl_pkg is
 
 -- HB 2019-07-02: subtypes for l1menu.vhd signals
 
-    subtype eg_obj_t is std_logic_vector(N_EG_OBJECTS-1 downto 0);  
-    subtype jet_obj_t is std_logic_vector(N_JET_OBJECTS-1 downto 0);  
-    subtype tau_obj_t is std_logic_vector(N_TAU_OBJECTS-1 downto 0);  
-    subtype muon_obj_t is std_logic_vector(N_MUON_OBJECTS-1 downto 0);  
+    subtype eg_obj_t is std_logic_vector(0 to N_EG_OBJECTS-1);  
+    subtype jet_obj_t is std_logic_vector(0 to N_JET_OBJECTS-1);  
+    subtype tau_obj_t is std_logic_vector(0 to N_TAU_OBJECTS-1);  
+    subtype muon_obj_t is std_logic_vector(0 to N_MUON_OBJECTS-1);  
     subtype muon_cc_double_t is muon_cc_double_std_logic_array;  
     subtype muon_cc_triple_t is muon_cc_triple_std_logic_array;  
     subtype muon_cc_quad_t is muon_cc_quad_std_logic_array;  
-    subtype eg_eg_t is corr_cuts_array(N_EG_OBJECTS-1 downto 0, N_EG_OBJECTS-1 downto 0);
-    subtype eg_jet_t is corr_cuts_array(N_EG_OBJECTS-1 downto 0, N_JET_OBJECTS-1 downto 0);
-    subtype eg_tau_t is corr_cuts_array(N_EG_OBJECTS-1 downto 0, N_TAU_OBJECTS-1 downto 0);
-    subtype eg_muon_t is corr_cuts_array(N_EG_OBJECTS-1 downto 0, N_MUON_OBJECTS-1 downto 0);
-    subtype jet_jet_t is corr_cuts_array(N_JET_OBJECTS-1 downto 0, N_JET_OBJECTS-1 downto 0);
-    subtype jet_tau_t is corr_cuts_array(N_JET_OBJECTS-1 downto 0, N_TAU_OBJECTS-1 downto 0);
-    subtype jet_muon_t is corr_cuts_array(N_JET_OBJECTS-1 downto 0, N_MUON_OBJECTS-1 downto 0);
-    subtype tau_tau_t is corr_cuts_array(N_TAU_OBJECTS-1 downto 0, N_TAU_OBJECTS-1 downto 0);
-    subtype tau_muon_t is corr_cuts_array(N_TAU_OBJECTS-1 downto 0, N_MUON_OBJECTS-1 downto 0);
-    subtype muon_muon_t is corr_cuts_array(N_MUON_OBJECTS-1 downto 0, N_MUON_OBJECTS-1 downto 0);
+    subtype eg_eg_t is corr_cuts_array(0 to N_EG_OBJECTS-1, 0 to N_EG_OBJECTS-1);
+    subtype eg_jet_t is corr_cuts_array(0 to N_EG_OBJECTS-1, 0 to N_JET_OBJECTS-1);
+    subtype eg_tau_t is corr_cuts_array(0 to N_EG_OBJECTS-1, 0 to N_TAU_OBJECTS-1);
+    subtype eg_muon_t is corr_cuts_array(0 to N_EG_OBJECTS-1, 0 to N_MUON_OBJECTS-1);
+    subtype jet_jet_t is corr_cuts_array(0 to N_JET_OBJECTS-1, 0 to N_JET_OBJECTS-1);
+    subtype jet_tau_t is corr_cuts_array(0 to N_JET_OBJECTS-1, 0 to N_TAU_OBJECTS-1);
+    subtype jet_muon_t is corr_cuts_array(0 to N_JET_OBJECTS-1, 0 to N_MUON_OBJECTS-1);
+    subtype tau_tau_t is corr_cuts_array(0 to N_TAU_OBJECTS-1, 0 to N_TAU_OBJECTS-1);
+    subtype tau_muon_t is corr_cuts_array(0 to N_TAU_OBJECTS-1, 0 to N_MUON_OBJECTS-1);
+    subtype muon_muon_t is corr_cuts_array(0 to N_MUON_OBJECTS-1, 0 to N_MUON_OBJECTS-1);
+    
+    type default_corr_cuts_rec is record
+        eg_eg : eg_eg_t;
+        eg_jet : eg_jet_t;
+        eg_tau : eg_tau_t;
+        eg_muon : eg_muon_t;
+        jet_jet : jet_jet_t;
+        jet_tau : jet_tau_t;
+        jet_muon : jet_muon_t;
+        tau_tau : tau_tau_t;
+        tau_muon : tau_muon_t;
+        muon_muon : muon_muon_t;
+        cc_double : muon_cc_double_std_logic_array;
+        cc_triple : muon_cc_triple_std_logic_array;
+        cc_quad : muon_cc_quad_std_logic_array;
+    end record default_corr_cuts_rec;
     
 -- *******************************************************************************
 -- correlation cuts

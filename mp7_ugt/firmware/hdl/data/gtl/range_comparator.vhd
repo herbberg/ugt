@@ -2,6 +2,7 @@
 -- Object cuts range comparisons.
 
 -- Version-history:
+-- HB 2019-08-12: Bug fix in phi mode.
 -- HB 2018-12-18: First design.
 
 library ieee;
@@ -44,7 +45,9 @@ begin
                 port map(data_i(i), comp(i));
         end generate if_1;
         if_2: if MODE = PHI generate
-            comp(i) <= '1' when (data_i(i) >= MIN_I(DATA_WIDTH-1 downto 0)) and (data_i(i) <= MAX_I(DATA_WIDTH-1 downto 0)) else '0';
+--             comp(i) <= '1' when (data_i(i) >= MIN_I(DATA_WIDTH-1 downto 0)) and (data_i(i) <= MAX_I(DATA_WIDTH-1 downto 0)) else '0';
+            comp(i) <= '1' when (MAX_I < MIN_I) and (data_i(i) <= MAX_I or data_i(i) >= MIN_I) else
+                       '1' when (MAX_I >= MIN_I) and (data_i(i) <= MAX_I and data_i(i) >= MIN_I) else '0';
         end generate if_2;
     end generate l1;
 

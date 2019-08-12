@@ -2,7 +2,7 @@
 -- Package for constant and type definitions of GTL firmware in Global Trigger Upgrade system.
 
 -- Version-history:
--- HB 2019-07-16: Changed subtypes declaration to ascending range.
+-- HB 2019-07-16: Changed subtypes declaration to ascending range. Inserted record "default_corr_cuts_rec".
 -- HB 2019-07-03: Moved constants and types for FDL to fdl_pkg.vhd. Removed MAX_N_OBJ.
 -- HB 2019-06-28: Deleted obsolete types
 -- HB 2019-06-27: Inserted new records for conversions

@@ -14,5 +14,6 @@ Top hierarchy module of ugt firmware *[mp7_payload.vhd](firmware/hdl/mp7_payload
   * Final Decision Logic ([FDL](doc/fdl.md))
 
 Picture of phi_windows_comparator:
+
 ![phi_windows_comparator schema](https://github.com/herbberg/ugt/blob/dev_v2_2_x/mp7_ugt/doc/figures/phi_windows_comparator.svg  "phi_windows_comparator schema")
 

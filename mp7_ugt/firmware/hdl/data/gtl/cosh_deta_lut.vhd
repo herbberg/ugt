@@ -2,6 +2,7 @@
 -- COSH LUTs of Differences in eta.
 
 -- Version-history:
+-- HB 2019-08-20: Changed type of outputs.
 -- HB 2019-06-27: Changed type of inputs.
 -- HB 2019-01-11: First design.
 
@@ -24,7 +25,8 @@ entity cosh_deta_lut is
     );
     port(
         sub_eta : in max_eta_range_array;
-        cosh_deta_o : out cosh_cos_vector_array := (others => (others => (others => '0')))
+        cosh_deta_o : out corr_cuts_std_logic_array := (others => (others => (others => '0')))
+--         cosh_deta_o : out cosh_cos_vector_array := (others => (others => (others => '0')))
     );
 end cosh_deta_lut;
 

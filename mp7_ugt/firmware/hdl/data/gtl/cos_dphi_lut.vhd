@@ -2,6 +2,7 @@
 -- COS LUTs of Differences in phi.
 
 -- Version-history:
+-- HB 2019-08-20: Changed type of outputs.
 -- HB 2019-06-27: Changed type of inputs.
 -- HB 2019-01-11: First design.
 
@@ -24,7 +25,8 @@ entity cos_dphi_lut is
     );
     port(
         sub_phi : in max_phi_range_array;
-        cos_dphi_o : out cosh_cos_vector_array := (others => (others => (others => '0')))
+        cos_dphi_o : out corr_cuts_std_logic_array := (others => (others => (others => '0')))
+--         cos_dphi_o : out cosh_cos_vector_array := (others => (others => (others => '0')))
     );
 end cos_dphi_lut;
 

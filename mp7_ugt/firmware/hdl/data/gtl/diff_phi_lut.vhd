@@ -25,7 +25,6 @@ entity diff_phi_lut is
     );
     port(
         sub_phi : in max_phi_range_array;
---         diff_phi_o : out deta_dphi_vector_array := (others => (others => (others => '0')))
         diff_phi_o : out corr_cuts_std_logic_array := (others => (others => (others => '0')))
     );
 end diff_phi_lut;

@@ -31,32 +31,31 @@ end cos_dphi_lut;
 
 architecture rtl of cos_dphi_lut is
 
-    signal calo_calo, calo_muon, muon_muon : boolean := false;    
     signal cos_dphi_i : cosh_cos_vector_array := (others => (others => (others => '0')));
 
 begin
 
     cos_dphi_p: process(sub_phi)
---         variable calo_calo, calo_muon, muon_muon : boolean := false;    
+        variable calo_calo, calo_muon, muon_muon : boolean := false;    
     begin
         if_1: if OBJ(1) = eg_t or OBJ(1) = jet_t or OBJ(1) = tau_t then
             if_2: if OBJ(2) = eg_t or OBJ(2) = jet_t or OBJ(2) = tau_t or OBJ(2) = etm_t or OBJ(2) = htm_t or OBJ(2) = etmhf_t or OBJ(2) = htmhf_t then
-                calo_calo <= true;
+                calo_calo := true;
             end if;
         end if;
         if_3: if OBJ(1) = eg_t or OBJ(1) = jet_t or OBJ(1) = tau_t then
             if_4: if OBJ(2) = muon_t then
-                calo_muon <= true;
+                calo_muon := true;
             end if;
         end if;
         if_5: if OBJ(1) = muon_t then
             if_6: if OBJ(2) = etm_t or OBJ(2) = htm_t or OBJ(2) = etmhf_t or OBJ(2) = htmhf_t then
-                calo_muon <= true;
+                calo_muon := true;
             end if;
         end if;
         if_7: if OBJ(1) = muon_t then
             if_8: if OBJ(2) = muon_t then
-                muon_muon <= true;
+                muon_muon := true;
             end if;
         end if;
         loop_1: for i in 0 to N_OBJ_1-1 loop
@@ -82,24 +81,4 @@ begin
         end generate l_4;
     end generate l_3;
     
---     l_3: for i in 0 to N_OBJ_1-1 generate
---         l_4: for j in 0 to N_OBJ_2-1 generate
---             calo_calo_i: if (calo_calo) generate
---                 l_5: for k in 0 to CALO_CALO_COSH_COS_VECTOR_WIDTH-1 generate
---                     cos_dphi_o(i,j,k) <= cos_dphi_i(i,j)(k);
---                 end generate l_5;
---             end generate calo_calo_i;
---             calo_muon_i: if (calo_muon) generate
---                 l_6: for k in 0 to CALO_MUON_COSH_COS_VECTOR_WIDTH-1 generate
---                     cos_dphi_o(i,j,k) <= cos_dphi_i(i,j)(k);
---                 end generate l_6;
---             end generate calo_muon_i;
---             muon_muon_i: if (muon_muon) generate
---                 l_7: for k in 0 to MUON_MUON_COSH_COS_VECTOR_WIDTH-1 generate
---                     cos_dphi_o(i,j,k) <= cos_dphi_i(i,j)(k);
---                 end generate l_7;
---             end generate muon_muon_i;
---         end generate l_4;
---     end generate l_3;
-
 end architecture rtl;

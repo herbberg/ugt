@@ -518,6 +518,7 @@ package gtl_pkg is
     type obj_type is (muon_t,eg_t,jet_t,tau_t,ett_t,etm_t,htt_t,htm_t,ettem_t,etmhf_t,htmhf_t,towercount_t,mbt1hfp_t,mbt1hfm_t,mbt0hfp_t,mbt0hfm_t,asymet_t,asymht_t,asymethf_t,asymhthf_t);
     type obj_type_array is array (1 to 2) of obj_type;
     type comp_mode is (GE,EQ,NE,ETA,PHI,deltaEta,deltaPhi,deltaR,mass,twoBodyPt);
+    type lut_mode is (CaloCaloDeta,CaloMuonDeta,MuonMuonDeta,CaloCaloDphi,CaloMuonDphi,MuonMuonDphi,CaloCaloCoshDeta,CaloMuonCoshDeta,MuonMuonCoshDeta,CaloCaloCosDphi,CaloMuonCosDphi,MuonMuonCosDphi);
 
 -- slices
     type slices_type is array (0 to 1) of natural; -- index 0 contains lower slice value, index 1 contains upper slice value

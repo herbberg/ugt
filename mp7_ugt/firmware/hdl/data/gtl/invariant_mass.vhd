@@ -2,7 +2,7 @@
 -- Calculation of invariant mass based on LUTs.
 
 -- Version history:
--- HB 2019-06-28: Changed types.
+-- HB 2019-08-20: Changed types.
 -- HB 2019-01-14: No output register.
 -- HB 2018-11-26: First design.
 

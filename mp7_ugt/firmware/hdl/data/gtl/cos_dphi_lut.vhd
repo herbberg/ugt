@@ -31,31 +31,32 @@ end cos_dphi_lut;
 
 architecture rtl of cos_dphi_lut is
 
+    signal calo_calo, calo_muon, muon_muon : boolean := false;    
     signal cos_dphi_i : cosh_cos_vector_array := (others => (others => (others => '0')));
 
 begin
 
     cos_dphi_p: process(sub_phi)
-        variable calo_calo, calo_muon, muon_muon : boolean := false;    
+--         variable calo_calo, calo_muon, muon_muon : boolean := false;    
     begin
         if_1: if OBJ(1) = eg_t or OBJ(1) = jet_t or OBJ(1) = tau_t then
             if_2: if OBJ(2) = eg_t or OBJ(2) = jet_t or OBJ(2) = tau_t or OBJ(2) = etm_t or OBJ(2) = htm_t or OBJ(2) = etmhf_t or OBJ(2) = htmhf_t then
-                calo_calo := true;
+                calo_calo <= true;
             end if;
         end if;
         if_3: if OBJ(1) = eg_t or OBJ(1) = jet_t or OBJ(1) = tau_t then
             if_4: if OBJ(2) = muon_t then
-                calo_muon := true;
+                calo_muon <= true;
             end if;
         end if;
         if_5: if OBJ(1) = muon_t then
             if_6: if OBJ(2) = etm_t or OBJ(2) = htm_t or OBJ(2) = etmhf_t or OBJ(2) = htmhf_t then
-                calo_muon := true;
+                calo_muon <= true;
             end if;
         end if;
         if_7: if OBJ(1) = muon_t then
             if_8: if OBJ(2) = muon_t then
-                muon_muon := true;
+                muon_muon <= true;
             end if;
         end if;
         loop_1: for i in 0 to N_OBJ_1-1 loop

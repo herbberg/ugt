@@ -23,8 +23,10 @@ entity invariant_mass is
         COSH_COS_WIDTH : positive
     );
     port(
-        pt1 : in pt_array(N_OBJ_1-1 downto 0);
-        pt2 : in pt_array(N_OBJ_2-1 downto 0);
+        pt1 : in conv_pt_vector_array;
+        pt2 : in conv_pt_vector_array;
+--         pt1 : in pt_array(N_OBJ_1-1 downto 0);
+--         pt2 : in pt_array(N_OBJ_2-1 downto 0);
         cosh_deta : in corr_cuts_std_logic_array;
         cos_dphi : in corr_cuts_std_logic_array;
         inv_mass_o : out corr_cuts_std_logic_array := (others => (others => (others => '0')))

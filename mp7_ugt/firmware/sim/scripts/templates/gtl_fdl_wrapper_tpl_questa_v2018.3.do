@@ -64,6 +64,7 @@ vcom -93 -work work $HDL_DIR/data/gtl/combinatorial_conditions.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/correlation_conditions.vhd
 
 ## HB 2019-01-11: used for less amount of resources
+vcom -93 -work work $HDL_DIR/data/gtl/luts_corr_cuts.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/sub_eta.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/diff_eta_lut.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/cosh_deta_lut.vhd

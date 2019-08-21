@@ -86,7 +86,7 @@ begin
     end generate muonmuon_1;
     loop_1: for i in 0 to N_OBJ_1-1 generate
         loop_2: for j in 0 to N_OBJ_2-1 generate
-            lut_i : entity work.lut_basic
+            lut_i : entity work.luts_corr_cuts
                 generic map(mode)  
                 port map(sub_eta(i,j), cosh_deta_i(i,j));
         end generate loop_2;

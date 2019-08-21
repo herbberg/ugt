@@ -21,7 +21,8 @@ entity cosh_deta_lut is
     generic(
         N_OBJ_1 : positive;
         N_OBJ_2 : positive;
-        OBJ : obj_type_array
+        OBJ : obj_type_array;
+        MODE : lut_mode := CaloCaloCoshDeta   
     );
     port(
         sub_eta : in max_eta_range_array;
@@ -32,7 +33,6 @@ end cosh_deta_lut;
 architecture rtl of cosh_deta_lut is
 
     signal cosh_deta_i : cosh_cos_vector_array := (others => (others => (others => '0')));
-    signal mode : lut_mode;    
 
 begin
 
@@ -69,25 +69,26 @@ begin
 --         end loop loop_1;
 --     end process cosh_deta_p;
 -- 
-    calocalo_1: if OBJ(1) = eg_t or OBJ(1) = jet_t or OBJ(1) = tau_t generate
-        calocalo_2: if OBJ(2) = eg_t or OBJ(2) = jet_t or OBJ(2) = tau_t generate
-            mode <= CaloCaloCoshDeta;
-        end generate calocalo_2;
-    end generate calocalo_1;
-    calomuon_1: if OBJ(1) = eg_t or OBJ(1) = jet_t or OBJ(1) = tau_t generate
-        calomuon_2: if OBJ(2) = muon_t generate
-            mode <= CaloMuonCoshDeta;
-        end generate calomuon_2;
-    end generate calomuon_1;
-    muonmuon_1: if OBJ(1) = muon_t generate
-        muonmuon_2: if OBJ(2) = muon_t generate
-            mode <= MuonMuonCoshDeta;
-        end generate muonmuon_2;
-    end generate muonmuon_1;
+--     calocalo_1: if OBJ(1) = eg_t or OBJ(1) = jet_t or OBJ(1) = tau_t generate
+--         calocalo_2: if OBJ(2) = eg_t or OBJ(2) = jet_t or OBJ(2) = tau_t generate
+--             mode <= CaloCaloCoshDeta;
+--         end generate calocalo_2;
+--     end generate calocalo_1;
+--     calomuon_1: if OBJ(1) = eg_t or OBJ(1) = jet_t or OBJ(1) = tau_t generate
+--         calomuon_2: if OBJ(2) = muon_t generate
+--             mode <= CaloMuonCoshDeta;
+--         end generate calomuon_2;
+--     end generate calomuon_1;
+--     muonmuon_1: if OBJ(1) = muon_t generate
+--         muonmuon_2: if OBJ(2) = muon_t generate
+--             mode <= MuonMuonCoshDeta;
+--         end generate muonmuon_2;
+--     end generate muonmuon_1;
+
     loop_1: for i in 0 to N_OBJ_1-1 generate
         loop_2: for j in 0 to N_OBJ_2-1 generate
             lut_i : entity work.luts_corr_cuts
-                generic map(mode)  
+                generic map(MODE)  
                 port map(sub_eta(i,j), cosh_deta_i(i,j));
         end generate loop_2;
     end generate loop_1;

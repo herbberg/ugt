@@ -54,10 +54,12 @@ vcom -93 -work work $HDL_DIR/data/gtl/reg_mux.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/delay_pipeline.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/conversions.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/bx_pipeline.vhd
+vcom -93 -work work $HDL_DIR/data/gtl/comp_unsigned.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/comp_signed.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/lut_comparator.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/range_comparator.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/threshold_comparator.vhd
+vcom -93 -work work $HDL_DIR/data/gtl/comparators_obj_cuts.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/comparators_corr_cuts.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/comparator_muon_charge_corr.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/combinatorial_conditions.vhd

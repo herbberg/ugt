@@ -2,6 +2,7 @@
 -- Object cuts comparisons.
 
 -- Version-history:
+-- HB 2019-08-22: Updated for comp_unsigned.
 -- HB 2019-08-21: First design.
 
 library ieee;

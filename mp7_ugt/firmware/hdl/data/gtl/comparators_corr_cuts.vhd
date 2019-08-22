@@ -2,6 +2,7 @@
 -- Comparators for correlation cuts comparisons.
 
 -- Version-history:
+-- HB 2019-08-22: Updated for comp_unsigned.
 -- HB 2019-06-27: Changed type of inputs.
 -- HB 2018-11-26: First design.
 

@@ -2,6 +2,7 @@
 -- Package for constant and type definitions of GTL firmware in Global Trigger Upgrade system.
 
 -- Version-history:
+-- HB 2019-08-22: Added types for LUTs of correlation cuts.
 -- HB 2019-07-16: Changed subtypes declaration to ascending range. Inserted record "default_corr_cuts_rec".
 -- HB 2019-07-03: Moved constants and types for FDL to fdl_pkg.vhd. Removed MAX_N_OBJ.
 -- HB 2019-06-28: Deleted obsolete types
@@ -517,8 +518,8 @@ package gtl_pkg is
 -- enums
     type obj_type is (muon_t,eg_t,jet_t,tau_t,ett_t,etm_t,htt_t,htm_t,ettem_t,etmhf_t,htmhf_t,towercount_t,mbt1hfp_t,mbt1hfm_t,mbt0hfp_t,mbt0hfm_t,asymet_t,asymht_t,asymethf_t,asymhthf_t);
     type obj_type_array is array (1 to 2) of obj_type;
-    type comp_mode is (GE,EQ,NE,ETA,PHI,deltaEta,deltaPhi,deltaR,mass,twoBodyPt);
-    type corr_cuts_mode is (deltaEta,deltaPhi,CoshDeltaEta,CosDeltaPhi);
+    type comp_mode is (GE,EQ,NE,ETA,PHI,deltaEta,deltaPhi,deltaR,mass,twoBodyPt,chargeCorr);
+    type corr_cuts_lut_mode is (deltaEta,deltaPhi,CoshDeltaEta,CosDeltaPhi);
 
 -- slices
     type slices_type is array (0 to 1) of natural; -- index 0 contains lower slice value, index 1 contains upper slice value

@@ -75,6 +75,7 @@ vcom -93 -work work $HDL_DIR/data/gtl/diff_phi_lut.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/cos_dphi_lut.vhd
 
 vcom -93 -work work $HDL_DIR/data/gtl/delta_r.vhd
+vcom -93 -work work $HDL_DIR/data/gtl/inv_mass_calc.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/invariant_mass.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/transverse_mass.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/muon_charge_correlations.vhd

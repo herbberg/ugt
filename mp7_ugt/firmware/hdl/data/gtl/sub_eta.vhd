@@ -2,6 +2,7 @@
 -- Subtraction in eta.
 
 -- Version-history:
+-- HB 2019-08-26: Instantiated sub_eta_calc.
 -- HB 2019-06-27: Changed type of outputs.
 -- HB 2019-01-11: First design.
 
@@ -24,12 +25,16 @@ end sub_eta;
 
 architecture rtl of sub_eta is
 
+    type sub_eta_array is array (0 to N_OBJ_1-1, 0 to N_OBJ_2-1) of integer;
+    signal sub_eta : sub_eta_array;
+
 begin
 
     loop_1: for i in 0 to N_OBJ_1-1 generate
         loop_2: for j in 0 to N_OBJ_2-1 generate
--- only positive difference in eta
-            sub_eta_o(i,j) <= abs(eta_1(i) - eta_2(j));
+            sub_eta_calc_i : entity work.sub_eta_calc
+                port map(eta_1(i), eta_2(j), sub_eta(i,j));
+            sub_eta_o(i,j) <= sub_eta(i,j);
         end generate loop_2;
     end generate loop_1;
                     

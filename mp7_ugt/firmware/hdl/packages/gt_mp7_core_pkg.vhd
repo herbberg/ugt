@@ -15,10 +15,11 @@
 -- mp7_ugt (=FRAME_VERSION): v2.2.0
 --
 --  control: v2.0.1
---  gtl: v2.1.0
+--  gtl: v2.2.0
 --  fdl: v1.3.2
 
 -- Version-history of GTL part:
+-- HB 2019-07-03: v2.2.0: created basic modules for calculations and module comparators_obj_cuts.vhd.
 -- HB 2019-07-03: v2.1.0: created twobody_pt.vhd module.
 -- HB 2019-06-27: v2.0.1: changed type of conversion signals in bx_pipeline.vhd.
 -- HB 2019-03-08: v2.0.0: new structure with instance of l1menu.vhd in gtl_module.vhd
@@ -36,8 +37,8 @@ use work.top_decl.all;
 
 package gt_mp7_core_pkg is
 
--- -- ==================================================================================================
--- -- HB 2019-01-24: definitions (TOP_xxx) moved to top_decl_tpl.vhd
+-- ==================================================================================================
+-- HB 2019-01-24: definitions (TOP_xxx) moved to top_decl_tpl.vhd
 --     constant TIMESTAMP : std_logic_vector(31 downto 0) := TOP_TIMESTAMP;
 --     constant MODULE_TYPE : std_logic_vector(31 downto 0) := (others => '0');
 --     constant USERNAME : std_logic_vector(32*8-1 downto 0) := TOP_USERNAME;
@@ -55,7 +56,7 @@ package gt_mp7_core_pkg is
            std_logic_vector(to_unsigned(FRAME_REV_VERSION, 8));
 -- GTL firmware (fix part) version
     constant GTL_FW_MAJOR_VERSION : integer range 0 to 255 := 2;
-    constant GTL_FW_MINOR_VERSION : integer range 0 to 255 := 1;
+    constant GTL_FW_MINOR_VERSION : integer range 0 to 255 := 2;
     constant GTL_FW_REV_VERSION   : integer range 0 to 255 := 0;
 -- FDL firmware version
     constant FDL_FW_MAJOR_VERSION : integer range 0 to 255 := 1;

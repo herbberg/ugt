@@ -2,9 +2,7 @@
 -- Global Trigger Logic module.
 
 -- Version-history:
--- HB 2019-07-03: v2.1.0: created twobody_pt module.
--- HB 2019-06-27: v2.0.1: changed type of conversion signals.
--- HB 2019-03-08: v2.0.0: new structure with instance of l1menu.vhd
+-- HB 2019-03-08: new structure with instance of l1menu.vhd
 
 library ieee;
 use ieee.std_logic_1164.all;

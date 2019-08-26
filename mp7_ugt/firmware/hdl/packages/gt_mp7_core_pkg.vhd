@@ -1,19 +1,29 @@
+-- Description:
+-- Package for versions and global definitions of ugt.
 
--- actual versions:
--- use "FRAME_VERSION" as mp7_ugt release fw version (used for tag name)
--- mp7_ugt (=FRAME_VERSION): v2.1.0
---
---  control: v2.0.1
---  gtl: v2.1.0
---  fdl: v1.3.2
-
--- HB 2019-07-03: moved TCM part and funtions to control_pkg.vhd
+-- Version-history of gt_mp7_core_pkg:
+-- HB 2019-07-03: moved TCM part and functions to control_pkg.vhd
 -- HB 2019-07-03: cleaned up MAX_CALO_OBJECTS and MAX_N_OBJECTS
 -- HB 2019-01-24: moved replacement of "IPBUS_TIMESTAMP", etc. from gt_mp7_top_pkg (which is obsolete now). [Therefore changed "makeProject.py" script]
 -- HB 2019-01-22: cleaned up
-
 -- HB 2016-09-19: removed more unused constants
 -- HB 2016-06-30: removed unused constants and cleaned up
+
+-- ===================================================================================
+-- actual versions of ugt:
+-- use "FRAME_VERSION" as mp7_ugt release fw version (used for tag name)
+-- mp7_ugt (=FRAME_VERSION): v2.2.0
+--
+--  control: v2.0.1
+--  gtl: v2.2.0
+--  fdl: v1.3.2
+
+-- Version-history of GTL part:
+-- HB 2019-07-03: v2.2.0: created basic modules for calculations and module comparators_obj_cuts.vhd.
+-- HB 2019-07-03: v2.1.0: created twobody_pt.vhd module.
+-- HB 2019-06-27: v2.0.1: changed type of conversion signals in bx_pipeline.vhd.
+-- HB 2019-03-08: v2.0.0: new structure with instance of l1menu.vhd in gtl_module.vhd
+-- ===================================================================================
 
 library IEEE;
 use ieee.std_logic_1164.all;
@@ -27,8 +37,8 @@ use work.top_decl.all;
 
 package gt_mp7_core_pkg is
 
--- -- ==================================================================================================
--- -- HB 2019-01-24: definitions (TOP_xxx) moved to top_decl_tpl.vhd
+-- ==================================================================================================
+-- HB 2019-01-24: definitions (TOP_xxx) moved to top_decl_tpl.vhd
 --     constant TIMESTAMP : std_logic_vector(31 downto 0) := TOP_TIMESTAMP;
 --     constant MODULE_TYPE : std_logic_vector(31 downto 0) := (others => '0');
 --     constant USERNAME : std_logic_vector(32*8-1 downto 0) := TOP_USERNAME;
@@ -38,7 +48,7 @@ package gt_mp7_core_pkg is
 -- ==================================================================================================
 -- CONTROL = FRAME version (given by the editor of control.vhd)
     constant FRAME_MAJOR_VERSION : integer range 0 to 255 := 2;
-    constant FRAME_MINOR_VERSION : integer range 0 to 255 := 1;
+    constant FRAME_MINOR_VERSION : integer range 0 to 255 := 2;
     constant FRAME_REV_VERSION   : integer range 0 to 255 := 0;
 	constant FRAME_VERSION : std_logic_vector(31 downto 0) := X"00" &
            std_logic_vector(to_unsigned(FRAME_MAJOR_VERSION, 8)) &
@@ -46,7 +56,7 @@ package gt_mp7_core_pkg is
            std_logic_vector(to_unsigned(FRAME_REV_VERSION, 8));
 -- GTL firmware (fix part) version
     constant GTL_FW_MAJOR_VERSION : integer range 0 to 255 := 2;
-    constant GTL_FW_MINOR_VERSION : integer range 0 to 255 := 1;
+    constant GTL_FW_MINOR_VERSION : integer range 0 to 255 := 2;
     constant GTL_FW_REV_VERSION   : integer range 0 to 255 := 0;
 -- FDL firmware version
     constant FDL_FW_MAJOR_VERSION : integer range 0 to 255 := 1;
@@ -68,58 +78,5 @@ package gt_mp7_core_pkg is
 -- LMP (Lane Mapping Process)
     type lane_objects_array_t is array (CLOCK_RATIO-1 downto 0) of std_logic_vector(LWORD_WIDTH-1 downto 0);
 
--- -- TCM
---     constant BGOS_WIDTH : integer := 4;
---     constant BX_NR_WIDTH : integer := log2c(LHC_BUNCH_COUNT);
---     constant ORBIT_NR_WIDTH : integer := 48;
--- 
---     constant LUM_SEG_NR_WIDTH : integer := 32;
---     constant EVENT_NR_WIDTH : integer := 32;
---     constant EVENT_TYPE_WIDTH : integer := 4;
---     constant LUM_SEG_PERIOD_WIDTH : integer := 32;
---     constant LUM_SEG_PERIOD_MSK_WIDTH : integer := 32;
---     constant TRIGGER_NR_WIDTH : natural := 48;
--- 
---     subtype bgos_t is std_logic_vector(BGOS_WIDTH-1 downto 0);
---     subtype bx_nr_t is std_logic_vector(BX_NR_WIDTH-1 downto 0);
---     subtype orbit_nr_t is std_logic_vector(ORBIT_NR_WIDTH-1 downto 0);
---     subtype luminosity_seg_nr_t is std_logic_vector(LUM_SEG_NR_WIDTH-1 downto 0);
---     subtype event_nr_t is std_logic_vector(EVENT_NR_WIDTH-1 downto 0);
---     subtype event_type_t is std_logic_vector(EVENT_TYPE_WIDTH-1 downto 0);
---     subtype luminosity_seg_period_t is std_logic_vector(LUM_SEG_PERIOD_WIDTH-1 downto 0);
---     subtype luminosity_seg_period_msk_t is std_logic_vector(LUM_SEG_PERIOD_MSK_WIDTH-1 downto 0);
---     subtype trigger_nr_t is std_logic_vector(TRIGGER_NR_WIDTH-1 downto 0);
--- 
---     type bx_nr_array_t is array(integer range<>) of bx_nr_t;
--- 
---     constant BC_TOP : integer := LHC_BUNCH_COUNT-1;
---     constant LUM_SEG_PERIOD_MSK_RESET : luminosity_seg_period_msk_t := X"00040000";
--- 
--- --------------------------------------------------------------------------------
--- 
---     function to_obrit_nr(i : integer) return orbit_nr_t;
---     function to_bx_nr(i : integer) return bx_nr_t;
-
 end package;
-
--- package body gt_mp7_core_pkg is
--- 
---     function to_obrit_nr(i : integer) return orbit_nr_t is
--- 	variable ret_value : orbit_nr_t := (others=>'0');
---     begin
--- 	ret_value := std_logic_vector(to_unsigned(i, ret_value'length));
--- 	return ret_value;
---     end function;
--- 
---     function to_bx_nr(i : integer) return bx_nr_t is
--- 	variable ret_value : bx_nr_t := (others=>'0');
---     begin
--- 	assert(i < LHC_BUNCH_COUNT) report "Unable to convert integer to bx_nr_t: value too large" severity error;
--- 	ret_value := std_logic_vector(to_unsigned(i, ret_value'length));
--- 	return ret_value;
---     end function;
--- 
--- end;
-
-
 

@@ -2,19 +2,16 @@
 -- COSH LUTs of Differences in eta.
 
 -- Version-history:
+-- HB 2019-08-22: Updated instance luts_corr_cuts.
+-- HB 2019-08-20: Instantiated luts_corr_cuts.
+-- HB 2019-08-20: Changed type of outputs.
 -- HB 2019-06-27: Changed type of inputs.
 -- HB 2019-01-11: First design.
 
 library ieee;
 use ieee.std_logic_1164.all;
 
--- used for CONV_STD_LOGIC_VECTOR
-use ieee.std_logic_arith.all;
--- used for CONV_INTEGER
-use ieee.std_logic_unsigned.all;
-
 use work.gtl_pkg.all;
-use work.lut_pkg.all;
 
 entity cosh_deta_lut is
     generic(
@@ -24,45 +21,26 @@ entity cosh_deta_lut is
     );
     port(
         sub_eta : in max_eta_range_array;
-        cosh_deta_o : out cosh_cos_vector_array := (others => (others => (others => '0')))
+        cosh_deta_o : out corr_cuts_std_logic_array := (others => (others => (others => '0')))
     );
 end cosh_deta_lut;
 
 architecture rtl of cosh_deta_lut is
 
+    type cosh_deta_i_array is array (0 to N_OBJ_1-1, 0 to N_OBJ_2-1) of std_logic_vector(MAX_COSH_COS_WIDTH-1 downto 0);
+    signal cosh_deta_i : cosh_deta_i_array := (others => (others => (others => '0')));
+
 begin
 
-    cosh_deta_p: process(sub_eta)
-        variable calo_calo, calo_muon, muon_muon : boolean := false;    
-    begin
-        if_1: if OBJ(1) = eg_t or OBJ(1) = jet_t or OBJ(1) = tau_t then
-            if_2: if OBJ(2) = eg_t or OBJ(2) = jet_t or OBJ(2) = tau_t then
-                calo_calo := true;
-            end if;
-        end if;
-        if_3: if OBJ(1) = eg_t or OBJ(1) = jet_t or OBJ(1) = tau_t then
-            if_4: if OBJ(2) = muon_t then
-                calo_muon := true;
-            end if;
-        end if;
-        if_5: if OBJ(1) = muon_t then
-            if_6: if OBJ(2) = muon_t then
-                muon_muon := true;
-            end if;
-        end if;
-        loop_1: for i in 0 to N_OBJ_1-1 loop
-            loop_2: for j in 0 to N_OBJ_2-1 loop
-                calo_calo_i: if (calo_calo) then
-                    cosh_deta_o(i,j)(CALO_CALO_COSH_COS_VECTOR_WIDTH-1 downto 0) <= CONV_STD_LOGIC_VECTOR(CALO_CALO_COSH_DETA_LUT(sub_eta(i,j)), CALO_CALO_COSH_COS_VECTOR_WIDTH);
-                end if;
-                calo_muon_i: if (calo_muon) then
-                    cosh_deta_o(i,j)(CALO_MUON_COSH_COS_VECTOR_WIDTH-1 downto 0) <= CONV_STD_LOGIC_VECTOR(CALO_MUON_COSH_DETA_LUT(sub_eta(i,j)), CALO_MUON_COSH_COS_VECTOR_WIDTH);
-                end if;
-                muon_muon_i: if (muon_muon) then
-                    cosh_deta_o(i,j)(MUON_MUON_COSH_COS_VECTOR_WIDTH-1 downto 0) <= CONV_STD_LOGIC_VECTOR(MU_MU_COSH_DETA_LUT(sub_eta(i,j)), MUON_MUON_COSH_COS_VECTOR_WIDTH);
-                end if;
-            end loop loop_2;
-        end loop loop_1;
-    end process cosh_deta_p;
+    l_1: for i in 0 to N_OBJ_1-1 generate
+        l_2: for j in 0 to N_OBJ_2-1 generate
+            lut_i : entity work.luts_corr_cuts
+                generic map(OBJ, CoshDeltaEta)  
+                port map(sub_eta(i,j), cosh_deta_i(i,j));
+            l_3: for k in 0 to MAX_COSH_COS_WIDTH-1 generate
+                cosh_deta_o(i,j,k) <= cosh_deta_i(i,j)(k);
+            end generate l_3;
+        end generate l_2;
+    end generate l_1;
 
 end architecture rtl;

@@ -44,6 +44,7 @@ architecture rtl of comparator_muon_charge_corr is
     signal comp_r_triple : comp_i_triple_array;
     signal comp_i_quad : comp_i_quad_array := (others => (others => (others => (others => (others => '0')))));
     signal comp_r_quad : comp_i_quad_array;
+    constant dummy_limit : std_logic_vector(1 downto 0) := (others => '0');
 
 begin
     
@@ -52,7 +53,9 @@ begin
             in_reg_i : entity work.reg_mux
                 generic map(MUON_CHARGE_WIDTH, IN_REG_COMP)  
                 port map(clk, cc_double(i,j), cc_double_i(i,j));
-            comp_i_double(i,j)(0) <= '1' when (((cc_double_i(i,j) = CC_LS) and (REQ = CC_LS)) or ((cc_double_i(i,j) = CC_OS) and (REQ = CC_OS))) else '0';
+            comp_i : entity work.comp_unsigned
+                generic map(chargeCorr, dummy_limit, dummy_limit, REQ)  
+                port map(cc_double_i(i,j), comp_i_double(i,j)(0));
             out_reg_i : entity work.reg_mux
                 generic map(1, OUT_REG_COMP)  
                 port map(clk, comp_i_double(i,j), comp_r_double(i,j));
@@ -61,7 +64,9 @@ begin
                 in_reg_i : entity work.reg_mux
                     generic map(MUON_CHARGE_WIDTH, IN_REG_COMP)  
                     port map(clk, cc_triple(i,j,k), cc_triple_i(i,j,k));
-                comp_i_triple(i,j,k)(0) <= '1' when (((cc_triple_i(i,j,k) = CC_LS) and (REQ = CC_LS)) or ((cc_triple_i(i,j,k) = CC_OS) and (REQ = CC_OS))) else '0';
+                comp_i : entity work.comp_unsigned
+                    generic map(chargeCorr, dummy_limit, dummy_limit, REQ)  
+                    port map(cc_triple_i(i,j,k), comp_i_triple(i,j,k)(0));
                 out_reg_i : entity work.reg_mux
                     generic map(1, OUT_REG_COMP)  
                     port map(clk, comp_i_triple(i,j,k), comp_r_triple(i,j,k));
@@ -70,7 +75,9 @@ begin
                     in_reg_i : entity work.reg_mux
                         generic map(MUON_CHARGE_WIDTH, IN_REG_COMP)  
                         port map(clk, cc_quad(i,j,k,l), cc_quad_i(i,j,k,l));
-                    comp_i_quad(i,j,k,l)(0) <= '1' when (((cc_quad_i(i,j,k,l) = CC_LS) and (REQ = CC_LS)) or ((cc_quad_i(i,j,k,l) = CC_OS) and (REQ = CC_OS))) else '0';
+                    comp_i : entity work.comp_unsigned
+                        generic map(chargeCorr, dummy_limit, dummy_limit, REQ)  
+                        port map(cc_quad_i(i,j,k,l), comp_i_quad(i,j,k,l)(0));
                     out_reg_i : entity work.reg_mux
                         generic map(1, OUT_REG_COMP)  
                         port map(clk, comp_i_quad(i,j,k,l), comp_r_quad(i,j,k,l));

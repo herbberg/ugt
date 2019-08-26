@@ -1,16 +1,16 @@
 -- Description:
--- Object cuts range comparisons.
+-- Object cuts comparisons.
 
 -- Version-history:
--- HB 2019-08-12: Bug fix in phi mode.
--- HB 2018-12-18: First design.
+-- HB 2019-08-22: Updated for comp_unsigned.
+-- HB 2019-08-21: First design.
 
 library ieee;
 use ieee.std_logic_1164.all;
 
 use work.gtl_pkg.all;
 
-entity range_comparator is
+entity comparators_obj_cuts is
     generic(
         N_OBJ : positive;
         DATA_WIDTH : positive;
@@ -23,9 +23,9 @@ entity range_comparator is
         data : in obj_parameter_array;
         comp_o : out std_logic_vector(0 to N_OBJ-1) := (others => '0')
     );
-end range_comparator;
+end comparators_obj_cuts;
 
-architecture rtl of range_comparator is
+architecture rtl of comparators_obj_cuts is
 
     constant MIN_I : std_logic_vector(DATA_WIDTH-1 downto 0) := MIN_REQ(DATA_WIDTH-1 downto 0);
     constant MAX_I : std_logic_vector(DATA_WIDTH-1 downto 0) := MAX_REQ(DATA_WIDTH-1 downto 0);
@@ -39,16 +39,21 @@ begin
         in_reg_i : entity work.reg_mux
             generic map(DATA_WIDTH, IN_REG_COMP)  
             port map(clk, data(i)(DATA_WIDTH-1 downto 0), data_i(i));
-        if_1: if MODE = ETA generate
+        if_eta: if MODE = ETA generate
             comp_signed_i : entity work.comp_signed
                 generic map(MIN_I, MAX_I)  
                 port map(data_i(i), comp(i));
-        end generate if_1;
-        if_2: if MODE = PHI generate
---             comp(i) <= '1' when (data_i(i) >= MIN_I(DATA_WIDTH-1 downto 0)) and (data_i(i) <= MAX_I(DATA_WIDTH-1 downto 0)) else '0';
-            comp(i) <= '1' when (MAX_I < MIN_I) and (data_i(i) <= MAX_I or data_i(i) >= MIN_I) else
-                       '1' when (MAX_I >= MIN_I) and (data_i(i) <= MAX_I and data_i(i) >= MIN_I) else '0';
-        end generate if_2;
+        end generate if_eta;
+        if_phi: if MODE = PHI generate
+            comp_unsigned_i: entity work.comp_unsigned
+                generic map(MODE, MIN_I, MAX_I)  
+                port map(data_i(i), comp(i));
+        end generate if_phi;
+        if_thr: if MODE = GE or MODE = EQ or MODE = NE generate
+            comp_unsigned_i: entity work.comp_unsigned
+                generic map(MODE, MIN_I, MAX_I)  
+                port map(data_i(i), comp(i));
+        end generate if_thr;
     end generate l1;
 
     out_reg_i : entity work.reg_mux

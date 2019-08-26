@@ -2,6 +2,7 @@
 -- Comparators for correlation cuts comparisons.
 
 -- Version-history:
+-- HB 2019-08-22: Updated for comp_unsigned.
 -- HB 2019-06-27: Changed type of inputs.
 -- HB 2018-11-26: First design.
 
@@ -47,13 +48,10 @@ begin
             end generate l3;
             in_reg_i : entity work.reg_mux
                 generic map(DATA_WIDTH, IN_REG_COMP)  
-                port map(clk, data_vec(i,j), data_vec_i(i,j));
-            if_1: if MODE = twoBodyPt generate
-                comp(i,j) <= '1' when (data_vec_i(i,j) >= MIN_I) else '0';
-            end generate if_1;
-            if_2: if MODE = deltaEta or MODE = deltaPhi or MODE = deltaR or MODE = mass generate
-                comp(i,j) <= '1' when ((data_vec_i(i,j) >= MIN_I) and (data_vec_i(i,j) <= MAX_I)) else '0';
-            end generate if_2;
+                port map(clk, data_vec(i,j), data_vec_i(i,j));                
+            comp_unsigned_i: entity work.comp_unsigned
+                generic map(MODE, MIN_I, MAX_I)  
+                port map(data_vec_i(i,j), comp(i,j));
             comp_i(i,j)(0) <= comp(i,j);
             out_reg_i : entity work.reg_mux
                 generic map(1, OUT_REG_COMP) 

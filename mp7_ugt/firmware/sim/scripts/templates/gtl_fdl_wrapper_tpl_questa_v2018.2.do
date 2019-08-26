@@ -38,6 +38,7 @@ vmap work work
 vcom -93 -work work $MP7_COMPONENTS/mp7_datapath/firmware/hdl/mp7_data_types.vhd
 vcom -93 -work work $MP7_COMPONENTS/ipbus_core/firmware/hdl/ipbus_package.vhd
 vcom -93 -work work $MP7_COMPONENTS/ipbus_core/firmware/hdl/ipbus_trans_decl.vhd
+vcom -93 -work work $MENU_DIR/l1menu_pkg.vhd
 vcom -93 -work work $HDL_DIR/packages/lhc_data_pkg.vhd
 vcom -93 -work work $HDL_DIR/packages/math_pkg.vhd
 vcom -93 -work work $HDL_DIR/packages/top_decl_sim.vhd
@@ -46,7 +47,6 @@ vcom -93 -work work $HDL_DIR/packages/gtl_pkg.vhd
 vcom -93 -work work $HDL_DIR/packages/fdl_pkg.vhd
 vcom -93 -work work $HDL_DIR/packages/lut_pkg.vhd
 vcom -93 -work work $HDL_DIR/packages/fdl_addr_decode.vhd
-vcom -93 -work work $MENU_DIR/l1menu_pkg.vhd
 vcom -93 -work work $TB_DIR/lhc_data_debug_util_pkg.vhd
 vcom -93 -work work $TB_DIR/txt_util_pkg.vhd
 
@@ -54,24 +54,30 @@ vcom -93 -work work $HDL_DIR/data/gtl/reg_mux.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/delay_pipeline.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/conversions.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/bx_pipeline.vhd
+vcom -93 -work work $HDL_DIR/data/gtl/comp_unsigned.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/comp_signed.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/lut_comparator.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/range_comparator.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/threshold_comparator.vhd
+vcom -93 -work work $HDL_DIR/data/gtl/comparators_obj_cuts.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/comparators_corr_cuts.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/comparator_muon_charge_corr.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/combinatorial_conditions.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/correlation_conditions.vhd
 
 ## HB 2019-01-11: used for less amount of resources
+vcom -93 -work work $HDL_DIR/data/gtl/luts_corr_cuts.vhd
+vcom -93 -work work $HDL_DIR/data/gtl/sub_eta_calc.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/sub_eta.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/diff_eta_lut.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/cosh_deta_lut.vhd
+vcom -93 -work work $HDL_DIR/data/gtl/sub_phi_calc.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/sub_phi.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/diff_phi_lut.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/cos_dphi_lut.vhd
 
 vcom -93 -work work $HDL_DIR/data/gtl/delta_r.vhd
+vcom -93 -work work $HDL_DIR/data/gtl/inv_mass_calc.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/invariant_mass.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/transverse_mass.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/muon_charge_correlations.vhd

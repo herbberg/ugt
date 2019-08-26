@@ -7,6 +7,28 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ================================
 Versions of ugt with new GTL structure (v2.0.0 and higher)
 
+## [mp7_ugt_v2_2_0] - 2019-08-26
+
+### Comment
+- mp7_ugt firmware release v2.2.0
+
+### Added
+- ../hdl/data/gtl/comparators_obj_cuts.vhd
+- ../hdl/data/gtl/comp_unsigned.vhd
+- ../hdl/data/gtl/inv_mass_calc.vhd
+- ../hdl/data/gtl/luts_corr_cuts.vhd
+- ../hdl/data/gtl/sub_eta_calc.vhd
+- ../hdl/data/gtl/sub_phi_calc.vhd
+
+### Changed
+- types for inputs and outputs in diff_eta_lut.vhd, diff_phi_lut.vhd and delta_r.vhd
+- modules which instantiate added modules
+- do files and dep file
+
+### Removed
+- directory ../firmware/sim_vivado, not used anymore, simulation is done with Questa simulator
+- ../hdl/packages/rb_pkg.vhd, not used anymore (see control_pkg.vhd)
+
 ## [mp7_ugt_v2_1_0] - 2019-07-03
 
 ### Comment

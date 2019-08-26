@@ -3,6 +3,7 @@
 -- Calculation of twobody_pt (pt**2) based on LUTs.
 
 -- Version history:
+-- HB 2019-08-20: Changed types.
 -- HB 2019-07-02: First design
 
 library ieee;
@@ -22,12 +23,12 @@ entity twobody_pt is
         SIN_COS_WIDTH: positive
     );
     port(
-        pt1 : in pt_array(N_OBJ_1-1 downto 0);
-        pt2 : in pt_array(N_OBJ_2-1 downto 0);
-        cos_phi_1 : in sin_cos_vector_array;
-        cos_phi_2 : in sin_cos_vector_array;
-        sin_phi_1 : in sin_cos_vector_array;
-        sin_phi_2 : in sin_cos_vector_array;
+        pt1 : in conv_pt_vector_array;
+        pt2 : in conv_pt_vector_array;
+        cos_phi_1 : in conv_integer_array;
+        cos_phi_2 : in conv_integer_array;
+        sin_phi_1 : in conv_integer_array;
+        sin_phi_2 : in conv_integer_array;
         twobody_pt_o : out corr_cuts_std_logic_array := (others => (others => (others => '0')))
     );
 end twobody_pt;
@@ -63,14 +64,14 @@ begin
 
     l_1: for i in 0 to  N_OBJ_1-1 generate
         l_2: for j in 0 to N_OBJ_2-1 generate
-	    cos_plus_sin_vec_temp(i,j) <= CONV_STD_LOGIC_VECTOR(((cos_phi_1(i,j)**2) + (sin_phi_1(i,j)**2)), (2*sin_cos_width));
+            cos_plus_sin_vec_temp(i,j) <= CONV_STD_LOGIC_VECTOR(((cos_phi_1(i)*cos_phi_2(j)) + (sin_phi_1(i)*sin_phi_2(j))), (2*sin_cos_width));
 -- HB 2017-03-22: use two's complement when cos_plus_sin_vec_temp is negative
-	    cos_plus_sin_vec(i,j) <= cos_plus_sin_vec_temp(i,j) when cos_plus_sin_vec_temp(i,j)(cos_plus_sin_vec_temp(i,j)'high) = '0' else (not(cos_plus_sin_vec_temp(i,j))+1);
-	    pt1_pt2_cos_sin_temp(i,j) <= conv_std_logic_vector(2,2) * pt1(i)(PT1_WIDTH-1 downto 0) * pt2(j)(PT2_WIDTH-1 downto 0) * cos_plus_sin_vec(i,j);
-	    pt1_pt2_cos_sin(i,j) <= pt1_pt2_cos_sin_temp(i,j) when cos_plus_sin_vec_temp(i,j)(cos_plus_sin_vec_temp(i,j)'high) = '0' else (not(pt1_pt2_cos_sin_temp(i,j))+1);
+            cos_plus_sin_vec(i,j) <= cos_plus_sin_vec_temp(i,j) when cos_plus_sin_vec_temp(i,j)(cos_plus_sin_vec_temp(i,j)'high) = '0' else (not(cos_plus_sin_vec_temp(i,j))+1);
+            pt1_pt2_cos_sin_temp(i,j) <= conv_std_logic_vector(2,2) * pt1(i)(PT1_WIDTH-1 downto 0) * pt2(j)(PT2_WIDTH-1 downto 0) * cos_plus_sin_vec(i,j);
+            pt1_pt2_cos_sin(i,j) <= pt1_pt2_cos_sin_temp(i,j) when cos_plus_sin_vec_temp(i,j)(cos_plus_sin_vec_temp(i,j)'high) = '0' else (not(pt1_pt2_cos_sin_temp(i,j))+1);
             pt_sq(i,j) <= (pt1(i)(PT1_WIDTH-1 downto 0)**2) * (pt2(j)(PT2_WIDTH-1 downto 0)**2);
-	    twobody_pt_sq(i,j) <= pt_sq(i,j) + pt1_pt2_cos_sin(i,j);
-	    l_3: for k in 0 to MASS_WIDTH-1 generate
+            twobody_pt_sq(i,j) <= pt_sq(i,j) + pt1_pt2_cos_sin(i,j);
+            l_3: for k in 0 to MASS_WIDTH-1 generate
                 twobody_pt_o(i,j,k) <= twobody_pt_sq(i,j)(k);                 
             end generate l_3;
         end generate l_2;

@@ -2,6 +2,7 @@
 -- Calculation of deltaR based on LUTs.
 
 -- Version history:
+-- HB 2019-07-04: Changed type of inputs (and therefore inserted type conversion).
 -- HB 2019-06-28: Changed type of outputs.
 -- HB 2018-11-26: First design.
 
@@ -23,14 +24,16 @@ entity delta_r is
         N_OBJ_2 : positive
     );
     port(
-        diff_eta : in deta_dphi_vector_array;
-        diff_phi : in deta_dphi_vector_array;
+        diff_eta : in corr_cuts_std_logic_array;
+        diff_phi : in corr_cuts_std_logic_array;
         dr_squared_o : out corr_cuts_std_logic_array := (others => (others => (others => '0')))
     );
 end delta_r;
 
 architecture rtl of delta_r is
 
+    signal diff_eta_i : deta_dphi_vector_array;
+    signal diff_phi_i : deta_dphi_vector_array;
     type diff_sq_i_array is array (0 to N_OBJ_1-1, 0 to N_OBJ_2-1) of std_logic_vector((2*DETA_DPHI_VECTOR_WIDTH)-1 downto 0);
     signal diff_eta_squared : diff_sq_i_array;
     signal diff_phi_squared : diff_sq_i_array;
@@ -48,12 +51,16 @@ begin
 -- HB 2015-11-26: calculation of ΔR**2 with formular ΔR**2 = (eta1-eta2)**2+(phi1-phi2)**2
     l_1: for i in 0 to N_OBJ_1-1 generate
         l_2: for j in 0 to N_OBJ_2-1 generate
-            diff_eta_squared(i,j) <= diff_eta(i,j)*diff_eta(i,j);
-            diff_phi_squared(i,j) <= diff_phi(i,j)*diff_phi(i,j);
+            l_3: for k in 0 to DETA_DPHI_VECTOR_WIDTH-1 generate
+                diff_eta_i(i,j)(k) <= diff_eta(i,j,k);
+                diff_phi_i(i,j)(k) <= diff_phi(i,j,k);
+            end generate l_3;            
+            diff_eta_squared(i,j) <= diff_eta_i(i,j)*diff_eta_i(i,j);
+            diff_phi_squared(i,j) <= diff_phi_i(i,j)*diff_phi_i(i,j);
             dr_squared(i,j) <= diff_eta_squared(i,j)+diff_phi_squared(i,j);
-            l_3: for l in 0 to (2*DETA_DPHI_VECTOR_WIDTH)-1 generate
+            l_4: for l in 0 to (2*DETA_DPHI_VECTOR_WIDTH)-1 generate
                 dr_squared_o(i,j,l) <= dr_squared(i,j)(l);
-            end generate l_3;
+            end generate l_4;
         end generate l_2;
     end generate l_1;
         

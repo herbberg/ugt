@@ -1,6 +1,9 @@
 -- Description:
 -- Package for constant and type definitions of GTL firmware in Global Trigger Upgrade system.
 
+-- Version-history:
+-- HB 2019-08-22: Added types for LUTs of correlation cuts.
+-- HB 2019-07-16: Changed subtypes declaration to ascending range. Inserted record "default_corr_cuts_rec".
 -- HB 2019-07-03: Moved constants and types for FDL to fdl_pkg.vhd. Removed MAX_N_OBJ.
 -- HB 2019-06-28: Deleted obsolete types
 -- HB 2019-06-27: Inserted new records for conversions
@@ -390,18 +393,12 @@ package gtl_pkg is
         htt : htt_record;
         etm : etm_record;
         htm : htm_record;
-        mbt1hfp : mb_record;
-        mbt1hfm : mb_record;
-        mbt0hfp : mb_record;
-        mbt0hfm : mb_record;
+        mbt1hfp, mbt1hfm, mbt0hfp, mbt0hfm : mb_record;
         ettem : ettem_record;
         etmhf : etmhf_record;
         htmhf : htmhf_record;
         towercount : towercount_record;
-        asymet : asym_record;
-        asymht : asym_record;
-        asymethf : asym_record;
-        asymhthf : asym_record;
+        asymet, asymht, asymethf, asymhthf : asym_record;
         centrality : std_logic_vector(NR_CENTRALITY_BITS-1 downto 0);
         external_conditions : std_logic_vector(EXTERNAL_CONDITIONS_DATA_WIDTH-1 downto 0);
     end record gtl_data_record;
@@ -409,13 +406,7 @@ package gtl_pkg is
     type obj_parameter_array is array (0 to MAX_N_OBJECTS-1) of std_logic_vector(MAX_OBJ_PARAMETER_WIDTH-1 downto 0);    
     
     type obj_bx_record is record
-        pt : obj_parameter_array;
-        eta : obj_parameter_array;
-        phi : obj_parameter_array;
-        iso : obj_parameter_array;
-        qual : obj_parameter_array;
-        charge : obj_parameter_array;
-        count : obj_parameter_array;
+        pt, eta, phi, iso, qual, charge, count : obj_parameter_array;
     end record obj_bx_record;
     
     type array_obj_bx_record is array (0 to BX_PIPELINE_STAGES-1) of obj_bx_record; -- used for outputs of bx_pipeline module  
@@ -486,23 +477,39 @@ package gtl_pkg is
 
 -- HB 2019-07-02: subtypes for l1menu.vhd signals
 
-    subtype eg_obj_t is std_logic_vector(N_EG_OBJECTS-1 downto 0);  
-    subtype jet_obj_t is std_logic_vector(N_JET_OBJECTS-1 downto 0);  
-    subtype tau_obj_t is std_logic_vector(N_TAU_OBJECTS-1 downto 0);  
-    subtype muon_obj_t is std_logic_vector(N_MUON_OBJECTS-1 downto 0);  
+    subtype eg_obj_t is std_logic_vector(0 to N_EG_OBJECTS-1);  
+    subtype jet_obj_t is std_logic_vector(0 to N_JET_OBJECTS-1);  
+    subtype tau_obj_t is std_logic_vector(0 to N_TAU_OBJECTS-1);  
+    subtype muon_obj_t is std_logic_vector(0 to N_MUON_OBJECTS-1);  
     subtype muon_cc_double_t is muon_cc_double_std_logic_array;  
     subtype muon_cc_triple_t is muon_cc_triple_std_logic_array;  
     subtype muon_cc_quad_t is muon_cc_quad_std_logic_array;  
-    subtype eg_eg_t is corr_cuts_array(N_EG_OBJECTS-1 downto 0, N_EG_OBJECTS-1 downto 0);
-    subtype eg_jet_t is corr_cuts_array(N_EG_OBJECTS-1 downto 0, N_JET_OBJECTS-1 downto 0);
-    subtype eg_tau_t is corr_cuts_array(N_EG_OBJECTS-1 downto 0, N_TAU_OBJECTS-1 downto 0);
-    subtype eg_muon_t is corr_cuts_array(N_EG_OBJECTS-1 downto 0, N_MUON_OBJECTS-1 downto 0);
-    subtype jet_jet_t is corr_cuts_array(N_JET_OBJECTS-1 downto 0, N_JET_OBJECTS-1 downto 0);
-    subtype jet_tau_t is corr_cuts_array(N_JET_OBJECTS-1 downto 0, N_TAU_OBJECTS-1 downto 0);
-    subtype jet_muon_t is corr_cuts_array(N_JET_OBJECTS-1 downto 0, N_MUON_OBJECTS-1 downto 0);
-    subtype tau_tau_t is corr_cuts_array(N_TAU_OBJECTS-1 downto 0, N_TAU_OBJECTS-1 downto 0);
-    subtype tau_muon_t is corr_cuts_array(N_TAU_OBJECTS-1 downto 0, N_MUON_OBJECTS-1 downto 0);
-    subtype muon_muon_t is corr_cuts_array(N_MUON_OBJECTS-1 downto 0, N_MUON_OBJECTS-1 downto 0);
+    subtype eg_eg_t is corr_cuts_array(0 to N_EG_OBJECTS-1, 0 to N_EG_OBJECTS-1);
+    subtype eg_jet_t is corr_cuts_array(0 to N_EG_OBJECTS-1, 0 to N_JET_OBJECTS-1);
+    subtype eg_tau_t is corr_cuts_array(0 to N_EG_OBJECTS-1, 0 to N_TAU_OBJECTS-1);
+    subtype eg_muon_t is corr_cuts_array(0 to N_EG_OBJECTS-1, 0 to N_MUON_OBJECTS-1);
+    subtype jet_jet_t is corr_cuts_array(0 to N_JET_OBJECTS-1, 0 to N_JET_OBJECTS-1);
+    subtype jet_tau_t is corr_cuts_array(0 to N_JET_OBJECTS-1, 0 to N_TAU_OBJECTS-1);
+    subtype jet_muon_t is corr_cuts_array(0 to N_JET_OBJECTS-1, 0 to N_MUON_OBJECTS-1);
+    subtype tau_tau_t is corr_cuts_array(0 to N_TAU_OBJECTS-1, 0 to N_TAU_OBJECTS-1);
+    subtype tau_muon_t is corr_cuts_array(0 to N_TAU_OBJECTS-1, 0 to N_MUON_OBJECTS-1);
+    subtype muon_muon_t is corr_cuts_array(0 to N_MUON_OBJECTS-1, 0 to N_MUON_OBJECTS-1);
+    
+    type default_corr_cuts_rec is record
+        eg_eg : eg_eg_t;
+        eg_jet : eg_jet_t;
+        eg_tau : eg_tau_t;
+        eg_muon : eg_muon_t;
+        jet_jet : jet_jet_t;
+        jet_tau : jet_tau_t;
+        jet_muon : jet_muon_t;
+        tau_tau : tau_tau_t;
+        tau_muon : tau_muon_t;
+        muon_muon : muon_muon_t;
+        cc_double : muon_cc_double_std_logic_array;
+        cc_triple : muon_cc_triple_std_logic_array;
+        cc_quad : muon_cc_quad_std_logic_array;
+    end record default_corr_cuts_rec;
     
 -- *******************************************************************************
 -- correlation cuts
@@ -511,7 +518,8 @@ package gtl_pkg is
 -- enums
     type obj_type is (muon_t,eg_t,jet_t,tau_t,ett_t,etm_t,htt_t,htm_t,ettem_t,etmhf_t,htmhf_t,towercount_t,mbt1hfp_t,mbt1hfm_t,mbt0hfp_t,mbt0hfm_t,asymet_t,asymht_t,asymethf_t,asymhthf_t);
     type obj_type_array is array (1 to 2) of obj_type;
-    type comp_mode is (GE,EQ,NE,ETA,PHI,deltaEta,deltaPhi,deltaR,mass,twoBodyPt);
+    type comp_mode is (GE,EQ,NE,ETA,PHI,deltaEta,deltaPhi,deltaR,mass,twoBodyPt,chargeCorr);
+    type corr_cuts_lut_mode is (deltaEta,deltaPhi,CoshDeltaEta,CosDeltaPhi);
 
 -- slices
     type slices_type is array (0 to 1) of natural; -- index 0 contains lower slice value, index 1 contains upper slice value

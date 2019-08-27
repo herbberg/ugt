@@ -61,6 +61,9 @@ vcom -93 -work work $HDL_DIR/data/gtl/range_comparator.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/threshold_comparator.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/comparators_obj_cuts.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/comparators_corr_cuts.vhd
+vcom -93 -work work $HDL_DIR/data/gtl/comparator_muon_cc_double.vhd
+vcom -93 -work work $HDL_DIR/data/gtl/comparator_muon_cc_triple.vhd
+vcom -93 -work work $HDL_DIR/data/gtl/comparator_muon_cc_quad.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/comparator_muon_charge_corr.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/combinatorial_conditions.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/correlation_conditions.vhd

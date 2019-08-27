@@ -31,6 +31,9 @@ src data/gtl/range_comparator.vhd
 src data/gtl/threshold_comparator.vhd
 src data/gtl/comparators_obj_cuts.vhd
 src data/gtl/comparators_corr_cuts.vhd
+src data/gtl/comparator_muon_cc_double.vhd
+src data/gtl/comparator_muon_cc_triple.vhd
+src data/gtl/comparator_muon_cc_quad.vhd
 src data/gtl/comparator_muon_charge_corr.vhd
 src data/gtl/combinatorial_conditions.vhd
 src data/gtl/correlation_conditions.vhd

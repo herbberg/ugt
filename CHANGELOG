@@ -7,7 +7,26 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ================================
 Versions of ugt with new GTL structure (v2.0.0 and higher)
 
-## [mp7_ugt_v2_2_1] - 
+## [mp7_ugt_v2_3_0] - 
+
+### Comment
+- mp7_ugt firmware release v2.3.0
+
+### Added
+- ../hdl/data/gtl/comparator_muon_cc_double.vhd
+- ../hdl/data/gtl/comparator_muon_cc_triple.vhd
+- ../hdl/data/gtl/comparator_muon_cc_quad.vhd
+
+### Changed
+- do files and dep file:
+  ../sim/scripts/templates/gtl_fdl_wrapper_tpl_questa_v2018.2.do
+  ../sim/scripts/templates/gtl_fdl_wrapper_tpl_questa_v2018.3.do
+  ../sim/scripts/templates/gtl_fdl_wrapper_tpl_questa_v2019.1.do
+  ../cfg/uGT_algo.dep
+
+### Removed
+
+## [mp7_ugt_v2_2_1] - 2019-08-27
 
 ### Comment
 - mp7_ugt firmware release v2.2.1

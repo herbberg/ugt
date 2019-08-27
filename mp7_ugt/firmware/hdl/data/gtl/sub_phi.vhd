@@ -31,6 +31,7 @@ architecture rtl of sub_phi is
     
 begin
     
+-- HB 2019-08-27: REMARK - using module sub_phi_calc.vhd needs more resources!
     loop_1: for i in 0 to N_OBJ_1-1 generate
         loop_2: for j in 0 to N_OBJ_2-1 generate
             same_obj_t: if (OBJ(1) = OBJ(2)) and j>i generate

@@ -2,12 +2,15 @@
 -- Subtraction in eta.
 
 -- Version-history:
+-- HB 2019-08-27: Added use clauses.
 -- HB 2019-08-27: Cases for "same objects" and "different objects" (less resources for "same objects").
 -- HB 2019-06-27: Changed type of outputs.
 -- HB 2019-01-11: First design.
 
 library ieee;
 use ieee.std_logic_1164.all;
+use ieee.std_logic_arith.all;
+use ieee.std_logic_signed.all;
 
 use work.gtl_pkg.all;
 
@@ -28,6 +31,7 @@ architecture rtl of sub_eta is
 
 begin
 
+-- HB 2019-08-27: REMARK - using module sub_eta_calc.vhd needs more resources!
     loop_1: for i in 0 to N_OBJ_1-1 generate
         loop_2: for j in 0 to N_OBJ_2-1 generate
 -- only positive difference in eta

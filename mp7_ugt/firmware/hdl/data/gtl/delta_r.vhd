@@ -2,6 +2,7 @@
 -- Calculation of deltaR based on LUTs.
 
 -- Version history:
+-- HB 2019-08-27: Cases for "same objects" and "different objects" (less resources for "same objects").
 -- HB 2019-07-04: Changed type of inputs (and therefore inserted type conversion).
 -- HB 2019-06-28: Changed type of outputs.
 -- HB 2018-11-26: First design.
@@ -16,12 +17,12 @@ use work.math_pkg.all;
 use ieee.std_logic_arith.all;
 
 use work.gtl_pkg.all;
-use work.lut_pkg.all;
 
 entity delta_r is
     generic(
         N_OBJ_1 : positive;
-        N_OBJ_2 : positive
+        N_OBJ_2 : positive;
+        OBJ : obj_type_array
     );
     port(
         diff_eta : in corr_cuts_std_logic_array;
@@ -55,9 +56,16 @@ begin
                 diff_eta_i(i,j)(k) <= diff_eta(i,j,k);
                 diff_phi_i(i,j)(k) <= diff_phi(i,j,k);
             end generate l_3;            
-            diff_eta_squared(i,j) <= diff_eta_i(i,j)*diff_eta_i(i,j);
-            diff_phi_squared(i,j) <= diff_phi_i(i,j)*diff_phi_i(i,j);
-            dr_squared(i,j) <= diff_eta_squared(i,j)+diff_phi_squared(i,j);
+            same_obj_t: if (OBJ(1) = OBJ(2)) and j>i generate
+                diff_eta_squared(i,j) <= diff_eta_i(i,j)*diff_eta_i(i,j);
+                diff_phi_squared(i,j) <= diff_phi_i(i,j)*diff_phi_i(i,j);
+                dr_squared(i,j) <= diff_eta_squared(i,j)+diff_phi_squared(i,j);
+            end generate same_obj_t;    
+            diff_obj_t: if (OBJ(1) /= OBJ(2)) generate
+                diff_eta_squared(i,j) <= diff_eta_i(i,j)*diff_eta_i(i,j);
+                diff_phi_squared(i,j) <= diff_phi_i(i,j)*diff_phi_i(i,j);
+                dr_squared(i,j) <= diff_eta_squared(i,j)+diff_phi_squared(i,j);
+            end generate diff_obj_t;    
             l_4: for l in 0 to (2*DETA_DPHI_VECTOR_WIDTH)-1 generate
                 dr_squared_o(i,j,l) <= dr_squared(i,j)(l);
             end generate l_4;

@@ -2,19 +2,23 @@
 -- Subtraction in eta.
 
 -- Version-history:
--- HB 2019-08-26: Instantiated sub_eta_calc.
+-- HB 2019-08-27: Added use clauses.
+-- HB 2019-08-27: Cases for "same objects" and "different objects" (less resources for "same objects").
 -- HB 2019-06-27: Changed type of outputs.
 -- HB 2019-01-11: First design.
 
 library ieee;
 use ieee.std_logic_1164.all;
+use ieee.std_logic_arith.all;
+use ieee.std_logic_signed.all;
 
 use work.gtl_pkg.all;
 
 entity sub_eta is
     generic(
         N_OBJ_1 : positive;
-        N_OBJ_2 : positive
+        N_OBJ_2 : positive;
+        OBJ : obj_type_array
     );
     port(
         eta_1 : in conv_integer_array;
@@ -25,16 +29,18 @@ end sub_eta;
 
 architecture rtl of sub_eta is
 
-    type sub_eta_array is array (0 to N_OBJ_1-1, 0 to N_OBJ_2-1) of integer;
-    signal sub_eta : sub_eta_array;
-
 begin
 
+-- HB 2019-08-27: REMARK - using module sub_eta_calc.vhd needs more resources!
     loop_1: for i in 0 to N_OBJ_1-1 generate
         loop_2: for j in 0 to N_OBJ_2-1 generate
-            sub_eta_calc_i : entity work.sub_eta_calc
-                port map(eta_1(i), eta_2(j), sub_eta(i,j));
-            sub_eta_o(i,j) <= sub_eta(i,j);
+-- only positive difference in eta
+            same_obj_t: if (OBJ(1) = OBJ(2)) and j>i generate
+                sub_eta_o(i,j) <= abs(eta_1(i) - eta_2(j));
+            end generate same_obj_t;    
+            diff_obj_t: if (OBJ(1) /= OBJ(2)) generate
+                sub_eta_o(i,j) <= abs(eta_1(i) - eta_2(j));
+            end generate diff_obj_t;    
         end generate loop_2;
     end generate loop_1;
                     

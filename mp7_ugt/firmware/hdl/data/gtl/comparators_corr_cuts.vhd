@@ -2,6 +2,7 @@
 -- Comparators for correlation cuts comparisons.
 
 -- Version-history:
+-- HB 2019-08-27: Cases for "same objects" and "different objects" (less resources for "same objects").
 -- HB 2019-08-22: Updated for comp_unsigned.
 -- HB 2019-06-27: Changed type of inputs.
 -- HB 2018-11-26: First design.
@@ -15,6 +16,7 @@ entity comparators_corr_cuts is
     generic(
         N_OBJ_1 : positive;
         N_OBJ_2 : positive;
+        OBJ : obj_type_array;
         DATA_WIDTH : positive;
         MODE : comp_mode;
         MIN_REQ : std_logic_vector(MAX_CORR_CUTS_WIDTH-1 downto 0) := (others => '0');
@@ -49,9 +51,16 @@ begin
             in_reg_i : entity work.reg_mux
                 generic map(DATA_WIDTH, IN_REG_COMP)  
                 port map(clk, data_vec(i,j), data_vec_i(i,j));                
-            comp_unsigned_i: entity work.comp_unsigned
-                generic map(MODE, MIN_I, MAX_I)  
-                port map(data_vec_i(i,j), comp(i,j));
+            same_obj_t: if (OBJ(1) = OBJ(2)) and j>i generate
+                comp_unsigned_i: entity work.comp_unsigned
+                    generic map(MODE, MIN_I, MAX_I)  
+                    port map(data_vec_i(i,j), comp(i,j));
+            end generate same_obj_t;    
+            diff_obj_t: if (OBJ(1) /= OBJ(2)) generate
+                comp_unsigned_i: entity work.comp_unsigned
+                    generic map(MODE, MIN_I, MAX_I)  
+                    port map(data_vec_i(i,j), comp(i,j));
+            end generate diff_obj_t;    
             comp_i(i,j)(0) <= comp(i,j);
             out_reg_i : entity work.reg_mux
                 generic map(1, OUT_REG_COMP) 

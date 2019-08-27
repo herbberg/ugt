@@ -2,6 +2,7 @@
 -- COS LUTs of Differences in phi.
 
 -- Version-history:
+-- HB 2019-08-27: Cases for "same objects" and "different objects" (less resources for "same objects").
 -- HB 2019-08-22: Updated instance luts_corr_cuts.
 -- HB 2019-08-21: Instantiated luts_corr_cuts.
 -- HB 2019-08-20: Changed type of outputs.
@@ -34,9 +35,16 @@ begin
 
     l_1: for i in 0 to N_OBJ_1-1 generate
         l_2: for j in 0 to N_OBJ_2-1 generate
-            lut_i : entity work.luts_corr_cuts
-                generic map(OBJ, CosDeltaPhi)  
-                port map(sub_phi(i,j), cos_dphi_i(i,j));
+            same_obj_t: if (OBJ(1) = OBJ(2)) and j>i generate
+                lut_i : entity work.luts_corr_cuts
+                    generic map(OBJ, CosDeltaPhi)  
+                    port map(sub_phi(i,j), cos_dphi_i(i,j));
+            end generate same_obj_t;    
+            diff_obj_t: if (OBJ(1) /= OBJ(2)) generate
+                lut_i : entity work.luts_corr_cuts
+                    generic map(OBJ, CosDeltaPhi)  
+                    port map(sub_phi(i,j), cos_dphi_i(i,j));
+            end generate diff_obj_t;    
             l_3: for k in 0 to MAX_COSH_COS_WIDTH-1 generate
                 cos_dphi_o(i,j,k) <= cos_dphi_i(i,j)(k);
             end generate l_3;

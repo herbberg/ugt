@@ -1,5 +1,5 @@
 -- Description:
--- Comparators for object cuts comparisons (except with LUTs).
+-- Comparators for muon charge correlations.
 
 -- Version-history:
 -- HB 2019-06-28: Changed types.

@@ -25,6 +25,8 @@ Versions of ugt with new GTL structure (v2.0.0 and higher)
   ../cfg/uGT_algo.dep
 
 ### Removed
+- ../hdl/data/gtl/threshold_comparator.vhd
+- ../hdl/data/gtl/range_comparator.vhd
 
 ## [mp7_ugt_v2_2_1] - 2019-08-27
 

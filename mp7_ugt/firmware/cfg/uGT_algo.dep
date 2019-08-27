@@ -27,8 +27,6 @@ src data/gtl/comp_signed.vhd
 src data/gtl/comp_unsigned.vhd
 src data/gtl/conversions.vhd
 src data/gtl/lut_comparator.vhd
-src data/gtl/range_comparator.vhd
-src data/gtl/threshold_comparator.vhd
 src data/gtl/comparators_obj_cuts.vhd
 src data/gtl/comparators_corr_cuts.vhd
 src data/gtl/comparator_muon_cc_double.vhd

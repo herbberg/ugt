@@ -13,12 +13,17 @@ Versions of ugt with new GTL structure (v2.0.0 and higher)
 - mp7_ugt firmware release v2.2.1
 
 ### Changed
+- ../hdl/data/gtl/inv_mass_calc.vhd (splitted equation for DSP)
 - inserted cases for "same objects" and "different objects" (less resources for "same objects") in:
  ../hdl/data/gtl/cos_dphi_lut.vhd
  ../hdl/data/gtl/cosh_deta_lut.vhd
  ../hdl/data/gtl/diff_eta_lut.vhd
  ../hdl/data/gtl/diff_phi_lut.vhd
-- inv_mass_calc.vhd (splitted equation for DSP)
+ ../hdl/data/gtl/sub_eta.vhd
+ ../hdl/data/gtl/sub_phi.vhd
+ ../hdl/data/gtl/delta_r.vhd
+ ../hdl/data/gtl/invariant_mass.vhd
+ ../hdl/data/gtl/comparators_corr_cuts.vhd
 
 ## [mp7_ugt_v2_2_0] - 2019-08-26
 

@@ -19,7 +19,7 @@
 --  fdl: v1.3.2
 
 -- Version-history of GTL part:
--- HB 2019-08-27: v2.2.1: inserted cases for "same objects" and "different objects" (less resources for "same objects") in lut modules.
+-- HB 2019-08-27: v2.2.1: inserted cases for "same objects" and "different objects" (less resources for "same objects") in "lut", "sub" and "correlation cuts" modules.
 -- HB 2019-08-26: v2.2.0: created basic modules for calculations and module comparators_obj_cuts.vhd.
 -- HB 2019-07-03: v2.1.0: created twobody_pt.vhd module.
 -- HB 2019-06-27: v2.0.1: changed type of conversion signals in bx_pipeline.vhd.

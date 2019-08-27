@@ -17,7 +17,6 @@ use work.math_pkg.all;
 use ieee.std_logic_arith.all;
 
 use work.gtl_pkg.all;
-use work.lut_pkg.all;
 
 entity delta_r is
     generic(

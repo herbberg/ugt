@@ -44,6 +44,7 @@ src data/gtl/sub_phi_calc.vhd
 src data/gtl/sub_phi.vhd
 src data/gtl/diff_phi_lut.vhd
 src data/gtl/cos_dphi_lut.vhd
+src data/gtl/delta_r_calc.vhd
 src data/gtl/delta_r.vhd
 src data/gtl/inv_mass_calc.vhd
 src data/gtl/invariant_mass.vhd

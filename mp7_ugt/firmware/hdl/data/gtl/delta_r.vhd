@@ -1,5 +1,5 @@
 -- Description:
--- Calculation of deltaR based on LUTs.
+-- DeltaR based on LUTs.
 
 -- Version history:
 -- HB 2019-08-27: Cases for "same objects" and "different objects" (less resources for "same objects").
@@ -10,11 +10,6 @@
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.std_logic_unsigned.all;
-use ieee.std_logic_arith.all;
-use work.math_pkg.all;
-
--- used for CONV_STD_LOGIC_VECTOR
-use ieee.std_logic_arith.all;
 
 use work.gtl_pkg.all;
 
@@ -57,14 +52,22 @@ begin
                 diff_phi_i(i,j)(k) <= diff_phi(i,j,k);
             end generate l_3;            
             same_obj_t: if (OBJ(1) = OBJ(2)) and j>i generate
-                diff_eta_squared(i,j) <= diff_eta_i(i,j)*diff_eta_i(i,j);
-                diff_phi_squared(i,j) <= diff_phi_i(i,j)*diff_phi_i(i,j);
-                dr_squared(i,j) <= diff_eta_squared(i,j)+diff_phi_squared(i,j);
+--                 diff_eta_squared(i,j) <= diff_eta_i(i,j)*diff_eta_i(i,j);
+--                 diff_phi_squared(i,j) <= diff_phi_i(i,j)*diff_phi_i(i,j);
+--                 dr_squared(i,j) <= diff_eta_squared(i,j)+diff_phi_squared(i,j);
+                delta_r_calc_i : entity work.delta_r_calc
+                    port map(
+                        diff_eta_i(i,j), diff_phi_i(i,j), dr_squared(i,j)
+                    );
             end generate same_obj_t;    
             diff_obj_t: if (OBJ(1) /= OBJ(2)) generate
-                diff_eta_squared(i,j) <= diff_eta_i(i,j)*diff_eta_i(i,j);
-                diff_phi_squared(i,j) <= diff_phi_i(i,j)*diff_phi_i(i,j);
-                dr_squared(i,j) <= diff_eta_squared(i,j)+diff_phi_squared(i,j);
+--                 diff_eta_squared(i,j) <= diff_eta_i(i,j)*diff_eta_i(i,j);
+--                 diff_phi_squared(i,j) <= diff_phi_i(i,j)*diff_phi_i(i,j);
+--                 dr_squared(i,j) <= diff_eta_squared(i,j)+diff_phi_squared(i,j);
+                delta_r_calc_i : entity work.delta_r_calc
+                    port map(
+                        diff_eta_i(i,j), diff_phi_i(i,j), dr_squared(i,j)
+                    );
             end generate diff_obj_t;    
             l_4: for l in 0 to (2*DETA_DPHI_VECTOR_WIDTH)-1 generate
                 dr_squared_o(i,j,l) <= dr_squared(i,j)(l);

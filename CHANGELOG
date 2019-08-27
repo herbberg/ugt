@@ -16,6 +16,7 @@ Versions of ugt with new GTL structure (v2.0.0 and higher)
 - ../hdl/data/gtl/comparator_muon_cc_double.vhd
 - ../hdl/data/gtl/comparator_muon_cc_triple.vhd
 - ../hdl/data/gtl/comparator_muon_cc_quad.vhd
+- ../hdl/data/gtl/delta_r_calc.vhd
 
 ### Changed
 - do files and dep file:

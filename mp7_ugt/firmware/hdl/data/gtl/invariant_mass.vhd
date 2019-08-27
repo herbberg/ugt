@@ -1,5 +1,5 @@
 -- Description:
--- Calculation of invariant mass based on LUTs.
+-- Invariant mass based on LUTs.
 
 -- Version history:
 -- HB 2019-08-27: Cases for "same objects" and "different objects" (less resources for "same objects").
@@ -10,8 +10,6 @@
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.std_logic_unsigned.all;
-use ieee.std_logic_arith.all;
-use work.math_pkg.all;
 
 use work.gtl_pkg.all;
 

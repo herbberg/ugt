@@ -22,7 +22,7 @@
  
 * Resource calculation for a module with "different object types":
  
-   (number of objects type 1) x (number of objects type 2) x (value of instance)
+   (number of objects type a) x (number of objects type b) x (value of instance)
 
 #### Value for entire module: 
 
@@ -40,8 +40,9 @@
 | comparators_obj_cuts  | comp_signed   | eta      |     2 |
 | comparators_corr_cuts | comp_unsigned | deltaR   |    12 |
 | comparators_corr_cuts | comp_unsigned | inv_mass |    25 |
+| lut_comparator        |               | qual     |     1 |
 
-* Resource calculation for comparators_obj_cuts:
+* Resource calculation for comparators_obj_cuts and lut_comparator:
  
    (number of objects) x (value of instance)
  
@@ -51,7 +52,7 @@
  
 * Resource calculation for comparators_corr_cuts with "different object types":
  
-   (number of objects type 1) x (number of objects type 2) x (value of instance)
+   (number of objects type a) x (number of objects type b) x (value of instance)
 
 #### Value for entire module: 
 
@@ -61,3 +62,9 @@
 | comparators_muon_cc_triple |   336 |
 | comparators_muon_cc_quad   |  1680 |
 
+### Modules for conditions:
+
+| Condition type             | Slice LUTs |
+| ---------------------------|:-----:|
+| single_calo                |     3 |
+| quad_muon                  |   956 |

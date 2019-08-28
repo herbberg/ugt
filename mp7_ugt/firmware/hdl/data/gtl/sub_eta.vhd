@@ -36,18 +36,10 @@ begin
         loop_2: for j in 0 to N_OBJ_2-1 generate
 -- only positive difference in eta
             same_obj_t: if (OBJ(1) = OBJ(2)) and j>i generate
---                 sub_eta_o(i,j) <= abs(eta_1(i) - eta_2(j));
-                sub_eta_calc_i : entity work.sub_eta_calc
-                    port map(
-                        eta_1(i), eta_2(j), sub_eta_o(i,j)
-                    );
+                sub_eta_o(i,j) <= abs(eta_1(i) - eta_2(j));
             end generate same_obj_t;    
             diff_obj_t: if (OBJ(1) /= OBJ(2)) generate
---                 sub_eta_o(i,j) <= abs(eta_1(i) - eta_2(j));
-                sub_eta_calc_i : entity work.sub_eta_calc
-                    port map(
-                        eta_1(i), eta_2(j), sub_eta_o(i,j)
-                    );
+                sub_eta_o(i,j) <= abs(eta_1(i) - eta_2(j));
             end generate diff_obj_t;    
         end generate loop_2;
     end generate loop_1;

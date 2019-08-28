@@ -20,11 +20,11 @@
  
    (number of objects-1) x (number of objects/2) x (value of instance)
  
- * Resource calculation for a module with "different object types":
+* Resource calculation for a module with "different object types":
  
    (number of objects type 1) x (number of objects type 2) x (value of instance)
 
-#### Value for one module: 
+#### Value for entire module: 
 
 | Module                   | Slice LUTs | DSPs |
 | -------------------------|:-----:|:----:|
@@ -33,31 +33,31 @@
 ### Modules for comparators:
 #### Values for one instance:
 
-| Module                | Instance      | Mode     | Slice LUTs | DSPs |
-| ----------------------|---------------|----------|:-----:|:----:|
-| comparators_obj_cuts  | comp_unsigned | pt       |     2 |    0 |
-| comparators_obj_cuts  | comp_unsigned | phi      |     2 |    0 |
-| comparators_obj_cuts  | comp_signed   | eta      |     2 |    0 |
-| comparators_corr_cuts | comp_unsigned | deltaR   |    12 |    0 |
-| comparators_corr_cuts | comp_unsigned | inv_mass |    25 |    0 |
+| Module                | Instance      | Mode     | Slice LUTs |
+| ----------------------|---------------|----------|:-----:|
+| comparators_obj_cuts  | comp_unsigned | pt       |     2 |
+| comparators_obj_cuts  | comp_unsigned | phi      |     2 |
+| comparators_obj_cuts  | comp_signed   | eta      |     2 |
+| comparators_corr_cuts | comp_unsigned | deltaR   |    12 |
+| comparators_corr_cuts | comp_unsigned | inv_mass |    25 |
 
- * Resource calculation for comparators_obj_cuts:
+* Resource calculation for comparators_obj_cuts:
  
    (number of objects) x (value of instance)
  
- * Resource calculation for comparators_corr_cuts with "same object type":
+* Resource calculation for comparators_corr_cuts with "same object type":
  
    (number of objects-1) x (number of objects/2) x (value of instance)
  
- * Resource calculation for comparators_corr_cuts with "different object types":
+* Resource calculation for comparators_corr_cuts with "different object types":
  
    (number of objects type 1) x (number of objects type 2) x (value of instance)
 
-#### Value for one module: 
+#### Value for entire module: 
 
-| Module                     | Slice LUTs | DSPs |
-| ---------------------------|:-----:|:----:|
-| comparators_muon_cc_doube  |  ?    |    0 |
-| comparators_muon_cc_triple |  ?    |    0 |
-| comparators_muon_cc_quad   |  1680 |    0 |
+| Module                     | Slice LUTs |
+| ---------------------------|:-----:|
+| comparators_muon_cc_doube  |    56 |
+| comparators_muon_cc_triple |   336 |
+| comparators_muon_cc_quad   |  1680 |
 

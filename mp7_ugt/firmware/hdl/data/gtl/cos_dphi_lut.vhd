@@ -1,5 +1,5 @@
 -- Description:
--- COS LUTs of Differences in phi.
+-- Cosine of differences in phi (for invariant and transverse mass).
 
 -- Version-history:
 -- HB 2019-08-27: Cases for "same objects" and "different objects" (less resources for "same objects").

@@ -1,7 +1,8 @@
 -- Description:
--- DeltaR based on LUTs.
+-- DeltaR (based on values from LUTs for diff_eta and diff_phi).
 
 -- Version history:
+-- HB 2019-08-28: Instatiated delta_r_calc.
 -- HB 2019-08-27: Cases for "same objects" and "different objects" (less resources for "same objects").
 -- HB 2019-07-04: Changed type of inputs (and therefore inserted type conversion).
 -- HB 2019-06-28: Changed type of outputs.
@@ -44,7 +45,7 @@ architecture rtl of delta_r is
 
 begin
 
--- HB 2015-11-26: calculation of ΔR**2 with formular ΔR**2 = (eta1-eta2)**2+(phi1-phi2)**2
+-- HB 2015-11-26: calculation of deltaR**2 with formular deltaR**2 = (eta1-eta2)**2+(phi1-phi2)**2
     l_1: for i in 0 to N_OBJ_1-1 generate
         l_2: for j in 0 to N_OBJ_2-1 generate
             l_3: for k in 0 to DETA_DPHI_VECTOR_WIDTH-1 generate

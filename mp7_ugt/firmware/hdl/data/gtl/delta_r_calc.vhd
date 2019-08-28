@@ -1,5 +1,5 @@
 -- Description:
--- Calculation of deltaR based on LUTs.
+-- Calculation of deltaR.
 
 -- Version history:
 -- HB 2019-08-28: First design.

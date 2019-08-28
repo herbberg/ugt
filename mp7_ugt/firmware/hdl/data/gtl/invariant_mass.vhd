@@ -1,5 +1,5 @@
 -- Description:
--- Invariant mass based on LUTs.
+-- Invariant mass (based on values from LUTs for cosh_deta and cos_dphi).
 
 -- Version history:
 -- HB 2019-08-27: Cases for "same objects" and "different objects" (less resources for "same objects").

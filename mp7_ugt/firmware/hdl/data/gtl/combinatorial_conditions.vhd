@@ -17,7 +17,6 @@ entity combinatorial_conditions is
         N_OBJ : positive;
         N_REQ : positive;
         SLICES : slices_type_array;
-        TBPT_SEL : boolean;
         CHARGE_CORR_SEL : boolean
     );
     port(

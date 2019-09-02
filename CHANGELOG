@@ -17,8 +17,10 @@ Versions of ugt with new GTL structure (v2.0.0 and higher)
 - ../hdl/data/gtl/comparator_muon_cc_triple.vhd
 - ../hdl/data/gtl/comparator_muon_cc_quad.vhd
 - ../hdl/data/gtl/delta_r_calc.vhd
+- ../hdl/data/gtl/correlation_conditions_ovrm.vhd
 
 ### Changed
+- ../hdl/packages/gtl_pkg.vhd
 - do files and dep file:
   ../sim/scripts/templates/gtl_fdl_wrapper_tpl_questa_v2018.2.do
   ../sim/scripts/templates/gtl_fdl_wrapper_tpl_questa_v2018.3.do

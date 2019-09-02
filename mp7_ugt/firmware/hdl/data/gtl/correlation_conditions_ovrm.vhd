@@ -10,12 +10,13 @@ use ieee.std_logic_1164.all;
 use work.lhc_data_pkg.all;
 use work.gtl_pkg.all;
 
-entity correlation_conditions is
+entity correlation_conditions_ovrm is
     generic(
         N_OBJ_1 : positive;
         N_OBJ_2 : positive;
         N_OBJ_3 : positive;
-        SLICES : slices_type_array
+        SLICES : slices_type_array;
+        CHARGE_CORR_SEL : boolean := false
     );
     port(
         clk : in std_logic;
@@ -37,9 +38,9 @@ entity correlation_conditions is
         dr_ovrm_23 : in corr_cuts_array(0 to N_OBJ_2-1, 0 to N_OBJ_3-1) := (others => (others => '0'));
         cond_o : out std_logic
     );
-end correlation_conditions;
+end correlation_conditions_ovrm;
 
-architecture rtl of correlation_conditions is
+architecture rtl of correlation_conditions_ovrm is
 
     constant N_SLICE_1 : positive := SLICES(1)(1) - SLICES(1)(0) + 1;
     constant N_SLICE_2 : positive := SLICES(2)(1) - SLICES(2)(0) + 1;
@@ -69,7 +70,6 @@ begin
         variable tmp : std_logic := '0';
     begin
         index := 0;
-        and_vec := (others => '0');
         tmp := '0';
         for i in SLICES(1)(0) to SLICES(1)(1) loop
             for j in SLICES(2)(0) to SLICES(2)(1) loop
@@ -78,8 +78,8 @@ begin
                         corr_vec(i,j,k) := in_1(i) and in_2(j) and in_3(k) and deta(i,j) and dphi(i,j) and delta_r(i,j) and 
                             inv_mass(i,j) and trans_mass(i,j) and tbpt(i,j) and cc_double_i(i,j);
                         corr_vec_tmp(i,j) := corr_vec_tmp(i,j) or corr_vec(i,j,k);
-                        ovrm_vec(i,j,k) := dr_ovrm_13(i,k) or dr_ovrm_23(j,k) or deta_ovrm_13(i,k) or deta_ovrm_23(j,k) or 
-                            dphi_ovrm_13(i,k) or dphi_ovrm_23(j,k) and in_3(k);
+                        ovrm_vec(i,j,k) := (dr_ovrm_13(i,k) or dr_ovrm_23(j,k) or deta_ovrm_13(i,k) or deta_ovrm_23(j,k) or 
+                            dphi_ovrm_13(i,k) or dphi_ovrm_23(j,k)) and in_3(k);
                         ovrm_vec_tmp(i,j) := ovrm_vec_tmp(i,j) or ovrm_vec(i,j,k);
                     end loop;
                     index := index + 1;

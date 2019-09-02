@@ -35,6 +35,7 @@ src data/gtl/comparator_muon_cc_quad.vhd
 src data/gtl/comparator_muon_charge_corr.vhd
 src data/gtl/combinatorial_conditions.vhd
 src data/gtl/correlation_conditions.vhd
+src data/gtl/correlation_conditions_ovrm.vhd
 src data/gtl/luts_corr_cuts.vhd
 src data/gtl/sub_eta_calc.vhd
 src data/gtl/sub_eta.vhd

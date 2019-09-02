@@ -65,6 +65,7 @@ vcom -93 -work work $HDL_DIR/data/gtl/comparator_muon_cc_quad.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/comparator_muon_charge_corr.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/combinatorial_conditions.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/correlation_conditions.vhd
+vcom -93 -work work $HDL_DIR/data/gtl/correlation_conditions_ovrm.vhd
 
 ## HB 2019-01-11: used for less amount of resources
 vcom -93 -work work $HDL_DIR/data/gtl/luts_corr_cuts.vhd

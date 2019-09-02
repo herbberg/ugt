@@ -2,6 +2,7 @@
 -- Package for constant and type definitions of GTL firmware in Global Trigger Upgrade system.
 
 -- Version-history:
+-- HB 2019-09-02: Inserted number of objects for esums (N_ETT_OBJECTS, ...).
 -- HB 2019-08-29: Updated record "default_corr_cuts_rec". Added constants for deta, dphi, deltaR and mass vector width).
 -- HB 2019-08-22: Added types for LUTs of correlation cuts.
 -- HB 2019-07-16: Changed subtypes declaration to ascending range. Inserted record "default_corr_cuts_rec".
@@ -176,10 +177,12 @@ package gtl_pkg is
     constant ETT_PT_LOW : natural := 0;
     constant ETT_PT_HIGH : natural := 11;
     constant ETT_PT_WIDTH: positive := ETT_PT_HIGH-ETT_PT_LOW+1;
+    constant N_ETT_OBJECTS : natural := 1;
 
     constant HTT_PT_LOW : natural := 0;
     constant HTT_PT_HIGH : natural := 11;
     constant HTT_PT_WIDTH: positive := HTT_PT_HIGH-HTT_PT_LOW+1;
+    constant N_HTT_OBJECTS : natural := 1;
 
     constant ETM_PT_LOW : natural := 0;
     constant ETM_PT_HIGH : natural := 11;
@@ -188,6 +191,7 @@ package gtl_pkg is
     constant ETM_PT_WIDTH: positive := ETM_PT_HIGH-ETM_PT_LOW+1;
     constant ETM_PHI_WIDTH: positive := ETM_PHI_HIGH-ETM_PHI_LOW+1;
     constant ETM_PT_VECTOR_WIDTH: positive := 15; -- max. value 2047.8 GeV => 20478 (2047.8 * 10**JET_PT_PRECISION) => 0x4FFE
+    constant N_ETM_OBJECTS : natural := 1;
 
     constant HTM_PT_LOW : natural := 0;
     constant HTM_PT_HIGH : natural := 11;
@@ -196,12 +200,14 @@ package gtl_pkg is
     constant HTM_PT_WIDTH: positive := HTM_PT_HIGH-HTM_PT_LOW+1;
     constant HTM_PHI_WIDTH: positive := HTM_PHI_HIGH-HTM_PHI_LOW+1;
     constant HTM_PT_VECTOR_WIDTH: positive := 15; -- max. value 2047.8 GeV => 20478 (2047.8 * 10**JET_PT_PRECISION) => 0x4FFE
+    constant N_HTM_OBJECTS : natural := 1;
 
     constant ETTEM_IN_ETT_LOW : natural := 12;
     constant ETTEM_IN_ETT_HIGH : natural := 23;
     constant ETTEM_PT_LOW : natural := 0;
     constant ETTEM_PT_HIGH : natural := 11;
     constant ETTEM_PT_WIDTH: positive := ETTEM_PT_HIGH-ETTEM_PT_LOW+1;
+    constant N_ETTEM_OBJECTS : natural := 1;
 
     constant ETMHF_PT_LOW : natural := 0;
     constant ETMHF_PT_HIGH : natural := 11;
@@ -210,6 +216,7 @@ package gtl_pkg is
     constant ETMHF_PT_WIDTH: positive := ETMHF_PT_HIGH-ETMHF_PT_LOW+1;
     constant ETMHF_PHI_WIDTH: positive := ETMHF_PHI_HIGH-ETMHF_PHI_LOW+1;
     constant ETMHF_PT_VECTOR_WIDTH: positive := 15; -- max. value 2047.8 GeV => 20478 (2047.8 * 10**JET_PT_PRECISION) => 0x4FFE
+    constant N_ETMHF_OBJECTS : natural := 1;
 
     constant HTMHF_PT_LOW : natural := 0;
     constant HTMHF_PT_HIGH : natural := 11;
@@ -218,6 +225,7 @@ package gtl_pkg is
     constant HTMHF_PT_WIDTH: positive := HTMHF_PT_HIGH-HTMHF_PT_LOW+1;
     constant HTMHF_PHI_WIDTH: positive := HTMHF_PHI_HIGH-HTMHF_PHI_LOW+1;
     constant HTMHF_PT_VECTOR_WIDTH: positive := 15; -- max. value 2047.8 GeV => 20478 (2047.8 * 10**JET_PT_PRECISION) => 0x4FFE
+    constant N_HTMHF_OBJECTS : natural := 1;
 
 -- *******************************************************************************************************
 -- Towercount bits

@@ -2,6 +2,7 @@
 -- Combinatorial conditions
 
 -- Version-history:
+-- HB 2019-09-03: Bug fix on inputs.
 -- HB 2019-07-16: Cleaned up.
 -- HB 2019-06-28: Changed types, inserted use clause.
 -- HB 2018-12-21: First design.
@@ -21,7 +22,10 @@ entity combinatorial_conditions is
     );
     port(
         clk : in std_logic;        
-        comb : in std_logic_vector(0 to N_OBJ-1) := (others => '0');
+        comb_1 : in std_logic_vector(0 to N_OBJ-1) := (others => '0');
+        comb_2 : in std_logic_vector(0 to N_OBJ-1) := (others => '0');
+        comb_3 : in std_logic_vector(0 to N_OBJ-1) := (others => '0');
+        comb_4 : in std_logic_vector(0 to N_OBJ-1) := (others => '0');
         tbpt : in corr_cuts_array(0 to N_OBJ-1, 0 to N_OBJ-1) := (others => (others => '1'));
         charge_corr_double : in muon_cc_double_std_logic_array := (others => (others => '1'));
         charge_corr_triple : in muon_cc_triple_std_logic_array := (others => (others => (others => '1')));
@@ -63,7 +67,7 @@ begin
     end generate;    
 
 -- AND-OR matrix
-    and_or_p: process(comb, cc_double_i, cc_triple_i, cc_quad_i, tbpt)
+    and_or_p: process(comb_1, comb_2, comb_3, comb_4, cc_double_i, cc_triple_i, cc_quad_i, tbpt)
         variable index : integer := 0;
         variable and_vec : std_logic_vector((N_SLICE_1*N_SLICE_2*N_SLICE_3*N_SLICE_4) downto 1) := (others => '0');
         variable tmp : std_logic := '0';
@@ -74,22 +78,22 @@ begin
         for i in SLICES(1)(0) to SLICES(1)(1) loop
             if N_REQ = 1 then
                 index := index + 1;
-                and_vec(index) := comb(i);
+                and_vec(index) := comb_1(i);
             end if;
             for j in SLICES(2)(0) to SLICES(2)(1) loop
                 if N_REQ = 2 and (j/=i) then
                     index := index + 1;
-                    and_vec(index) := comb(i) and comb(j) and cc_double_i(i,j) and tbpt(i,j);
+                    and_vec(index) := comb_1(i) and comb_2(j) and cc_double_i(i,j) and tbpt(i,j);
                 end if;
                 for k in SLICES(3)(0) to SLICES(3)(1) loop
                     if N_REQ = 3 and (j/=i and k/=i and k/=j) then
                         index := index + 1;
-                        and_vec(index) := comb(i) and comb(j) and comb(k) and cc_triple_i(i,j,k);
+                        and_vec(index) := comb_1(i) and comb_2(j) and comb_3(k) and cc_triple_i(i,j,k);
                     end if;
                     for l in SLICES(4)(0) to SLICES(4)(1) loop
                         if N_REQ = 4 and (j/=i and k/=i and k/=j and l/=i and l/=j and l/=k) then
                             index := index + 1;
-                            and_vec(index) := comb(i) and comb(j) and comb(k) and comb(l) and cc_quad_i(i,j,k,l);
+                            and_vec(index) := comb_1(i) and comb_2(j) and comb_3(k) and comb_4(l) and cc_quad_i(i,j,k,l);
                         end if;
                     end loop;
                 end loop;

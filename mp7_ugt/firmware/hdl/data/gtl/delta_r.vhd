@@ -53,18 +53,12 @@ begin
                 diff_phi_i(i,j)(k) <= diff_phi(i,j,k);
             end generate l_3;            
             same_obj_t: if (OBJ(1) = OBJ(2)) and j>i generate
---                 diff_eta_squared(i,j) <= diff_eta_i(i,j)*diff_eta_i(i,j);
---                 diff_phi_squared(i,j) <= diff_phi_i(i,j)*diff_phi_i(i,j);
---                 dr_squared(i,j) <= diff_eta_squared(i,j)+diff_phi_squared(i,j);
                 delta_r_calc_i : entity work.delta_r_calc
                     port map(
                         diff_eta_i(i,j), diff_phi_i(i,j), dr_squared(i,j)
                     );
             end generate same_obj_t;    
             diff_obj_t: if (OBJ(1) /= OBJ(2)) generate
---                 diff_eta_squared(i,j) <= diff_eta_i(i,j)*diff_eta_i(i,j);
---                 diff_phi_squared(i,j) <= diff_phi_i(i,j)*diff_phi_i(i,j);
---                 dr_squared(i,j) <= diff_eta_squared(i,j)+diff_phi_squared(i,j);
                 delta_r_calc_i : entity work.delta_r_calc
                     port map(
                         diff_eta_i(i,j), diff_phi_i(i,j), dr_squared(i,j)

@@ -31,6 +31,7 @@ architecture rtl of delta_r_calc is
 
 begin
 
+-- HB 2015-11-26: calculation of deltaR**2 with formular deltaR**2 = (eta1-eta2)**2+(phi1-phi2)**2
     diff_eta_sq <= diff_eta*diff_eta;
     diff_phi_sq <= diff_phi*diff_phi;
     dr_squared <= diff_eta_sq+diff_phi_sq;

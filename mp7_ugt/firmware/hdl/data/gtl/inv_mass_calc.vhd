@@ -2,6 +2,7 @@
 -- Calculation of invariant mass.
 
 -- Version history:
+-- HB 2019-09-06: Cleaned up.
 -- HB 2019-08-27: Splitted equation for DSP.
 -- HB 2019-08-21: First design.
 

@@ -2,7 +2,7 @@
 -- DeltaR (based on values from LUTs for diff_eta and diff_phi).
 
 -- Version history:
--- HB 2019-08-28: Instatiated delta_r_calc.
+-- HB 2019-08-28: Instantiated delta_r_calc.
 -- HB 2019-08-27: Cases for "same objects" and "different objects" (less resources for "same objects").
 -- HB 2019-07-04: Changed type of inputs (and therefore inserted type conversion).
 -- HB 2019-06-28: Changed type of outputs.

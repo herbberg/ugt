@@ -80,7 +80,7 @@ begin
                             ovrm_13_vec(i,k) := dr_ovrm(i,k) or deta_ovrm(i,k) or dphi_ovrm(i,k);
                             ovrm_23_vec(j,k) := dr_ovrm(j,k) or deta_ovrm(j,k) or dphi_ovrm(j,k);
                             index := index + 1;
-                            corr_ovrm_index_vec_123(index) := corr_vec(i,j) and in_1(i) and in_1(j) and in_3(k) and not ((ovrm_13_vec(i,k) or ovrm_23_vec(j,k)) and in_3(k));
+                            corr_ovrm_index_vec_123(index) := in_1(i) and in_1(j) and in_3(k) and corr_vec(i,j) and not ((ovrm_13_vec(i,k) or ovrm_23_vec(j,k)) and in_3(k));
                         end loop;
                     end if;
                 end loop;
@@ -91,9 +91,9 @@ begin
         else
             for i in SLICES(1)(0) to SLICES(1)(1) loop
                 for j in SLICES(3)(0) to SLICES(3)(1) loop
+                    corr_vec(i,j) := deta(i,j) and dphi(i,j) and delta_r(i,j) and inv_mass(i,j) and trans_mass(i,j) and tbpt(i,j) and cc_double_i(i,j);
                     index := index + 1;
-                    corr_ovrm_index_vec_13(index) := in_1(i) and in_3(j) and deta(i,j) and dphi(i,j) and delta_r(i,j) and 
-                        inv_mass(i,j) and trans_mass(i,j) and tbpt(i,j) and cc_double_i(i,j) and not 
+                    corr_ovrm_index_vec_13(index) := in_1(i) and in_3(j) and deta(i,j) and corr_vec(i,j) and not 
                         ((dr_ovrm(i,j) or deta_ovrm(i,j) or dphi_ovrm(i,j)) and in_3(j));
                 end loop;
             end loop;

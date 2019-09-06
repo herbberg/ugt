@@ -16,6 +16,7 @@ use work.gtl_pkg.all;
 
 entity comparator_muon_charge_corr is
     generic(
+        MODE : comp_mode_cc; -- double, triple or quad
         REQ : std_logic_vector(MUON_CHARGE_WIDTH-1 downto 0)
     );
     port(
@@ -23,9 +24,9 @@ entity comparator_muon_charge_corr is
         cc_double: in muon_cc_double_array := (others => (others => (others => '0')));
         cc_triple: in muon_cc_triple_array := (others => (others => (others => (others => '0'))));
         cc_quad: in muon_cc_quad_array := (others => (others => (others => (others => (others => '0')))));
-        comp_o_double : out muon_cc_double_std_logic_array;
-        comp_o_triple : out muon_cc_triple_std_logic_array;
-        comp_o_quad : out muon_cc_quad_std_logic_array
+        comp_o_double : out muon_cc_double_std_logic_array := (others => (others => '0'));
+        comp_o_triple : out muon_cc_triple_std_logic_array := (others => (others => (others => '0')));
+        comp_o_quad : out muon_cc_quad_std_logic_array := (others => (others => (others => (others => '0'))))
     );
 end comparator_muon_charge_corr;
 
@@ -50,38 +51,44 @@ begin
     
     l1: for i in 0 to N_MUON_OBJECTS-1 generate
         l2: for j in 0 to N_MUON_OBJECTS-1 generate
-            in_reg_i : entity work.reg_mux
-                generic map(MUON_CHARGE_WIDTH, IN_REG_COMP)  
-                port map(clk, cc_double(i,j), cc_double_i(i,j));
-            comp_i : entity work.comp_unsigned
-                generic map(chargeCorr, dummy_limit, dummy_limit, REQ)  
-                port map(cc_double_i(i,j), comp_i_double(i,j)(0));
-            out_reg_i : entity work.reg_mux
-                generic map(1, OUT_REG_COMP)  
-                port map(clk, comp_i_double(i,j), comp_r_double(i,j));
-            comp_o_double(i,j) <= comp_r_double(i,j)(0);
-            l3: for k in 0 to N_MUON_OBJECTS-1 generate
+            double_i: if MODE = double generate
                 in_reg_i : entity work.reg_mux
                     generic map(MUON_CHARGE_WIDTH, IN_REG_COMP)  
-                    port map(clk, cc_triple(i,j,k), cc_triple_i(i,j,k));
+                    port map(clk, cc_double(i,j), cc_double_i(i,j));
                 comp_i : entity work.comp_unsigned
                     generic map(chargeCorr, dummy_limit, dummy_limit, REQ)  
-                    port map(cc_triple_i(i,j,k), comp_i_triple(i,j,k)(0));
+                    port map(cc_double_i(i,j), comp_i_double(i,j)(0));
                 out_reg_i : entity work.reg_mux
                     generic map(1, OUT_REG_COMP)  
-                    port map(clk, comp_i_triple(i,j,k), comp_r_triple(i,j,k));
-                comp_o_triple(i,j,k) <= comp_r_triple(i,j,k)(0);
-                l4: for l in 0 to N_MUON_OBJECTS-1 generate
+                    port map(clk, comp_i_double(i,j), comp_r_double(i,j));
+                comp_o_double(i,j) <= comp_r_double(i,j)(0);
+            end generate double_i;
+            l3: for k in 0 to N_MUON_OBJECTS-1 generate
+                triple_i: if MODE = triple generate
                     in_reg_i : entity work.reg_mux
                         generic map(MUON_CHARGE_WIDTH, IN_REG_COMP)  
-                        port map(clk, cc_quad(i,j,k,l), cc_quad_i(i,j,k,l));
+                        port map(clk, cc_triple(i,j,k), cc_triple_i(i,j,k));
                     comp_i : entity work.comp_unsigned
                         generic map(chargeCorr, dummy_limit, dummy_limit, REQ)  
-                        port map(cc_quad_i(i,j,k,l), comp_i_quad(i,j,k,l)(0));
+                        port map(cc_triple_i(i,j,k), comp_i_triple(i,j,k)(0));
                     out_reg_i : entity work.reg_mux
                         generic map(1, OUT_REG_COMP)  
-                        port map(clk, comp_i_quad(i,j,k,l), comp_r_quad(i,j,k,l));
-                    comp_o_quad(i,j,k,l) <= comp_r_quad(i,j,k,l)(0);
+                        port map(clk, comp_i_triple(i,j,k), comp_r_triple(i,j,k));
+                    comp_o_triple(i,j,k) <= comp_r_triple(i,j,k)(0);
+                end generate triple_i;
+                l4: for l in 0 to N_MUON_OBJECTS-1 generate
+                    quad_i: if MODE = quad generate
+                        in_reg_i : entity work.reg_mux
+                            generic map(MUON_CHARGE_WIDTH, IN_REG_COMP)  
+                            port map(clk, cc_quad(i,j,k,l), cc_quad_i(i,j,k,l));
+                        comp_i : entity work.comp_unsigned
+                            generic map(chargeCorr, dummy_limit, dummy_limit, REQ)  
+                            port map(cc_quad_i(i,j,k,l), comp_i_quad(i,j,k,l)(0));
+                        out_reg_i : entity work.reg_mux
+                            generic map(1, OUT_REG_COMP)  
+                            port map(clk, comp_i_quad(i,j,k,l), comp_r_quad(i,j,k,l));
+                        comp_o_quad(i,j,k,l) <= comp_r_quad(i,j,k,l)(0);
+                    end generate quad_i;
                 end generate l4;
             end generate l3;
         end generate l2;

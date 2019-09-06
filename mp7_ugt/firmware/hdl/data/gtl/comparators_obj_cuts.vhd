@@ -2,11 +2,14 @@
 -- Object cuts comparisons.
 
 -- Version-history:
+-- HB 2019-09-06: Inserted logic of lut comparator for ISO and QUAL.
 -- HB 2019-08-22: Updated for comp_unsigned.
 -- HB 2019-08-21: First design.
 
 library ieee;
 use ieee.std_logic_1164.all;
+-- used for CONV_INTEGER
+use ieee.std_logic_unsigned.all;
 
 use work.gtl_pkg.all;
 
@@ -16,7 +19,8 @@ entity comparators_obj_cuts is
         DATA_WIDTH : positive;
         MODE : comp_mode;
         MIN_REQ : std_logic_vector(MAX_OBJ_PARAMETER_WIDTH-1 downto 0) := (others => '0');
-        MAX_REQ : std_logic_vector(MAX_OBJ_PARAMETER_WIDTH-1 downto 0) := (others => '0')
+        MAX_REQ : std_logic_vector(MAX_OBJ_PARAMETER_WIDTH-1 downto 0) := (others => '0');
+        LUT : std_logic_vector(MAX_LUT_WIDTH-1 downto 0) := (others => '0')
     );
     port(
         clk : in std_logic;
@@ -39,6 +43,11 @@ begin
         in_reg_i : entity work.reg_mux
             generic map(DATA_WIDTH, IN_REG_COMP)  
             port map(clk, data(i)(DATA_WIDTH-1 downto 0), data_i(i));
+        if_pt: if MODE = GE or MODE = EQ or MODE = NE generate
+            comp_unsigned_i: entity work.comp_unsigned
+                generic map(MODE, MIN_I, MAX_I)  
+                port map(data_i(i), comp(i));
+        end generate if_pt;
         if_eta: if MODE = ETA generate
             comp_signed_i : entity work.comp_signed
                 generic map(MIN_I, MAX_I)  
@@ -49,11 +58,9 @@ begin
                 generic map(MODE, MIN_I, MAX_I)  
                 port map(data_i(i), comp(i));
         end generate if_phi;
-        if_thr: if MODE = GE or MODE = EQ or MODE = NE generate
-            comp_unsigned_i: entity work.comp_unsigned
-                generic map(MODE, MIN_I, MAX_I)  
-                port map(data_i(i), comp(i));
-        end generate if_thr;
+        if_iso_qual: if MODE = ISO or MODE = QUAL generate
+            comp(i) <= LUT(CONV_INTEGER(data_i(i)));
+        end generate if_iso_qual;
     end generate l1;
 
     out_reg_i : entity work.reg_mux

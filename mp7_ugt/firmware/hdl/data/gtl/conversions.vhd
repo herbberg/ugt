@@ -2,6 +2,7 @@
 -- Conversion logic for object parameters.
 
 -- Version-history:
+-- HB 2019-09-19: Changed code for eta_integer.
 -- HB 2019-06-27: Changed type of outputs.
 -- HB 2018-11-26: First design.
 
@@ -59,18 +60,21 @@ begin
                 eta_i(i)(EG_ETA_HIGH-EG_ETA_LOW downto 0) <= eta(i)(EG_ETA_HIGH-EG_ETA_LOW downto 0); 
                 phi_i(i)(EG_PHI_HIGH-EG_PHI_LOW downto 0) <= phi(i)(EG_PHI_HIGH-EG_PHI_LOW downto 0); 
                 pt_vector(i)(EG_PT_VECTOR_WIDTH-1 downto 0) <= CONV_STD_LOGIC_VECTOR(EG_PT_LUT(CONV_INTEGER(pt_i(i))), EG_PT_VECTOR_WIDTH);
+                eta_integer(i) <= CONV_INTEGER(signed(eta_i(i)(EG_ETA_WIDTH-1 downto 0)));
             end generate eg_i;
             jet_i: if (OBJ_T = jet_t) generate
                 pt_i(i)(JET_PT_HIGH-JET_PT_LOW downto 0) <= pt(i)(JET_PT_HIGH-JET_PT_LOW downto 0); 
                 eta_i(i)(JET_ETA_HIGH-JET_ETA_LOW downto 0) <= eta(i)(JET_ETA_HIGH-JET_ETA_LOW downto 0); 
                 phi_i(i)(JET_PHI_HIGH-JET_PHI_LOW downto 0) <= phi(i)(JET_PHI_HIGH-JET_PHI_LOW downto 0); 
                 pt_vector(i)(JET_PT_VECTOR_WIDTH-1 downto 0) <= CONV_STD_LOGIC_VECTOR(JET_PT_LUT(CONV_INTEGER(pt_i(i))), JET_PT_VECTOR_WIDTH);
+                eta_integer(i) <= CONV_INTEGER(signed(eta_i(i)(JET_ETA_WIDTH-1 downto 0)));
             end generate jet_i;
             tau_i: if (OBJ_T = tau_t) generate
                 pt_i(i)(TAU_PT_HIGH-TAU_PT_LOW downto 0) <= pt(i)(TAU_PT_HIGH-TAU_PT_LOW downto 0); 
                 eta_i(i)(TAU_ETA_HIGH-TAU_ETA_LOW downto 0) <= eta(i)(TAU_ETA_HIGH-TAU_ETA_LOW downto 0); 
                 phi_i(i)(TAU_PHI_HIGH-TAU_PHI_LOW downto 0) <= phi(i)(TAU_PHI_HIGH-TAU_PHI_LOW downto 0); 
                 pt_vector(i)(TAU_PT_VECTOR_WIDTH-1 downto 0) <= CONV_STD_LOGIC_VECTOR(TAU_PT_LUT(CONV_INTEGER(pt_i(i))), TAU_PT_VECTOR_WIDTH);
+                eta_integer(i) <= CONV_INTEGER(signed(eta_i(i)(TAU_ETA_WIDTH-1 downto 0)));
             end generate tau_i;       
             cos_phi(i) <= CALO_COS_PHI_LUT(CONV_INTEGER(phi_i(i)));
             sin_phi(i) <= CALO_SIN_PHI_LUT(CONV_INTEGER(phi_i(i)));
@@ -87,9 +91,9 @@ begin
             pt_vector(i)(MUON_PT_VECTOR_WIDTH-1 downto 0) <= CONV_STD_LOGIC_VECTOR(MUON_PT_LUT(CONV_INTEGER(pt_i(i))), MUON_PT_VECTOR_WIDTH);
             cos_phi(i) <= MUON_COS_PHI_LUT(CONV_INTEGER(phi_i(i)));
             sin_phi(i) <= MUON_SIN_PHI_LUT(CONV_INTEGER(phi_i(i)));
+            eta_integer(i) <= CONV_INTEGER(signed(eta_i(i)(MUON_ETA_WIDTH-1 downto 0)));
         end generate muon_i;
 -- outputs for all object types
-        eta_integer(i) <= CONV_INTEGER(signed(eta_i(i)));
         phi_integer(i) <= CONV_INTEGER(phi_i(i));
     end generate obj_loop;
 

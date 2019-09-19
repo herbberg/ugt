@@ -1,5 +1,5 @@
 
--- Desription:
+-- Description:
 
 library ieee;
 use ieee.std_logic_1164.all;
@@ -283,6 +283,7 @@ dut : entity work.gtl_fdl_wrapper
         test_en            => '0',
         l1a                => '0',
         begin_lumi_section => '0',
+        bx_nr_fdl => open,
         prescale_factor_set_index_rop => open,
         algo_after_gtLogic_rop => open,
         algo_after_bxomask_rop => open,

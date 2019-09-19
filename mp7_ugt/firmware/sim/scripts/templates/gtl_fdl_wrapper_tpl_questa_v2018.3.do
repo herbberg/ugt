@@ -114,9 +114,9 @@ vcom -93 -work work $MOD_TB_DIR/gtl_fdl_wrapper_tb.vhd
 vsim -t 1ps work.gtl_fdl_wrapper_TB
 
 if {$VIEW_WAVE} {
-  #Load signals in wave window
-  view wave
-  do $TB_DIR/../scripts/gtl_fdl_wrapper_test_wave.do
+   #Load signals in wave window
+   view wave
+   do $TB_DIR/../scripts/gtl_fdl_wrapper_test_wave.do
 }
 set fileId [open $FILE_NAME "w"]
 close $fileId

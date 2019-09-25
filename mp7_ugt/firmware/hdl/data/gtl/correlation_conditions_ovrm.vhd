@@ -14,6 +14,7 @@ use work.gtl_pkg.all;
 entity correlation_conditions_ovrm is
     generic(
         N_OBJ_1 : positive;
+        N_OBJ_2 : positive;
         N_OBJ_3 : positive;
         SLICES : slices_type_array;
         CHARGE_CORR_SEL : boolean := false;
@@ -22,6 +23,7 @@ entity correlation_conditions_ovrm is
     port(
         clk : in std_logic;
         in_1 : in std_logic_vector(0 to N_OBJ_1-1);
+        in_2 : in std_logic_vector(0 to N_OBJ_1-1);
         in_3 : in std_logic_vector(0 to N_OBJ_3-1);        
         deta : in corr_cuts_array(0 to N_OBJ_1-1, 0 to N_OBJ_1-1) := (others => (others => '1'));
         dphi : in corr_cuts_array(0 to N_OBJ_1-1, 0 to N_OBJ_1-1) := (others => (others => '1'));
@@ -57,31 +59,40 @@ begin
     end generate;    
 
 -- AND-OR matrix
-    and_or_p: process(in_1, in_3, deta, dphi, delta_r, inv_mass, trans_mass, tbpt, cc_double_i, dr_ovrm, deta_ovrm, dphi_ovrm)
+    and_or_p: process(in_1, in_2, in_3, deta, dphi, delta_r, inv_mass, trans_mass, tbpt, cc_double_i, dr_ovrm, deta_ovrm, dphi_ovrm)
         variable index : integer := 0;
+        type corr_vec_123_arr is array (SLICES(1)(0) to SLICES(1)(1), SLICES(2)(0) to SLICES(2)(1), SLICES(3)(0) to SLICES(3)(1)) of std_logic;
+        variable corr_vec_123, ovrm_vec_123 : corr_vec_123_arr := (others => (others => (others => '0')));
         type tmp_12_array is array (SLICES(1)(0) to SLICES(1)(1), SLICES(2)(0) to SLICES(2)(1)) of std_logic;
-        variable corr_vec : tmp_12_array := (others => (others => '0'));
+        variable corr_vec, corr_vec_123_or, ovrm_vec_123_or, corr_ovrm_vec : tmp_12_array := (others => (others => '0'));
         type tmp_13_array is array (SLICES(1)(0) to SLICES(1)(1), SLICES(3)(0) to SLICES(3)(1)) of std_logic;
-        variable ovrm_13_vec : tmp_13_array := (others => (others => '0'));
+        variable ovrm_vec_13 : tmp_13_array := (others => (others => '0'));
         type tmp_23_array is array (SLICES(2)(0) to SLICES(2)(1), SLICES(3)(0) to SLICES(3)(1)) of std_logic;
-        variable ovrm_23_vec : tmp_23_array := (others => (others => '0'));
+        variable ovrm_vec_23 : tmp_23_array := (others => (others => '0'));
         variable corr_ovrm_index_vec_123 : std_logic_vector((N_SLICE_1*N_SLICE_1*N_SLICE_3) downto 1) := (others => '0');
         variable corr_ovrm_index_vec_13 : std_logic_vector((N_SLICE_1*N_SLICE_3) downto 1) := (others => '0');
         variable tmp : std_logic := '0';
     begin
         index := 0;
         tmp := '0';
+        corr_vec_123_or := (others => (others => '0'));
+        ovrm_vec_123_or := (others => (others => '0'));
         if obj_2plus1 then
             for i in SLICES(1)(0) to SLICES(1)(1) loop
                 for j in SLICES(2)(0) to SLICES(2)(1) loop
                     if j/=i then 
                         corr_vec(i,j) := deta(i,j) and dphi(i,j) and delta_r(i,j) and inv_mass(i,j) and trans_mass(i,j) and tbpt(i,j) and cc_double_i(i,j);
                         for k in SLICES(3)(0) to SLICES(3)(1) loop
-                            ovrm_13_vec(i,k) := dr_ovrm(i,k) or deta_ovrm(i,k) or dphi_ovrm(i,k);
-                            ovrm_23_vec(j,k) := dr_ovrm(j,k) or deta_ovrm(j,k) or dphi_ovrm(j,k);
-                            index := index + 1;
-                            corr_ovrm_index_vec_123(index) := in_1(i) and in_1(j) and in_3(k) and corr_vec(i,j) and not ((ovrm_13_vec(i,k) or ovrm_23_vec(j,k)) and in_3(k));
+                            corr_vec_123(i,j,k) := in_1(i) and in_2(j) and in_3(k) and corr_vec(i,j);
+                            corr_vec_123_or(i,j) := corr_vec_123_or(i,j) or corr_vec_123(i,j,k);
+                            ovrm_vec_13(i,k) := dr_ovrm(i,k) or deta_ovrm(i,k) or dphi_ovrm(i,k);
+                            ovrm_vec_23(j,k) := dr_ovrm(j,k) or deta_ovrm(j,k) or dphi_ovrm(j,k);
+                            ovrm_vec_123(i,j,k) := (ovrm_vec_13(i,k) or ovrm_vec_23(j,k)) and in_3(k);
+                            ovrm_vec_123_or(i,j) := ovrm_vec_123_or(i,j) or ovrm_vec_123(i,j,k);
                         end loop;
+                        index := index + 1;
+                        corr_ovrm_vec(i,j) := corr_vec_123_or(i,j) and not ovrm_vec_123_or(i,j);
+                        corr_ovrm_index_vec_123(index) := corr_ovrm_vec(i,j);
                     end if;
                 end loop;
             end loop;
@@ -93,7 +104,7 @@ begin
                 for j in SLICES(3)(0) to SLICES(3)(1) loop
                     corr_vec(i,j) := deta(i,j) and dphi(i,j) and delta_r(i,j) and inv_mass(i,j) and trans_mass(i,j) and tbpt(i,j) and cc_double_i(i,j);
                     index := index + 1;
-                    corr_ovrm_index_vec_13(index) := in_1(i) and in_3(j) and deta(i,j) and corr_vec(i,j) and not 
+                    corr_ovrm_index_vec_13(index) := in_1(i) and in_3(j) and corr_vec(i,j) and not 
                         ((dr_ovrm(i,j) or deta_ovrm(i,j) or dphi_ovrm(i,j)) and in_3(j));
                 end loop;
             end loop;

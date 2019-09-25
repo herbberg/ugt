@@ -22,9 +22,11 @@ Versions of ugt with new GTL structure (v2.0.0 and higher)
 
 ### Changed
 - source files:
+  ../hdl/data/gtl/conversions.vhd
   ../hdl/data/gtl/comparator_muon_charge_corr.vhd
   ../hdl/data/gtl/comparators_obj_cuts.vhd
   ../hdl/data/gtl/invariant_mass.vhd
+  ../hdl/data/gtl/inv_mass_calc.vhd
   ../hdl/data/gtl/combinatorial_conditions.vhd
   ../hdl/data/gtl/comparators_corr_cuts.vhd
   ../hdl/data/gtl/comparators_obj_cuts.vhd

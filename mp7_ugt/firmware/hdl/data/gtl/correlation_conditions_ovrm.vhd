@@ -2,6 +2,7 @@
 -- Correlation conditions with overlap removal.
 
 -- Version-history:
+-- HB 2019-09-25: Improved and-or logic.
 -- HB 2019-09-02: Inserted generic parameter and logic for "2 plus 1" objects and "1 plus 1" objects.
 -- HB 2019-08-29: First design.
 

@@ -1,6 +1,7 @@
 -- Description:
 -- Package for constant and type definitions of FDL firmware in Global Trigger Upgrade system.
 
+-- HB 2019-09-26: New constant PRESCALE_FACTOR_WIDTH (removed PRESCALER_COUNTER_WIDTH and PRESCALER_FRACTION_WIDTH).
 -- HB 2019-07-03: New package for FDL (moved from gtl_pkg.vhd)
 
 library ieee;
@@ -28,9 +29,7 @@ package fdl_pkg is
 -- *******************************************************************************************************
 -- FDL definitions
 -- Definitions for prescalers (for FDL !)
-    constant PRESCALER_COUNTER_WIDTH : integer := 24;
--- HB 2019-06-03: inserted for fractional prescaler values 
-    constant PRESCALER_FRACTION_WIDTH : integer := 8; 
+    constant PRESCALE_FACTOR_WIDTH : integer := 32;
     
 -- Definitions for rate counters
     constant RATE_COUNTER_WIDTH : integer := 32;

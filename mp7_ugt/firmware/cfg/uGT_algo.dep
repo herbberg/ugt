@@ -59,8 +59,9 @@ src data/fdl/algo_rate_counter.vhd
 src data/fdl/algo_post_dead_time_counter.vhd
 src data/fdl/fdl_fabric.vhd
 #src data/fdl/algo_pre_scaler.vhd
-src data/fdl/algo_pre_scaler_fractional.vhd
-src data/fdl/algo_pre_scaler_fractional_pkg.vhd
+src data/fdl/algo_pre_scaler_fractional_bocci.vhd
+#src data/fdl/algo_pre_scaler_fractional.vhd
+#src data/fdl/algo_pre_scaler_fractional_pkg.vhd
 src data/fdl/update_process.vhd
 src data/fdl/pulse_converter.vhd
 src data/fdl/algo_slice.vhd

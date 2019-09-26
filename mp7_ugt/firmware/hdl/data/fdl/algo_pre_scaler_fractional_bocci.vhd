@@ -13,7 +13,7 @@ use ieee.std_logic_unsigned.all;
 entity algo_pre_scaler is
    generic( 
       PRESCALE_FACTOR_WIDTH : integer;
-      PRESCALE_FACTOR_INIT : std_logic_vector(31 DOWNTO 0) := X"0000000A"; -- represents floting point notation of PRESCALE_FACTOR (=1.0 => 1.0x10=10)
+      PRESCALE_FACTOR_INIT : std_logic_vector(31 DOWNTO 0);
       SIM : boolean := false
    );
    port( 
@@ -34,8 +34,7 @@ end algo_pre_scaler;
 architecture rtl of algo_pre_scaler is
 
    constant ZERO : std_logic_vector(PRESCALE_FACTOR_WIDTH-1 downto 0) := (others => '0');
---    constant INCR : std_logic_vector(PRESCALE_FACTOR_WIDTH-1 downto 0) := X"0000000A"; -- if fractional is one digit (=10)
-   constant INCR : std_logic_vector(PRESCALE_FACTOR_WIDTH-1 downto 0) := X"00000064"; -- if fractional is two digits (=100)
+   constant INCR : std_logic_vector(PRESCALE_FACTOR_WIDTH-1 downto 0) := PRESCALER_INCR;
    
    signal prescale_factor_int : std_logic_vector(PRESCALE_FACTOR_WIDTH-1 downto 0) := PRESCALE_FACTOR_INIT(PRESCALE_FACTOR_WIDTH-1 downto 0);
    signal counter : std_logic_vector(PRESCALE_FACTOR_WIDTH-1 downto 0) := (others => '0');

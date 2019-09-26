@@ -25,9 +25,9 @@ use work.math_pkg.all;
 
 entity algo_slice is
     generic( 
-        RATE_COUNTER_WIDTH : integer := 32;
-        PRESCALE_FACTOR_WIDTH : integer := 32;
-        PRESCALE_FACTOR_INIT : std_logic_vector(31 DOWNTO 0) := X"00000001";
+        RATE_COUNTER_WIDTH : integer;
+        PRESCALE_FACTOR_WIDTH : integer;
+        PRESCALE_FACTOR_INIT : std_logic_vector(31 DOWNTO 0);
         MAX_DELAY : integer := 128
     );
     port( 

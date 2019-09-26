@@ -1,5 +1,5 @@
 -- Description:
--- COSH LUTs of Differences in eta.
+-- Hyperbolic cosine of differences in eta (for invariant mass).
 
 -- Version-history:
 -- HB 2019-08-27: Cases for "same objects" and "different objects" (less resources for "same objects").

@@ -2,6 +2,7 @@
 -- Correlation conditions
 
 -- Version-history:
+-- HB 2019-08-29: Removed unused generics.
 -- HB 2019-07-16: Cleaned up.
 -- HB 2019-06-28: Changed types, inserted use clause.
 -- HB 2018-12-21: First design.
@@ -17,12 +18,6 @@ entity correlation_conditions is
         N_OBJ_1 : positive;
         N_OBJ_2 : positive;
         SLICES : slices_type_array;
-        DETA_SEL : boolean;
-        DPHI_SEL : boolean;
-        DR_SEL : boolean;
-        INV_MASS_SEL : boolean;
-        TRANS_MASS_SEL : boolean;
-        TBPT_SEL : boolean;
         CHARGE_CORR_SEL : boolean
     );
     port(

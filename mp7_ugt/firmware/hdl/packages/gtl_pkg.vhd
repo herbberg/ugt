@@ -2,6 +2,9 @@
 -- Package for constant and type definitions of GTL firmware in Global Trigger Upgrade system.
 
 -- Version-history:
+-- HB 2019-09-06: Inserted comp_mode_cc.
+-- HB 2019-09-02: Inserted number of objects for esums (N_ETT_OBJECTS, ...).
+-- HB 2019-08-29: Updated record "default_corr_cuts_rec". Added constants for deta, dphi, deltaR and mass vector width).
 -- HB 2019-08-22: Added types for LUTs of correlation cuts.
 -- HB 2019-07-16: Changed subtypes declaration to ascending range. Inserted record "default_corr_cuts_rec".
 -- HB 2019-07-03: Moved constants and types for FDL to fdl_pkg.vhd. Removed MAX_N_OBJ.
@@ -175,10 +178,12 @@ package gtl_pkg is
     constant ETT_PT_LOW : natural := 0;
     constant ETT_PT_HIGH : natural := 11;
     constant ETT_PT_WIDTH: positive := ETT_PT_HIGH-ETT_PT_LOW+1;
+    constant N_ETT_OBJECTS : natural := 1;
 
     constant HTT_PT_LOW : natural := 0;
     constant HTT_PT_HIGH : natural := 11;
     constant HTT_PT_WIDTH: positive := HTT_PT_HIGH-HTT_PT_LOW+1;
+    constant N_HTT_OBJECTS : natural := 1;
 
     constant ETM_PT_LOW : natural := 0;
     constant ETM_PT_HIGH : natural := 11;
@@ -187,6 +192,7 @@ package gtl_pkg is
     constant ETM_PT_WIDTH: positive := ETM_PT_HIGH-ETM_PT_LOW+1;
     constant ETM_PHI_WIDTH: positive := ETM_PHI_HIGH-ETM_PHI_LOW+1;
     constant ETM_PT_VECTOR_WIDTH: positive := 15; -- max. value 2047.8 GeV => 20478 (2047.8 * 10**JET_PT_PRECISION) => 0x4FFE
+    constant N_ETM_OBJECTS : natural := 1;
 
     constant HTM_PT_LOW : natural := 0;
     constant HTM_PT_HIGH : natural := 11;
@@ -195,12 +201,14 @@ package gtl_pkg is
     constant HTM_PT_WIDTH: positive := HTM_PT_HIGH-HTM_PT_LOW+1;
     constant HTM_PHI_WIDTH: positive := HTM_PHI_HIGH-HTM_PHI_LOW+1;
     constant HTM_PT_VECTOR_WIDTH: positive := 15; -- max. value 2047.8 GeV => 20478 (2047.8 * 10**JET_PT_PRECISION) => 0x4FFE
+    constant N_HTM_OBJECTS : natural := 1;
 
     constant ETTEM_IN_ETT_LOW : natural := 12;
     constant ETTEM_IN_ETT_HIGH : natural := 23;
     constant ETTEM_PT_LOW : natural := 0;
     constant ETTEM_PT_HIGH : natural := 11;
     constant ETTEM_PT_WIDTH: positive := ETTEM_PT_HIGH-ETTEM_PT_LOW+1;
+    constant N_ETTEM_OBJECTS : natural := 1;
 
     constant ETMHF_PT_LOW : natural := 0;
     constant ETMHF_PT_HIGH : natural := 11;
@@ -209,6 +217,7 @@ package gtl_pkg is
     constant ETMHF_PT_WIDTH: positive := ETMHF_PT_HIGH-ETMHF_PT_LOW+1;
     constant ETMHF_PHI_WIDTH: positive := ETMHF_PHI_HIGH-ETMHF_PHI_LOW+1;
     constant ETMHF_PT_VECTOR_WIDTH: positive := 15; -- max. value 2047.8 GeV => 20478 (2047.8 * 10**JET_PT_PRECISION) => 0x4FFE
+    constant N_ETMHF_OBJECTS : natural := 1;
 
     constant HTMHF_PT_LOW : natural := 0;
     constant HTMHF_PT_HIGH : natural := 11;
@@ -217,6 +226,7 @@ package gtl_pkg is
     constant HTMHF_PT_WIDTH: positive := HTMHF_PT_HIGH-HTMHF_PT_LOW+1;
     constant HTMHF_PHI_WIDTH: positive := HTMHF_PHI_HIGH-HTMHF_PHI_LOW+1;
     constant HTMHF_PT_VECTOR_WIDTH: positive := 15; -- max. value 2047.8 GeV => 20478 (2047.8 * 10**JET_PT_PRECISION) => 0x4FFE
+    constant N_HTMHF_OBJECTS : natural := 1;
 
 -- *******************************************************************************************************
 -- Towercount bits
@@ -295,12 +305,122 @@ package gtl_pkg is
 -- *******************************************************************************
 -- Constants for correlation cuts
 
+    -- DETA, DPHI and deltaR
     constant DETA_DPHI_PRECISION: positive := 3;
     constant DETA_DPHI_VECTOR_WIDTH: positive := log2c(max(integer(ETA_RANGE_REAL*(real(10**DETA_DPHI_PRECISION))),integer(PHI_MAX*(real(10**DETA_DPHI_PRECISION))))); 
+    constant DELTAETA_VECTOR_WIDTH: positive := DETA_DPHI_VECTOR_WIDTH;
+    constant DELTAPHI_VECTOR_WIDTH: positive := DETA_DPHI_VECTOR_WIDTH;
+    constant DELTAR_VECTOR_WIDTH: positive := 2*DETA_DPHI_VECTOR_WIDTH;
+
+    constant EG_EG_DELTAETA_VECTOR_WIDTH: positive := DETA_DPHI_VECTOR_WIDTH;
+    constant EG_JET_DELTAETA_VECTOR_WIDTH: positive := DETA_DPHI_VECTOR_WIDTH;
+    constant EG_TAU_DELTAETA_VECTOR_WIDTH: positive := DETA_DPHI_VECTOR_WIDTH;
+    constant JET_JET_DELTAETA_VECTOR_WIDTH: positive := DETA_DPHI_VECTOR_WIDTH;
+    constant JET_TAU_DELTAETA_VECTOR_WIDTH: positive := DETA_DPHI_VECTOR_WIDTH;
+    constant TAU_TAU_DELTAETA_VECTOR_WIDTH: positive := DETA_DPHI_VECTOR_WIDTH;
+    constant EG_MUON_DELTAETA_VECTOR_WIDTH: positive := DETA_DPHI_VECTOR_WIDTH;
+    constant JET_MUON_DELTAETA_VECTOR_WIDTH: positive := DETA_DPHI_VECTOR_WIDTH;
+    constant TAU_MUON_DELTAETA_VECTOR_WIDTH: positive := DETA_DPHI_VECTOR_WIDTH;
+    constant MUON_MUON_DELTAETA_VECTOR_WIDTH: positive := DETA_DPHI_VECTOR_WIDTH;
+
+    constant EG_EG_DELTAPHI_VECTOR_WIDTH: positive := DETA_DPHI_VECTOR_WIDTH;
+    constant EG_JET_DELTAPHI_VECTOR_WIDTH: positive := DETA_DPHI_VECTOR_WIDTH;
+    constant EG_TAU_DELTAPHI_VECTOR_WIDTH: positive := DETA_DPHI_VECTOR_WIDTH;
+    constant JET_JET_DELTAPHI_VECTOR_WIDTH: positive := DETA_DPHI_VECTOR_WIDTH;
+    constant JET_TAU_DELTAPHI_VECTOR_WIDTH: positive := DETA_DPHI_VECTOR_WIDTH;
+    constant TAU_TAU_DELTAPHI_VECTOR_WIDTH: positive := DETA_DPHI_VECTOR_WIDTH;
+    constant EG_MUON_DELTAPHI_VECTOR_WIDTH: positive := DETA_DPHI_VECTOR_WIDTH;
+    constant JET_MUON_DELTAPHI_VECTOR_WIDTH: positive := DETA_DPHI_VECTOR_WIDTH;
+    constant TAU_MUON_DELTAPHI_VECTOR_WIDTH: positive := DETA_DPHI_VECTOR_WIDTH;
+    constant MUON_MUON_DELTAPHI_VECTOR_WIDTH: positive := DETA_DPHI_VECTOR_WIDTH;
+    constant EG_ETM_DELTAPHI_VECTOR_WIDTH: positive := DETA_DPHI_VECTOR_WIDTH;
+    constant EG_HTM_DELTAPHI_VECTOR_WIDTH: positive := DETA_DPHI_VECTOR_WIDTH;
+    constant EG_ETMHF_DELTAPHI_VECTOR_WIDTH: positive := DETA_DPHI_VECTOR_WIDTH;
+    constant EG_HTMHF_DELTAPHI_VECTOR_WIDTH: positive := DETA_DPHI_VECTOR_WIDTH;
+    constant JET_ETM_DELTAPHI_VECTOR_WIDTH: positive := DETA_DPHI_VECTOR_WIDTH;
+    constant JET_HTM_DELTAPHI_VECTOR_WIDTH: positive := DETA_DPHI_VECTOR_WIDTH;
+    constant JET_ETMHF_DELTAPHI_VECTOR_WIDTH: positive := DETA_DPHI_VECTOR_WIDTH;
+    constant JET_HTMHF_DELTAPHI_VECTOR_WIDTH: positive := DETA_DPHI_VECTOR_WIDTH;
+    constant TAU_ETM_DELTAPHI_VECTOR_WIDTH: positive := DETA_DPHI_VECTOR_WIDTH;
+    constant TAU_HTM_DELTAPHI_VECTOR_WIDTH: positive := DETA_DPHI_VECTOR_WIDTH;
+    constant TAU_ETMHF_DELTAPHI_VECTOR_WIDTH: positive := DETA_DPHI_VECTOR_WIDTH;
+    constant TAU_HTMHF_DELTAPHI_VECTOR_WIDTH: positive := DETA_DPHI_VECTOR_WIDTH;
+    constant MUON_ETM_DELTAPHI_VECTOR_WIDTH: positive := DETA_DPHI_VECTOR_WIDTH;
+    constant MUON_HTM_DELTAPHI_VECTOR_WIDTH: positive := DETA_DPHI_VECTOR_WIDTH;
+    constant MUON_ETMHF_DELTAPHI_VECTOR_WIDTH: positive := DETA_DPHI_VECTOR_WIDTH;
+    constant MUON_HTMHF_DELTAPHI_VECTOR_WIDTH: positive := DETA_DPHI_VECTOR_WIDTH;
+
+    constant EG_EG_DELTAR_VECTOR_WIDTH: positive := 2*DETA_DPHI_VECTOR_WIDTH;
+    constant EG_JET_DELTAR_VECTOR_WIDTH: positive := 2*DETA_DPHI_VECTOR_WIDTH;
+    constant EG_TAU_DELTAR_VECTOR_WIDTH: positive := 2*DETA_DPHI_VECTOR_WIDTH;
+    constant JET_JET_DELTAR_VECTOR_WIDTH: positive := 2*DETA_DPHI_VECTOR_WIDTH;
+    constant JET_TAU_DELTAR_VECTOR_WIDTH: positive := 2*DETA_DPHI_VECTOR_WIDTH;
+    constant TAU_TAU_DELTAR_VECTOR_WIDTH: positive := 2*DETA_DPHI_VECTOR_WIDTH;
+    constant EG_MUON_DELTAR_VECTOR_WIDTH: positive := 2*DETA_DPHI_VECTOR_WIDTH;
+    constant JET_MUON_DELTAR_VECTOR_WIDTH: positive := 2*DETA_DPHI_VECTOR_WIDTH;
+    constant TAU_MUON_DELTAR_VECTOR_WIDTH: positive := 2*DETA_DPHI_VECTOR_WIDTH;
+    constant MUON_MUON_DELTAR_VECTOR_WIDTH: positive := 2*DETA_DPHI_VECTOR_WIDTH;
+
+    -- Mass
     constant CALO_CALO_COSH_COS_VECTOR_WIDTH: positive := 24; -- max. value cosh_deta-cos_dphi => [10597282-(-1000)]=10598282 => 0xA1B78A
     constant CALO_MUON_COSH_COS_VECTOR_WIDTH: positive := 27; -- max. value cosh_deta-cos_dphi => [109487199-(-10000)]=109497199 => 0x686CB6F
     constant MUON_MUON_COSH_COS_VECTOR_WIDTH: positive := 20; -- max. value cosh_deta-cos_dphi => [667303-(-10000)]=677303 => 0xA55B7
+    constant EG_EG_COSH_COS_VECTOR_WIDTH: positive := CALO_CALO_COSH_COS_VECTOR_WIDTH;
+    constant EG_JET_COSH_COS_VECTOR_WIDTH: positive := CALO_CALO_COSH_COS_VECTOR_WIDTH;
+    constant EG_TAU_COSH_COS_VECTOR_WIDTH: positive := CALO_CALO_COSH_COS_VECTOR_WIDTH;
+    constant EG_ETM_COSH_COS_VECTOR_WIDTH: positive := CALO_CALO_COSH_COS_VECTOR_WIDTH;
+    constant EG_HTM_COSH_COS_VECTOR_WIDTH: positive := CALO_CALO_COSH_COS_VECTOR_WIDTH;
+    constant EG_ETMHF_COSH_COS_VECTOR_WIDTH: positive := CALO_CALO_COSH_COS_VECTOR_WIDTH;
+    constant EG_HTMHF_COSH_COS_VECTOR_WIDTH: positive := CALO_CALO_COSH_COS_VECTOR_WIDTH;
+    constant JET_JET_COSH_COS_VECTOR_WIDTH: positive := CALO_CALO_COSH_COS_VECTOR_WIDTH;
+    constant JET_TAU_COSH_COS_VECTOR_WIDTH: positive := CALO_CALO_COSH_COS_VECTOR_WIDTH;
+    constant JET_ETM_COSH_COS_VECTOR_WIDTH: positive := CALO_CALO_COSH_COS_VECTOR_WIDTH;
+    constant JET_HTM_COSH_COS_VECTOR_WIDTH: positive := CALO_CALO_COSH_COS_VECTOR_WIDTH;
+    constant JET_ETMHF_COSH_COS_VECTOR_WIDTH: positive := CALO_CALO_COSH_COS_VECTOR_WIDTH;
+    constant JET_HTMHF_COSH_COS_VECTOR_WIDTH: positive := CALO_CALO_COSH_COS_VECTOR_WIDTH;
+    constant TAU_TAU_COSH_COS_VECTOR_WIDTH: positive := CALO_CALO_COSH_COS_VECTOR_WIDTH;
+    constant TAU_ETM_COSH_COS_VECTOR_WIDTH: positive := CALO_CALO_COSH_COS_VECTOR_WIDTH;
+    constant TAU_HTM_COSH_COS_VECTOR_WIDTH: positive := CALO_CALO_COSH_COS_VECTOR_WIDTH;
+    constant TAU_ETMHF_COSH_COS_VECTOR_WIDTH: positive := CALO_CALO_COSH_COS_VECTOR_WIDTH;
+    constant TAU_HTMHF_COSH_COS_VECTOR_WIDTH: positive := CALO_CALO_COSH_COS_VECTOR_WIDTH;
+    constant EG_MUON_COSH_COS_VECTOR_WIDTH: positive := CALO_MUON_COSH_COS_VECTOR_WIDTH;
+    constant JET_MUON_COSH_COS_VECTOR_WIDTH: positive := CALO_MUON_COSH_COS_VECTOR_WIDTH;
+    constant TAU_MUON_COSH_COS_VECTOR_WIDTH: positive := CALO_MUON_COSH_COS_VECTOR_WIDTH;
+    constant MUON_ETM_COSH_COS_VECTOR_WIDTH: positive := CALO_MUON_COSH_COS_VECTOR_WIDTH;
+    constant MUON_HTM_COSH_COS_VECTOR_WIDTH: positive := CALO_MUON_COSH_COS_VECTOR_WIDTH;
+    constant MUON_ETMHF_COSH_COS_VECTOR_WIDTH: positive := CALO_MUON_COSH_COS_VECTOR_WIDTH;
+    constant MUON_HTMHF_COSH_COS_VECTOR_WIDTH: positive := CALO_MUON_COSH_COS_VECTOR_WIDTH;
+    
+    -- Invariant mass
+    constant EG_EG_MASS_VECTOR_WIDTH: positive := EG_PT_VECTOR_WIDTH+EG_PT_VECTOR_WIDTH+CALO_CALO_COSH_COS_VECTOR_WIDTH;
+    constant EG_JET_MASS_VECTOR_WIDTH: positive := EG_PT_VECTOR_WIDTH+JET_PT_VECTOR_WIDTH+CALO_CALO_COSH_COS_VECTOR_WIDTH;
+    constant EG_TAU_MASS_VECTOR_WIDTH: positive := EG_PT_VECTOR_WIDTH+TAU_PT_VECTOR_WIDTH+CALO_CALO_COSH_COS_VECTOR_WIDTH;
+    constant JET_JET_MASS_VECTOR_WIDTH: positive := JET_PT_VECTOR_WIDTH+JET_PT_VECTOR_WIDTH+CALO_CALO_COSH_COS_VECTOR_WIDTH;
+    constant JET_TAU_MASS_VECTOR_WIDTH: positive := JET_PT_VECTOR_WIDTH+TAU_PT_VECTOR_WIDTH+CALO_CALO_COSH_COS_VECTOR_WIDTH;
+    constant TAU_TAU_MASS_VECTOR_WIDTH: positive := TAU_PT_VECTOR_WIDTH+TAU_PT_VECTOR_WIDTH+CALO_CALO_COSH_COS_VECTOR_WIDTH;
+    constant EG_MUON_MASS_VECTOR_WIDTH: positive := EG_PT_VECTOR_WIDTH+MUON_PT_VECTOR_WIDTH+CALO_MUON_COSH_COS_VECTOR_WIDTH;
+    constant JET_MUON_MASS_VECTOR_WIDTH: positive := JET_PT_VECTOR_WIDTH+MUON_PT_VECTOR_WIDTH+CALO_MUON_COSH_COS_VECTOR_WIDTH;
+    constant TAU_MUON_MASS_VECTOR_WIDTH: positive := TAU_PT_VECTOR_WIDTH+MUON_PT_VECTOR_WIDTH+CALO_MUON_COSH_COS_VECTOR_WIDTH;
+    constant MUON_MUON_MASS_VECTOR_WIDTH: positive := MUON_PT_VECTOR_WIDTH+MUON_PT_VECTOR_WIDTH+MUON_MUON_COSH_COS_VECTOR_WIDTH;
 
+    -- Transverse mass
+    constant EG_ETM_MASS_VECTOR_WIDTH: positive := EG_PT_VECTOR_WIDTH+ETM_PT_VECTOR_WIDTH+CALO_CALO_COSH_COS_VECTOR_WIDTH;
+    constant EG_HTM_MASS_VECTOR_WIDTH: positive := EG_PT_VECTOR_WIDTH+HTM_PT_VECTOR_WIDTH+CALO_CALO_COSH_COS_VECTOR_WIDTH;
+    constant EG_ETMHF_MASS_VECTOR_WIDTH: positive := EG_PT_VECTOR_WIDTH+ETMHF_PT_VECTOR_WIDTH+CALO_CALO_COSH_COS_VECTOR_WIDTH;
+    constant EG_HTMHF_MASS_VECTOR_WIDTH: positive := EG_PT_VECTOR_WIDTH+HTMHF_PT_VECTOR_WIDTH+CALO_CALO_COSH_COS_VECTOR_WIDTH;
+    constant JET_ETM_MASS_VECTOR_WIDTH: positive := JET_PT_VECTOR_WIDTH+ETM_PT_VECTOR_WIDTH+CALO_CALO_COSH_COS_VECTOR_WIDTH;
+    constant JET_HTM_MASS_VECTOR_WIDTH: positive := JET_PT_VECTOR_WIDTH+HTM_PT_VECTOR_WIDTH+CALO_CALO_COSH_COS_VECTOR_WIDTH;
+    constant JET_ETMHF_MASS_VECTOR_WIDTH: positive := JET_PT_VECTOR_WIDTH+ETMHF_PT_VECTOR_WIDTH+CALO_CALO_COSH_COS_VECTOR_WIDTH;
+    constant JET_HTMHF_MASS_VECTOR_WIDTH: positive := JET_PT_VECTOR_WIDTH+HTMHF_PT_VECTOR_WIDTH+CALO_CALO_COSH_COS_VECTOR_WIDTH;
+    constant TAU_ETM_MASS_VECTOR_WIDTH: positive := TAU_PT_VECTOR_WIDTH+ETM_PT_VECTOR_WIDTH+CALO_CALO_COSH_COS_VECTOR_WIDTH;
+    constant TAU_HTM_MASS_VECTOR_WIDTH: positive := TAU_PT_VECTOR_WIDTH+HTM_PT_VECTOR_WIDTH+CALO_CALO_COSH_COS_VECTOR_WIDTH;
+    constant TAU_ETMHF_MASS_VECTOR_WIDTH: positive := TAU_PT_VECTOR_WIDTH+ETMHF_PT_VECTOR_WIDTH+CALO_CALO_COSH_COS_VECTOR_WIDTH;
+    constant TAU_HTMHF_MASS_VECTOR_WIDTH: positive := TAU_PT_VECTOR_WIDTH+HTMHF_PT_VECTOR_WIDTH+CALO_CALO_COSH_COS_VECTOR_WIDTH;
+    constant MUON_ETM_MASS_VECTOR_WIDTH: positive := MUON_PT_VECTOR_WIDTH+ETM_PT_VECTOR_WIDTH+CALO_MUON_COSH_COS_VECTOR_WIDTH;
+    constant MUON_HTM_MASS_VECTOR_WIDTH: positive := MUON_PT_VECTOR_WIDTH+HTM_PT_VECTOR_WIDTH+CALO_MUON_COSH_COS_VECTOR_WIDTH;
+    constant MUON_ETMHF_MASS_VECTOR_WIDTH: positive := MUON_PT_VECTOR_WIDTH+ETMHF_PT_VECTOR_WIDTH+CALO_MUON_COSH_COS_VECTOR_WIDTH;
+    constant MUON_HTMHF_MASS_VECTOR_WIDTH: positive := MUON_PT_VECTOR_WIDTH+HTMHF_PT_VECTOR_WIDTH+CALO_MUON_COSH_COS_VECTOR_WIDTH;
+    
 -- *******************************************************************************
 -- Record declarations
     type eg_record is record
@@ -480,6 +600,13 @@ package gtl_pkg is
     subtype eg_obj_t is std_logic_vector(0 to N_EG_OBJECTS-1);  
     subtype jet_obj_t is std_logic_vector(0 to N_JET_OBJECTS-1);  
     subtype tau_obj_t is std_logic_vector(0 to N_TAU_OBJECTS-1);  
+    subtype ett_obj_t is std_logic_vector(0 to 0);  
+    subtype etm_obj_t is std_logic_vector(0 to 0);  
+    subtype htt_obj_t is std_logic_vector(0 to 0);  
+    subtype htm_obj_t is std_logic_vector(0 to 0);  
+    subtype ettem_obj_t is std_logic_vector(0 to 0);  
+    subtype etmhf_obj_t is std_logic_vector(0 to 0);  
+    subtype htmhf_obj_t is std_logic_vector(0 to 0);  
     subtype muon_obj_t is std_logic_vector(0 to N_MUON_OBJECTS-1);  
     subtype muon_cc_double_t is muon_cc_double_std_logic_array;  
     subtype muon_cc_triple_t is muon_cc_triple_std_logic_array;  
@@ -494,18 +621,50 @@ package gtl_pkg is
     subtype tau_tau_t is corr_cuts_array(0 to N_TAU_OBJECTS-1, 0 to N_TAU_OBJECTS-1);
     subtype tau_muon_t is corr_cuts_array(0 to N_TAU_OBJECTS-1, 0 to N_MUON_OBJECTS-1);
     subtype muon_muon_t is corr_cuts_array(0 to N_MUON_OBJECTS-1, 0 to N_MUON_OBJECTS-1);
-    
+    subtype eg_etm_t is corr_cuts_array(0 to N_EG_OBJECTS-1, 0 to 0);
+    subtype eg_htm_t is corr_cuts_array(0 to N_EG_OBJECTS-1, 0 to 0);
+    subtype eg_etmhf_t is corr_cuts_array(0 to N_EG_OBJECTS-1, 0 to 0);
+    subtype eg_htmhf_t is corr_cuts_array(0 to N_EG_OBJECTS-1, 0 to 0);
+    subtype jet_etm_t is corr_cuts_array(0 to N_JET_OBJECTS-1, 0 to 0);
+    subtype jet_htm_t is corr_cuts_array(0 to N_JET_OBJECTS-1, 0 to 0);
+    subtype jet_etmhf_t is corr_cuts_array(0 to N_JET_OBJECTS-1, 0 to 0);
+    subtype jet_htmhf_t is corr_cuts_array(0 to N_JET_OBJECTS-1, 0 to 0);
+    subtype tau_etm_t is corr_cuts_array(0 to N_TAU_OBJECTS-1, 0 to 0);
+    subtype tau_htm_t is corr_cuts_array(0 to N_TAU_OBJECTS-1, 0 to 0);
+    subtype tau_etmhf_t is corr_cuts_array(0 to N_TAU_OBJECTS-1, 0 to 0);
+    subtype tau_htmhf_t is corr_cuts_array(0 to N_TAU_OBJECTS-1, 0 to 0);
+    subtype muon_etm_t is corr_cuts_array(0 to N_MUON_OBJECTS-1, 0 to 0);
+    subtype muon_htm_t is corr_cuts_array(0 to N_MUON_OBJECTS-1, 0 to 0);
+    subtype muon_etmhf_t is corr_cuts_array(0 to N_MUON_OBJECTS-1, 0 to 0);
+    subtype muon_htmhf_t is corr_cuts_array(0 to N_MUON_OBJECTS-1, 0 to 0);
+  
     type default_corr_cuts_rec is record
         eg_eg : eg_eg_t;
         eg_jet : eg_jet_t;
         eg_tau : eg_tau_t;
         eg_muon : eg_muon_t;
+        eg_etm : eg_etm_t;
+        eg_htm : eg_htm_t;
+        eg_etmhf : eg_etmhf_t;
+        eg_htmhf : eg_htmhf_t;
         jet_jet : jet_jet_t;
         jet_tau : jet_tau_t;
         jet_muon : jet_muon_t;
+        jet_etm : jet_etm_t;
+        jet_htm : jet_htm_t;
+        jet_etmhf : jet_etmhf_t;
+        jet_htmhf : jet_htmhf_t;
         tau_tau : tau_tau_t;
         tau_muon : tau_muon_t;
+        tau_etm : tau_etm_t;
+        tau_htm : tau_htm_t;
+        tau_etmhf : tau_etmhf_t;
+        tau_htmhf : tau_htmhf_t;
         muon_muon : muon_muon_t;
+        muon_etm : muon_etm_t;
+        muon_htm : muon_htm_t;
+        muon_etmhf : muon_etmhf_t;
+        muon_htmhf : muon_htmhf_t;
         cc_double : muon_cc_double_std_logic_array;
         cc_triple : muon_cc_triple_std_logic_array;
         cc_quad : muon_cc_quad_std_logic_array;
@@ -518,7 +677,8 @@ package gtl_pkg is
 -- enums
     type obj_type is (muon_t,eg_t,jet_t,tau_t,ett_t,etm_t,htt_t,htm_t,ettem_t,etmhf_t,htmhf_t,towercount_t,mbt1hfp_t,mbt1hfm_t,mbt0hfp_t,mbt0hfm_t,asymet_t,asymht_t,asymethf_t,asymhthf_t);
     type obj_type_array is array (1 to 2) of obj_type;
-    type comp_mode is (GE,EQ,NE,ETA,PHI,deltaEta,deltaPhi,deltaR,mass,twoBodyPt,chargeCorr);
+    type comp_mode is (GE,EQ,NE,ETA,PHI,ISO,QUAL,deltaEta,deltaPhi,deltaR,mass,twoBodyPt,chargeCorr);
+    type comp_mode_cc is (double,triple,quad);
     type corr_cuts_lut_mode is (deltaEta,deltaPhi,CoshDeltaEta,CosDeltaPhi);
 
 -- slices

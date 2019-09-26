@@ -1,5 +1,5 @@
 -- Description:
--- Calculation of invariant mass based on LUTs.
+-- Invariant mass (based on values from LUTs for cosh_deta and cos_dphi).
 
 -- Version history:
 -- HB 2019-08-27: Cases for "same objects" and "different objects" (less resources for "same objects").
@@ -10,8 +10,6 @@
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.std_logic_unsigned.all;
-use ieee.std_logic_arith.all;
-use work.math_pkg.all;
 
 use work.gtl_pkg.all;
 
@@ -36,7 +34,7 @@ end invariant_mass;
 architecture rtl of invariant_mass is
 
     constant MASS_WIDTH : positive := PT1_WIDTH+PT2_WIDTH+COSH_COS_WIDTH;
-    type mass_vector_i_array is array (N_OBJ_1-1 downto 0, N_OBJ_2-1 downto 0) of std_logic_vector(MASS_WIDTH-1 downto 0);
+    type mass_vector_i_array is array (0 to N_OBJ_1-1, 0 to N_OBJ_2-1) of std_logic_vector(MASS_WIDTH-1 downto 0);
     signal invariant_mass_sq_div2 : mass_vector_i_array := (others => (others => (others => '0')));
     signal cosh_deta_i, cos_dphi_i : cosh_cos_vector_array;
     

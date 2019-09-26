@@ -34,7 +34,7 @@ end transverse_mass;
 architecture rtl of transverse_mass is
 
     constant MASS_WIDTH : positive := PT1_WIDTH+PT2_WIDTH+COSH_COS_WIDTH;
-    type mass_vector_i_array is array (N_OBJ_1-1 downto 0, N_OBJ_2-1 downto 0) of std_logic_vector(MASS_WIDTH-1 downto 0);
+    type mass_vector_i_array is array (0 to N_OBJ_1-1, 0 to N_OBJ_2-1) of std_logic_vector(MASS_WIDTH-1 downto 0);
     signal transverse_mass_sq_div2 : mass_vector_i_array := (others => (others => (others => '0')));
     signal cos_dphi_i : cosh_cos_vector_array;
     

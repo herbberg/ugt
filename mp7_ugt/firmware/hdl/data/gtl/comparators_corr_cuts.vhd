@@ -25,7 +25,7 @@ entity comparators_corr_cuts is
     port(
         clk : in std_logic;
         data : in corr_cuts_std_logic_array;
-        comp_o : out corr_cuts_array(0 to N_OBJ_1-1, 0 to N_OBJ_2-1) := (others => (others => '0'))
+        comp_o : out corr_cuts_array(0 to N_OBJ_1-1, 0 to N_OBJ_2-1)
     );
 end comparators_corr_cuts;
 
@@ -36,7 +36,7 @@ architecture rtl of comparators_corr_cuts is
     type data_vec_array is array(0 to N_OBJ_1-1, 0 to N_OBJ_2-1) of std_logic_vector(DATA_WIDTH-1 downto 0);
     signal data_vec, data_vec_i : data_vec_array;
     type comp_array is array (0 to N_OBJ_1-1, 0 to N_OBJ_2-1) of std_logic;
-    signal comp : comp_array;
+    signal comp : comp_array := (others => (others => '0'));
     type comp_i_array is array (0 to N_OBJ_1, 0 to N_OBJ_2-1) of std_logic_vector(0 downto 0);
     signal comp_i : comp_i_array;
     signal comp_r : comp_i_array;

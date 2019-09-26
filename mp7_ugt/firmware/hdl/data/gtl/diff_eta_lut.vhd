@@ -1,5 +1,5 @@
 -- Description:
--- Differences in eta with LUTs.
+-- Differences in eta (for deta and deltaR).
 
 -- Version-history:
 -- HB 2019-08-27: Cases for "same objects" and "different objects" (less resources for "same objects").

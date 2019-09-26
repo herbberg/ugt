@@ -57,13 +57,15 @@ vcom -93 -work work $HDL_DIR/data/gtl/bx_pipeline.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/comp_unsigned.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/comp_signed.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/lut_comparator.vhd
-vcom -93 -work work $HDL_DIR/data/gtl/range_comparator.vhd
-vcom -93 -work work $HDL_DIR/data/gtl/threshold_comparator.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/comparators_obj_cuts.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/comparators_corr_cuts.vhd
+vcom -93 -work work $HDL_DIR/data/gtl/comparator_muon_cc_double.vhd
+vcom -93 -work work $HDL_DIR/data/gtl/comparator_muon_cc_triple.vhd
+vcom -93 -work work $HDL_DIR/data/gtl/comparator_muon_cc_quad.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/comparator_muon_charge_corr.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/combinatorial_conditions.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/correlation_conditions.vhd
+vcom -93 -work work $HDL_DIR/data/gtl/correlation_conditions_ovrm.vhd
 
 ## HB 2019-01-11: used for less amount of resources
 vcom -93 -work work $HDL_DIR/data/gtl/luts_corr_cuts.vhd
@@ -76,6 +78,7 @@ vcom -93 -work work $HDL_DIR/data/gtl/sub_phi.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/diff_phi_lut.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/cos_dphi_lut.vhd
 
+vcom -93 -work work $HDL_DIR/data/gtl/delta_r_calc.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/delta_r.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/inv_mass_calc.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/invariant_mass.vhd
@@ -111,9 +114,9 @@ vcom -93 -work work $MOD_TB_DIR/gtl_fdl_wrapper_tb.vhd
 vsim -t 1ps work.gtl_fdl_wrapper_TB
 
 if {$VIEW_WAVE} {
-  #Load signals in wave window
-  view wave
-  do $TB_DIR/../scripts/gtl_fdl_wrapper_test_wave.do
+   #Load signals in wave window
+   view wave
+   do $TB_DIR/../scripts/gtl_fdl_wrapper_test_wave.do
 }
 set fileId [open $FILE_NAME "w"]
 close $fileId

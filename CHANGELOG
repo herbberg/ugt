@@ -7,7 +7,47 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ================================
 Versions of ugt with new GTL structure (v2.0.0 and higher)
 
-## [mp7_ugt_v2_2_1] - 
+## [mp7_ugt_v2_3_0] - 
+
+### Comment
+- mp7_ugt firmware release v2.3.0
+
+### Added
+- source files:
+  ../hdl/data/gtl/comparator_muon_cc_double.vhd
+  ../hdl/data/gtl/comparator_muon_cc_triple.vhd
+  ../hdl/data/gtl/comparator_muon_cc_quad.vhd
+  ../hdl/data/gtl/delta_r_calc.vhd
+  ../hdl/data/gtl/correlation_conditions_ovrm.vhd
+
+### Changed
+- source files:
+  ../hdl/data/gtl/conversions.vhd
+  ../hdl/data/gtl/comparator_muon_charge_corr.vhd
+  ../hdl/data/gtl/comparators_obj_cuts.vhd
+  ../hdl/data/gtl/invariant_mass.vhd
+  ../hdl/data/gtl/inv_mass_calc.vhd
+  ../hdl/data/gtl/combinatorial_conditions.vhd
+  ../hdl/data/gtl/comparators_corr_cuts.vhd
+  ../hdl/data/gtl/comparators_obj_cuts.vhd
+  ../hdl/data/gtl/cos_dphi_lut.vhd
+  ../hdl/data/gtl/cosh_deta_lut.vhd
+  ../hdl/data/gtl/diff_eta_lut.vhd
+  ../hdl/data/gtl/diff_phi_lut.vhd
+  ../hdl/data/gtl/sub_eta.vhd
+  ../hdl/data/gtl/sub_phi.vhd
+  ../hdl/packages/gtl_pkg.vhd
+ do files and dep file:
+  ../sim/scripts/templates/gtl_fdl_wrapper_tpl_questa_v2018.2.do
+  ../sim/scripts/templates/gtl_fdl_wrapper_tpl_questa_v2018.3.do
+  ../sim/scripts/templates/gtl_fdl_wrapper_tpl_questa_v2019.1.do
+  ../cfg/uGT_algo.dep
+
+### Removed
+- ../hdl/data/gtl/threshold_comparator.vhd
+- ../hdl/data/gtl/range_comparator.vhd
+
+## [mp7_ugt_v2_2_1] - 2019-08-27
 
 ### Comment
 - mp7_ugt firmware release v2.2.1

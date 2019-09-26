@@ -1,5 +1,5 @@
 -- Description:
--- Differences in phi with LUTs.
+-- Differences in phi (for dphi and deltaR).
 
 -- Version-history:
 -- HB 2019-08-27: Cases for "same objects" and "different objects" (less resources for "same objects").
@@ -36,14 +36,14 @@ begin
     l_1: for i in 0 to N_OBJ_1-1 generate
         l_2: for j in 0 to N_OBJ_2-1 generate
             same_obj_t: if (OBJ(1) = OBJ(2)) and j>i generate
-            lut_i : entity work.luts_corr_cuts
-                generic map(OBJ, deltaPhi)  
-                port map(sub_phi(i,j), diff_phi_i(i,j));
+                lut_i : entity work.luts_corr_cuts
+                    generic map(OBJ, deltaPhi)  
+                    port map(sub_phi(i,j), diff_phi_i(i,j));
             end generate same_obj_t;    
             diff_obj_t: if (OBJ(1) /= OBJ(2)) generate
-            lut_i : entity work.luts_corr_cuts
-                generic map(OBJ, deltaPhi)  
-                port map(sub_phi(i,j), diff_phi_i(i,j));
+                lut_i : entity work.luts_corr_cuts
+                    generic map(OBJ, deltaPhi)  
+                    port map(sub_phi(i,j), diff_phi_i(i,j));
             end generate diff_obj_t;    
             l_3: for k in 0 to DETA_DPHI_VECTOR_WIDTH-1 generate
                 diff_phi_o(i,j,k) <= diff_phi_i(i,j)(k);

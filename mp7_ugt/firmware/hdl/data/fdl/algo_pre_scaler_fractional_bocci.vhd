@@ -10,6 +10,8 @@ use ieee.std_logic_1164.all;
 use ieee.std_logic_arith.all;
 use ieee.std_logic_unsigned.all;
 
+use work.fdl_pkg.ALL;
+
 entity algo_pre_scaler is
    generic( 
       PRESCALE_FACTOR_WIDTH : integer;

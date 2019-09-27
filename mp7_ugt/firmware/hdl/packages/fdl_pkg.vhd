@@ -30,11 +30,11 @@ package fdl_pkg is
 -- FDL definitions
 -- Definitions for prescalers (for FDL !)
 -- HB 2019-09-26: changed for proposal of A. Bocci
-    constant PRESCALE_FACTOR_WIDTH : integer := 24;
-    constant PRESCALE_FACTOR_INIT : ipb_regs_array(0 to MAX_NR_ALGOS-1) := (others => X"0000000A"); -- 1.0 if fraction is one digit (=10)
---     constant PRESCALE_FACTOR_INIT : ipb_regs_array(0 to MAX_NR_ALGOS-1) := (others => X"00000064"); -- 1.00 if fraction is two digits (=100)
-    constant PRESCALER_INCR : std_logic_vector(PRESCALE_FACTOR_WIDTH-1 downto 0) := X"00000A"; -- 1.0 if fraction is one digit (=10)
---     constant PRESCALER_INCR : std_logic_vector(PRESCALE_FACTOR_WIDTH-1 downto 0) := X"000064"; -- 1.00 if fraction is two digits (=100)
+    constant PRESCALE_FACTOR_WIDTH : integer := 20;
+--     constant PRESCALE_FACTOR_INIT : ipb_regs_array(0 to MAX_NR_ALGOS-1) := (others => X"0000000A"); -- 1.0 if fraction is one digit (=10)
+    constant PRESCALE_FACTOR_INIT : ipb_regs_array(0 to MAX_NR_ALGOS-1) := (others => X"00000064"); -- 1.00 if fraction is two digits (=100)
+--     constant PRESCALER_INCR : std_logic_vector(PRESCALE_FACTOR_WIDTH-1 downto 0) := X"00000A"; -- 1.0 if fraction is one digit (=10)
+    constant PRESCALER_INCR : std_logic_vector(PRESCALE_FACTOR_WIDTH-1 downto 0) := X"00064"; -- 1.00 if fraction is two digits (=100)
     
 -- Definitions for rate counters
     constant RATE_COUNTER_WIDTH : integer := 32;

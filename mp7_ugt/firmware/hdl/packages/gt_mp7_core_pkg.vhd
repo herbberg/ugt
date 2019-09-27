@@ -12,13 +12,15 @@
 -- ===================================================================================
 -- actual versions of ugt:
 -- use "FRAME_VERSION" as mp7_ugt release fw version (used for tag name)
--- mp7_ugt (=FRAME_VERSION): v2.2.1
+-- mp7_ugt (=FRAME_VERSION): v2.3.1
 --
 --  control: v2.0.1
---  gtl: v2.2.1
+--  gtl: v2.3.1
 --  fdl: v1.3.2
 
 -- Version-history of GTL part:
+-- HB 2019-09-27: v2.3.1: updated gt_mp7_core_pkg.vhd.
+-- HB 2019-09-25: v2.3.0: bug fixes for invariant mass and overlap removal conditions.
 -- HB 2019-08-27: v2.2.1: inserted cases for "same objects" and "different objects" (less resources for "same objects") in "lut", "sub" and "correlation cuts" modules.
 -- HB 2019-08-26: v2.2.0: created basic modules for calculations and module comparators_obj_cuts.vhd.
 -- HB 2019-07-03: v2.1.0: created twobody_pt.vhd module.
@@ -49,7 +51,7 @@ package gt_mp7_core_pkg is
 -- ==================================================================================================
 -- CONTROL = FRAME version (given by the editor of control.vhd)
     constant FRAME_MAJOR_VERSION : integer range 0 to 255 := 2;
-    constant FRAME_MINOR_VERSION : integer range 0 to 255 := 2;
+    constant FRAME_MINOR_VERSION : integer range 0 to 255 := 3;
     constant FRAME_REV_VERSION   : integer range 0 to 255 := 1;
 	constant FRAME_VERSION : std_logic_vector(31 downto 0) := X"00" &
            std_logic_vector(to_unsigned(FRAME_MAJOR_VERSION, 8)) &
@@ -57,7 +59,7 @@ package gt_mp7_core_pkg is
            std_logic_vector(to_unsigned(FRAME_REV_VERSION, 8));
 -- GTL firmware (fix part) version
     constant GTL_FW_MAJOR_VERSION : integer range 0 to 255 := 2;
-    constant GTL_FW_MINOR_VERSION : integer range 0 to 255 := 2;
+    constant GTL_FW_MINOR_VERSION : integer range 0 to 255 := 3;
     constant GTL_FW_REV_VERSION   : integer range 0 to 255 := 1;
 -- FDL firmware version
     constant FDL_FW_MAJOR_VERSION : integer range 0 to 255 := 1;

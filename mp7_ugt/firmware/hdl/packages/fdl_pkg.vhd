@@ -38,14 +38,14 @@ package fdl_pkg is
     constant PRESCALE_FACTOR_FRACTION_DIGITS : integer := 2;
     constant PRESCALE_FACTOR_MAX_VALUE : integer := 10000; -- max. 42949672 if 2 digits (=0xFFFFFFA0), max. 429496729 if 1 digits (=0xFFFFFFFA)
 --     constant PRESCALE_FACTOR_WIDTH : integer := 20;
-    constant PRESCALE_FACTOR_WIDTH : integer := log2c(PRESCALE_FACTOR_MAX_VALUE);
+    constant PRESCALE_FACTOR_WIDTH : integer := log2c(PRESCALE_FACTOR_MAX_VALUE * (10**PRESCALE_FACTOR_FRACTION_DIGITS));
 --     constant PRESCALE_FACTOR_INIT : ipb_regs_array(0 to MAX_NR_ALGOS-1) := (others => X"0000000A"); -- 1.0 if fraction is one digit (=10)
 --     constant PRESCALE_FACTOR_INIT : ipb_regs_array(0 to MAX_NR_ALGOS-1) := (others => X"00000064"); -- 1.00 if fraction is two digits (=100)
     constant PRESCALE_FACTOR_INIT_VALUE_VEC : std_logic_vector(31 downto 0) := CONV_STD_LOGIC_VECTOR((PRESCALE_FACTOR_INIT_VALUE*(10**PRESCALE_FACTOR_FRACTION_DIGITS)), 32);
     constant PRESCALE_FACTOR_INIT : ipb_regs_array(0 to MAX_NR_ALGOS-1) := (others => PRESCALE_FACTOR_INIT_VALUE_VEC);
 --     constant PRESCALER_INCR : std_logic_vector(PRESCALE_FACTOR_WIDTH-1 downto 0) := X"00000A"; -- 1.0 if fraction is one digit (=10)
 --     constant PRESCALER_INCR : std_logic_vector(PRESCALE_FACTOR_WIDTH-1 downto 0) := X"00064"; -- 1.00 if fraction is two digits (=100)
-    constant PRESCALER_INCR : std_logic_vector(31 downto 0) := CONV_STD_LOGIC_VECTOR((10**PRESCALE_FACTOR_FRACTION_DIGITS), 32;
+    constant PRESCALER_INCR : std_logic_vector(31 downto 0) := CONV_STD_LOGIC_VECTOR((10**PRESCALE_FACTOR_FRACTION_DIGITS), 32);
     
 -- Definitions for rate counters
     constant RATE_COUNTER_WIDTH : integer := 32;

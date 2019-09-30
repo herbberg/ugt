@@ -3,6 +3,7 @@
 -- Prescalers for algorithms in FDL with fractional prescale values
 
 -- Version-history:
+-- HB 2019-09-27: new generic parameter PRESCALER_INCR.
 -- HB 2019-09-25: first design, based on proposal of A. Bocci (email: M. Jeitler, 25.9.2019, "Fwd: Fractional prescales")
 
 library ieee;
@@ -16,6 +17,7 @@ entity algo_pre_scaler is
    generic( 
       PRESCALE_FACTOR_WIDTH : integer;
       PRESCALE_FACTOR_INIT : std_logic_vector(31 DOWNTO 0);
+      PRESCALER_INCR : std_logic_vector(31 DOWNTO 0);
       SIM : boolean := false
    );
    port( 
@@ -36,7 +38,7 @@ end algo_pre_scaler;
 architecture rtl of algo_pre_scaler is
 
    constant ZERO : std_logic_vector(PRESCALE_FACTOR_WIDTH-1 downto 0) := (others => '0');
-   constant INCR : std_logic_vector(PRESCALE_FACTOR_WIDTH-1 downto 0) := PRESCALER_INCR;
+   constant INCR : std_logic_vector(PRESCALE_FACTOR_WIDTH-1 downto 0) := PRESCALER_INCR(PRESCALE_FACTOR_WIDTH-1 downto 0);
    
    signal prescale_factor_int : std_logic_vector(PRESCALE_FACTOR_WIDTH-1 downto 0) := PRESCALE_FACTOR_INIT(PRESCALE_FACTOR_WIDTH-1 downto 0);
    signal counter : std_logic_vector(PRESCALE_FACTOR_WIDTH-1 downto 0) := (others => '0');

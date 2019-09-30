@@ -1,6 +1,7 @@
 -- Description:
 -- Package for constant and type definitions of FDL firmware in Global Trigger Upgrade system.
 
+-- HB 2019-09-27: Inserted 3 new constants for fractional prescale and calculate others from those.
 -- HB 2019-09-26: New constants PRESCALE_FACTOR_WIDTH and PRESCALER_INCR, updated PRESCALE_FACTOR_INIT (removed PRESCALER_COUNTER_WIDTH and PRESCALER_FRACTION_WIDTH).
 -- HB 2019-07-03: New package for FDL (moved from gtl_pkg.vhd)
 
@@ -13,6 +14,7 @@ use ieee.numeric_std.all;
 use work.lhc_data_pkg.all;
 use work.gt_mp7_core_pkg.all;
 use work.l1menu_pkg.ALL;
+use work.math_pkg.all;
 
 package fdl_pkg is
 
@@ -29,12 +31,21 @@ package fdl_pkg is
 -- *******************************************************************************************************
 -- FDL definitions
 -- Definitions for prescalers (for FDL !)
--- HB 2019-09-26: changed for proposal of A. Bocci
-    constant PRESCALE_FACTOR_WIDTH : integer := 20;
+
+-- HB 2019-09-27: changed for proposal of A. Bocci
+
+    constant PRESCALE_FACTOR_INIT_VALUE : integer := 1;
+    constant PRESCALE_FACTOR_FRACTION_DIGITS : integer := 2;
+    constant PRESCALE_FACTOR_MAX_VALUE : integer := 10000; -- max. 42949672 if 2 digits (=0xFFFFFFA0), max. 429496729 if 1 digits (=0xFFFFFFFA)
+--     constant PRESCALE_FACTOR_WIDTH : integer := 20;
+    constant PRESCALE_FACTOR_WIDTH : integer := log2c(PRESCALE_FACTOR_MAX_VALUE);
 --     constant PRESCALE_FACTOR_INIT : ipb_regs_array(0 to MAX_NR_ALGOS-1) := (others => X"0000000A"); -- 1.0 if fraction is one digit (=10)
-    constant PRESCALE_FACTOR_INIT : ipb_regs_array(0 to MAX_NR_ALGOS-1) := (others => X"00000064"); -- 1.00 if fraction is two digits (=100)
+--     constant PRESCALE_FACTOR_INIT : ipb_regs_array(0 to MAX_NR_ALGOS-1) := (others => X"00000064"); -- 1.00 if fraction is two digits (=100)
+    constant PRESCALE_FACTOR_INIT_VALUE_VEC : std_logic_vector(31 downto 0) := CONV_STD_LOGIC_VECTOR((PRESCALE_FACTOR_INIT_VALUE*(10**PRESCALE_FACTOR_FRACTION_DIGITS)), 32);
+    constant PRESCALE_FACTOR_INIT : ipb_regs_array(0 to MAX_NR_ALGOS-1) := (others => PRESCALE_FACTOR_INIT_VALUE_VEC);
 --     constant PRESCALER_INCR : std_logic_vector(PRESCALE_FACTOR_WIDTH-1 downto 0) := X"00000A"; -- 1.0 if fraction is one digit (=10)
-    constant PRESCALER_INCR : std_logic_vector(PRESCALE_FACTOR_WIDTH-1 downto 0) := X"00064"; -- 1.00 if fraction is two digits (=100)
+--     constant PRESCALER_INCR : std_logic_vector(PRESCALE_FACTOR_WIDTH-1 downto 0) := X"00064"; -- 1.00 if fraction is two digits (=100)
+    constant PRESCALER_INCR : std_logic_vector(31 downto 0) := CONV_STD_LOGIC_VECTOR((10**PRESCALE_FACTOR_FRACTION_DIGITS), 32;
     
 -- Definitions for rate counters
     constant RATE_COUNTER_WIDTH : integer := 32;

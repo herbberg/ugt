@@ -3,7 +3,6 @@
 -- FDL structure for one algo (slice)
 -- algo-bx-mask at algo input
 
--- HB 2019-09-27: new generic parameter PRESCALER_INCR.
 -- HB 2019-09-26: new generic parameter PRESCALE_FACTOR_WIDTH (removed PRESCALER_COUNTER_WIDTH amd PRESCALER_FRACTION_WIDTH).
 -- HB 2019-06-03: updated for fractional pre-scaler values.
 -- HB 2017-01-10: fixed bug with 1 bx delay for "begin_lumi_per" for rate counter after pre-scaler.
@@ -29,7 +28,6 @@ entity algo_slice is
         RATE_COUNTER_WIDTH : integer;
         PRESCALE_FACTOR_WIDTH : integer;
         PRESCALE_FACTOR_INIT : std_logic_vector(31 DOWNTO 0);
-        PRESCALER_INCR : std_logic_vector(31 DOWNTO 0);
         MAX_DELAY : integer := 128
     );
     port( 

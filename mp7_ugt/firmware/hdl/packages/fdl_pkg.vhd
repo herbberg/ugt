@@ -33,12 +33,14 @@ package fdl_pkg is
 -- Definitions for prescalers (for FDL !)
 
 -- HB 2019-09-27: changed for proposal of A. Bocci
--- PRESCALE_FACTOR_MAX_VALUE = 42949672 with 2 fractional digits (=0xFFFFFFA0) and 429496729 with 1 fractional digit (=0xFFFFFFFA) for 32 bits register
-    constant PRESCALE_FACTOR_INIT_VALUE : integer := 1;
+-- PRESCALE_FACTOR_MAX_VALUE = 42949672 (=0xFFFFFFA0) with 2 fractional digits and 429496729 (=0xFFFFFFFA) with 1 fractional digit for 32 bits width
     constant PRESCALE_FACTOR_FRACTION_DIGITS : integer := 2;
-    constant PRESCALE_FACTOR_MAX_VALUE : integer := 42900000;
-    constant PRESCALE_FACTOR_WIDTH : integer := log2c(PRESCALE_FACTOR_MAX_VALUE * (10**PRESCALE_FACTOR_FRACTION_DIGITS));
-    constant PRESCALE_FACTOR_INIT_VALUE_VEC : std_logic_vector(31 downto 0) := CONV_STD_LOGIC_VECTOR((PRESCALE_FACTOR_INIT_VALUE*(10**PRESCALE_FACTOR_FRACTION_DIGITS)), 32);
+    constant PRESCALE_FACTOR_WIDTH : integer := 32;
+    
+    constant PRESCALE_FACTOR_INIT_VALUE : real := 1.00;
+
+    constant PRESCALE_FACTOR_INIT_VALUE_INTEGER : integer := integer(PRESCALE_FACTOR_INIT_VALUE);
+    constant PRESCALE_FACTOR_INIT_VALUE_VEC : std_logic_vector(31 downto 0) := CONV_STD_LOGIC_VECTOR((PRESCALE_FACTOR_INIT_VALUE_INTEGER*(10**PRESCALE_FACTOR_FRACTION_DIGITS)), 32);
     constant PRESCALE_FACTOR_INIT : ipb_regs_array(0 to MAX_NR_ALGOS-1) := (others => PRESCALE_FACTOR_INIT_VALUE_VEC);
     constant PRESCALER_INCR : std_logic_vector(31 downto 0) := CONV_STD_LOGIC_VECTOR((10**PRESCALE_FACTOR_FRACTION_DIGITS), 32);
     

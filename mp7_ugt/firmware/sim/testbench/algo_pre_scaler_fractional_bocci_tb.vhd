@@ -23,25 +23,22 @@ end algo_pre_scaler_fractional_TB;
 architecture beh of algo_pre_scaler_fractional_TB is
 
     constant SIM : boolean := true;
---     constant COUNTER_WIDTH : natural := 32;
--- --     constant PRESCALE_FACTOR_INIT : std_logic_vector(31 downto 0) := X"0000000A"; -- one digit fraction
---     constant PRESCALE_FACTOR_INIT : std_logic_vector(31 downto 0) := X"00000064"; -- two digit fraction
--- 
--- -- HB 2019-06-06: moved to "algo_pre_scaler_fractional_tb_pkg.vhd" for tests with looped PRESCALE_FACTOR_VAL 
--- --      constant PRESCALE_FACTOR_VAL : std_logic_vector(31 downto 0) := X"0000002E"; -- actual factor for test = 4.6 (46 => 0x2E)
--- --      constant PRESCALE_FACTOR_VAL : std_logic_vector(31 downto 0) := X"000000EC"; -- actual factor for test = 2.36 (236 => 0xEC)
     
-    constant PRESCALE_FACTOR_INIT_VALUE : integer := 1;
+    constant PRESCALE_FACTOR_INIT_VALUE : real := 1.00;
     constant PRESCALE_FACTOR_FRACTION_DIGITS : integer := 2;
-    constant PRESCALE_FACTOR_MAX_VALUE : integer := 10000; -- max. 42949672 if 2 digits (=0xFFFFFFA0), max. 429496729 if 1 digits (=0xFFFFFFFA)
-    constant PRESCALE_FACTOR_WIDTH : integer := log2c(PRESCALE_FACTOR_MAX_VALUE * (10**PRESCALE_FACTOR_FRACTION_DIGITS));
-    
-    constant PRESCALE_FACTOR_VAL : std_logic_vector(PRESCALE_FACTOR_WIDTH-1 downto 0) := X"F4240"; -- actual factor for test = 10000.00 (1000000 => 0xF4240)    
-    
-    constant PRESCALE_FACTOR_INIT_VALUE_VEC : std_logic_vector(31 downto 0) := CONV_STD_LOGIC_VECTOR((PRESCALE_FACTOR_INIT_VALUE*(10**PRESCALE_FACTOR_FRACTION_DIGITS)), 32);
-    constant PRESCALE_FACTOR_INIT : std_logic_vector(31 downto 0) := PRESCALE_FACTOR_INIT_VALUE_VEC;
+    constant PRESCALE_FACTOR_WIDTH : integer := 32;
+    constant PRESCALE_FACTOR_INIT_VALUE_INTEGER : integer := integer(PRESCALE_FACTOR_INIT_VALUE);
+    constant PRESCALE_FACTOR_INIT : std_logic_vector(31 downto 0) := CONV_STD_LOGIC_VECTOR((PRESCALE_FACTOR_INIT_VALUE_INTEGER*(10**PRESCALE_FACTOR_FRACTION_DIGITS)), 32);
     constant PRESCALER_INCR : std_logic_vector(31 downto 0) := CONV_STD_LOGIC_VECTOR((10**PRESCALE_FACTOR_FRACTION_DIGITS), 32);
-    
+
+--     constant PRESCALE_FACTOR_VALUE : real := 2.16; -- actual factor for test = 2.16
+--     constant PRESCALE_FACTOR_VALUE : real := 42900000.00; -- to big for integer conversion!!! [Max. 21474836.47]
+--     constant PRESCALE_FACTOR_VALUE : real := 269000.00;
+    constant PRESCALE_FACTOR_VALUE : real := 3.27;
+    constant PRESCALE_FACTOR_VALUE_INTEGER : integer := integer(PRESCALE_FACTOR_VALUE * real(10**PRESCALE_FACTOR_FRACTION_DIGITS));
+    constant PRESCALE_FACTOR_VALUE_VEC : std_logic_vector(PRESCALE_FACTOR_WIDTH-1 downto 0) := CONV_STD_LOGIC_VECTOR(PRESCALE_FACTOR_VALUE_INTEGER, 32);   
+--     constant PRESCALE_FACTOR_VALUE_VEC : std_logic_vector(PRESCALE_FACTOR_WIDTH-1 downto 0) := X"FFB43480"; -- => 42900000.00
+        
     constant LHC_CLK_PERIOD  : time :=  25 ns;
 
     signal lhc_clk : std_logic;
@@ -77,7 +74,7 @@ begin
     process
     begin
 	wait for LHC_CLK_PERIOD; 
-    prescale_factor <= PRESCALE_FACTOR_VAL;
+    prescale_factor <= PRESCALE_FACTOR_VALUE_VEC;
 	wait for 5*LHC_CLK_PERIOD;
 	request_update_factor_pulse <= '1';
 	wait for LHC_CLK_PERIOD;
@@ -92,7 +89,7 @@ begin
  ------------------- Instantiate  modules  -----------------
 
     dut: entity work.algo_pre_scaler
-        generic map(PRESCALE_FACTOR_WIDTH, PRESCALE_FACTOR_INIT, PRESCALER_INCR, SIM)
+        generic map(PRESCALE_FACTOR_WIDTH, PRESCALE_FACTOR_INIT, SIM)
         port map(
         clk => lhc_clk,
         sres_counter => sres_counter,

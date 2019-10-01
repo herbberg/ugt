@@ -27,6 +27,7 @@ vlib work
 vmap work work
 
 #Top Entity the design
+vcom -93 -work work $GT_SRC/packages/fdl_pkg_bocci_sim.vhd
 vcom -93 -work work $GT_SRC/data/fdl/update_process.vhd
 vcom -93 -work work $GT_SRC/data/fdl/algo_pre_scaler_fractional_bocci.vhd
 
@@ -42,8 +43,8 @@ view wave
 do $TESTBENCH/../scripts/algo_pre_scaler_fractional_bocci_wave.do
 
 ##Run simulation
-#run 91000 ns
-run 2000 ms
+run 91000 ns
+#run 23300 ms
 
 # eof
 

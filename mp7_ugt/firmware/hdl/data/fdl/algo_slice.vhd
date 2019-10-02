@@ -96,8 +96,7 @@ begin
     prescaler_i: entity work.algo_pre_scaler
 	generic map( 
 	    PRESCALE_FACTOR_WIDTH => PRESCALE_FACTOR_WIDTH,
-	    PRESCALE_FACTOR_INIT => PRESCALE_FACTOR_INIT,
-        PRESCALER_INCR => PRESCALER_INCR
+	    PRESCALE_FACTOR_INIT => PRESCALE_FACTOR_INIT
     )
 	port map( 
 	    clk => lhc_clk,
@@ -132,9 +131,8 @@ begin
     prescaler_preview_i: entity work.algo_pre_scaler
 	generic map( 
 	    PRESCALE_FACTOR_WIDTH => PRESCALE_FACTOR_WIDTH,
-	    PRESCALE_FACTOR_INIT => PRESCALE_FACTOR_INIT,
-        PRESCALER_INCR => PRESCALER_INCR
-	)
+	    PRESCALE_FACTOR_INIT => PRESCALE_FACTOR_INIT
+    )
 	port map( 
 	    clk => lhc_clk,
 	    sres_counter => sres_algo_pre_scaler,

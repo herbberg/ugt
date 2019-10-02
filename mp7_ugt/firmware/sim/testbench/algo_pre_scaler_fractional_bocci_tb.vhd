@@ -24,20 +24,18 @@ architecture beh of algo_pre_scaler_fractional_TB is
 
     constant SIM : boolean := true;
     
-    constant PRESCALE_FACTOR_INIT_VALUE : real := 1.00;
     constant PRESCALE_FACTOR_FRACTION_DIGITS : integer := 2;
     constant PRESCALE_FACTOR_WIDTH : integer := 32;
-    constant PRESCALE_FACTOR_INIT_VALUE_INTEGER : integer := integer(PRESCALE_FACTOR_INIT_VALUE);
-    constant PRESCALE_FACTOR_INIT : std_logic_vector(31 downto 0) := CONV_STD_LOGIC_VECTOR((PRESCALE_FACTOR_INIT_VALUE_INTEGER*(10**PRESCALE_FACTOR_FRACTION_DIGITS)), 32);
+    constant PRESCALE_FACTOR_DENOMINATOR_WIDTH : integer := 8; -- max. value = 99 with PRESCALE_FACTOR_FRACTION_DIGITS = 2 
+    constant PRESCALE_FACTOR_NUMORATOR_WIDTH : integer := PRESCALE_FACTOR_WIDTH - PRESCALE_FACTOR_DENOMINATOR_WIDTH; -- value = 24
+    
+    constant PRESCALE_FACTOR_INIT : std_logic_vector(31 downto 0) := X"00000101"; -- value = 1/1 = 1
     constant PRESCALER_INCR : std_logic_vector(31 downto 0) := CONV_STD_LOGIC_VECTOR((10**PRESCALE_FACTOR_FRACTION_DIGITS), 32);
 
---     constant PRESCALE_FACTOR_VALUE : real := 2.16; -- actual factor for test = 2.16
---     constant PRESCALE_FACTOR_VALUE : real := 42900000.00; -- to big for integer conversion!!! [Max. 21474836.47]
---     constant PRESCALE_FACTOR_VALUE : real := 269000.00;
-    constant PRESCALE_FACTOR_VALUE : real := 3.27;
-    constant PRESCALE_FACTOR_VALUE_INTEGER : integer := integer(PRESCALE_FACTOR_VALUE * real(10**PRESCALE_FACTOR_FRACTION_DIGITS));
-    constant PRESCALE_FACTOR_VALUE_VEC : std_logic_vector(PRESCALE_FACTOR_WIDTH-1 downto 0) := CONV_STD_LOGIC_VECTOR(PRESCALE_FACTOR_VALUE_INTEGER, 32);   
---     constant PRESCALE_FACTOR_VALUE_VEC : std_logic_vector(PRESCALE_FACTOR_WIDTH-1 downto 0) := X"FFB43480"; -- => 42900000.00
+--     constant PRESCALE_FACTOR_VALUE_VEC : std_logic_vector(31 downto 0) := X"00000383"; -- value = 7/3 
+--     constant PRESCALE_FACTOR_VALUE_VEC : std_logic_vector(31 downto 0) := X"00000203"; -- value = 4/3 
+    constant PRESCALE_FACTOR_VALUE_VEC : std_logic_vector(31 downto 0) := X"0000D363"; -- value = 211/99 
+--     constant PRESCALE_FACTOR_VALUE_VEC : std_logic_vector(31 downto 0) := X"00006401"; -- value = 100/1 
         
     constant LHC_CLK_PERIOD  : time :=  25 ns;
 

@@ -19,16 +19,16 @@ Versions of ugt with new GTL structure (v2.0.0 and higher)
 
 ### Changed
 - source files:
-  *../hdl/data/fdl/fdl_module.vhd
-  *../hdl/data/fdl/algo_slice.vhd
+  - ../hdl/data/fdl/fdl_module.vhd
+  - ../hdl/data/fdl/algo_slice.vhd
   
 - package file:
-  *../hdl/packages/fdl_pkg.vhd
+  - ../hdl/packages/fdl_pkg.vhd
 - do files and dep file:
-  *../sim/scripts/templates/gtl_fdl_wrapper_tpl_questa_v2018.2.do
-  *../sim/scripts/templates/gtl_fdl_wrapper_tpl_questa_v2018.3.do
-  *../sim/scripts/templates/gtl_fdl_wrapper_tpl_questa_v2019.1.do
-  *../cfg/uGT_algo.dep
+  - ../sim/scripts/templates/gtl_fdl_wrapper_tpl_questa_v2018.2.do
+  - ../sim/scripts/templates/gtl_fdl_wrapper_tpl_questa_v2018.3.do
+  - ../sim/scripts/templates/gtl_fdl_wrapper_tpl_questa_v2019.1.do
+  - ../cfg/uGT_algo.dep
 
 ### Removed
 

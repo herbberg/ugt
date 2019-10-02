@@ -7,10 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ================================
 Versions of ugt with new GTL structure (v2.0.0 and higher)
 
-## [mp7_ugt_v2_4_0] - 
+## [mp7_ugt_v2_3_2] - 2019-10-02
 
 ### Comment
-- mp7_ugt firmware release v2.4.0 (fractional prescaler logic based on porposal of A. Bocci)
+- mp7_ugt firmware release v2.3.2 (fractional prescaler with numerator and denominator for prescale factor)
 
 ### Added
 - source files:
@@ -29,6 +29,15 @@ Versions of ugt with new GTL structure (v2.0.0 and higher)
   ../cfg/uGT_algo.dep
 
 ### Removed
+
+## [mp7_ugt_v2_3_1] - 2019-09-27
+
+### Comment
+- mp7_ugt firmware release v2.3.1
+
+### Changed
+- source files:
+  ../hdl/packages/gt_mp7_core_pkg.vhd
 
 ## [mp7_ugt_v2_3_0] - 2019-09-26
 

@@ -15,13 +15,12 @@ Versions of ugt with new GTL structure (v2.0.0 and higher)
 
 ### Added
 - source files:
-  ../hdl/data/fdl/algo_pre_scaler_fractional_bocci.vhd
+  - ../hdl/data/fdl/algo_pre_scaler_fractional_bocci.vhd
 
 ### Changed
 - source files:
   - ../hdl/data/fdl/fdl_module.vhd
   - ../hdl/data/fdl/algo_slice.vhd
-  
 - package file:
   - ../hdl/packages/fdl_pkg.vhd
 - do files and dep file:
@@ -39,7 +38,7 @@ Versions of ugt with new GTL structure (v2.0.0 and higher)
 
 ### Changed
 - source files:
-  ../hdl/packages/gt_mp7_core_pkg.vhd
+  - ../hdl/packages/gt_mp7_core_pkg.vhd
 
 ## [mp7_ugt_v2_3_0] - 2019-09-26
 
@@ -48,34 +47,34 @@ Versions of ugt with new GTL structure (v2.0.0 and higher)
 
 ### Added
 - source files:
-  ../hdl/data/gtl/comparator_muon_cc_double.vhd
-  ../hdl/data/gtl/comparator_muon_cc_triple.vhd
-  ../hdl/data/gtl/comparator_muon_cc_quad.vhd
-  ../hdl/data/gtl/delta_r_calc.vhd
-  ../hdl/data/gtl/correlation_conditions_ovrm.vhd
+  - ../hdl/data/gtl/comparator_muon_cc_double.vhd
+  - ../hdl/data/gtl/comparator_muon_cc_triple.vhd
+  - ../hdl/data/gtl/comparator_muon_cc_quad.vhd
+  - ../hdl/data/gtl/delta_r_calc.vhd
+  - ../hdl/data/gtl/correlation_conditions_ovrm.vhd
 
 ### Changed
 - source files:
-  ../hdl/data/gtl/conversions.vhd
-  ../hdl/data/gtl/comparator_muon_charge_corr.vhd
-  ../hdl/data/gtl/comparators_obj_cuts.vhd
-  ../hdl/data/gtl/invariant_mass.vhd
-  ../hdl/data/gtl/inv_mass_calc.vhd
-  ../hdl/data/gtl/combinatorial_conditions.vhd
-  ../hdl/data/gtl/comparators_corr_cuts.vhd
-  ../hdl/data/gtl/comparators_obj_cuts.vhd
-  ../hdl/data/gtl/cos_dphi_lut.vhd
-  ../hdl/data/gtl/cosh_deta_lut.vhd
-  ../hdl/data/gtl/diff_eta_lut.vhd
-  ../hdl/data/gtl/diff_phi_lut.vhd
-  ../hdl/data/gtl/sub_eta.vhd
-  ../hdl/data/gtl/sub_phi.vhd
-  ../hdl/packages/gtl_pkg.vhd
+  - ../hdl/data/gtl/conversions.vhd
+  - ../hdl/data/gtl/comparator_muon_charge_corr.vhd
+  - ../hdl/data/gtl/comparators_obj_cuts.vhd
+  - ../hdl/data/gtl/invariant_mass.vhd
+  - ../hdl/data/gtl/inv_mass_calc.vhd
+  - ../hdl/data/gtl/combinatorial_conditions.vhd
+  - ../hdl/data/gtl/comparators_corr_cuts.vhd
+  - ../hdl/data/gtl/comparators_obj_cuts.vhd
+  - ../hdl/data/gtl/cos_dphi_lut.vhd
+  - ../hdl/data/gtl/cosh_deta_lut.vhd
+  - ../hdl/data/gtl/diff_eta_lut.vhd
+  - ../hdl/data/gtl/diff_phi_lut.vhd
+  - ../hdl/data/gtl/sub_eta.vhd
+  - ../hdl/data/gtl/sub_phi.vhd
+  - ../hdl/packages/gtl_pkg.vhd
  do files and dep file:
-  ../sim/scripts/templates/gtl_fdl_wrapper_tpl_questa_v2018.2.do
-  ../sim/scripts/templates/gtl_fdl_wrapper_tpl_questa_v2018.3.do
-  ../sim/scripts/templates/gtl_fdl_wrapper_tpl_questa_v2019.1.do
-  ../cfg/uGT_algo.dep
+  - ../sim/scripts/templates/gtl_fdl_wrapper_tpl_questa_v2018.2.do
+  - ../sim/scripts/templates/gtl_fdl_wrapper_tpl_questa_v2018.3.do
+  - ../sim/scripts/templates/gtl_fdl_wrapper_tpl_questa_v2019.1.do
+  - ../cfg/uGT_algo.dep
 
 ### Removed
 - ../hdl/data/gtl/threshold_comparator.vhd
@@ -131,17 +130,17 @@ Versions of ugt with new GTL structure (v2.0.0 and higher)
 - ../hdl/packages/fdl_pkg.vhd
 - ../hdl/packages/control_pkg.vhd
 - ../sim/scripts/templates/gtl_fdl_wrapper_tpl_questa_v2019.1.do
- 
+
 ### Changed
 - moved all VHDL package files to ../hdl/packages:
-  ../hdl/control/frame_addr_decode.vhd
-  ../hdl/data/gtl/gtl_pkg.vhd
-  ../hdl/data/gtl/lut_pkg.vhd
-  ../hdl/data/fdl/fdl_addr_decode.vhd
+  - ../hdl/control/frame_addr_decode.vhd
+  - ../hdl/data/gtl/gtl_pkg.vhd
+  - ../hdl/data/gtl/lut_pkg.vhd
+  - ../hdl/data/fdl/fdl_addr_decode.vhd
 - do files and dep file:
-  ../sim/scripts/templates/gtl_fdl_wrapper_tpl_questa_v2018.2.do
-  ../sim/scripts/templates/gtl_fdl_wrapper_tpl_questa_v2018.3.do
-  ../cfg/uGT_algo.dep
+  - ../sim/scripts/templates/gtl_fdl_wrapper_tpl_questa_v2018.2.do
+  - ../sim/scripts/templates/gtl_fdl_wrapper_tpl_questa_v2018.3.do
+  - ../cfg/uGT_algo.dep
 - inserted use clause fdl_pkg in files
 
 ## [mp7_ugt_v2_0_2] - 2019-06-26
@@ -152,12 +151,12 @@ Versions of ugt with new GTL structure (v2.0.0 and higher)
 ### Changed
 - bug fix in gtl_pkg.vhd and fdl_module.vhd
 - deleted obsolete files:
-  ../hdl/control/rb_pkg_sim.vhd
-  ../hdl/data/fdl/algo_mapping_rop_tpl.vhd
-  ../hdl/data/gtl/gtl_module_tpl.vhd
-  ../hdl/data/gtl/gtl_pkg_sim.vhd
-  ../hdl/data/gtl/gtl_pkg_tpl.vhd
-  ../hdl/packages/gt_mp7_core_pkg_sim.vhd
+  - ../hdl/control/rb_pkg_sim.vhd
+  - ../hdl/data/fdl/algo_mapping_rop_tpl.vhd
+  - ../hdl/data/gtl/gtl_module_tpl.vhd
+  - ../hdl/data/gtl/gtl_pkg_sim.vhd
+  - ../hdl/data/gtl/gtl_pkg_tpl.vhd
+  - ../hdl/packages/gt_mp7_core_pkg_sim.vhd
  - script run_simulation_questa.py (exit on error)
  
 ## [mp7_ugt_v2_0_0] - 2019-06-26 => no tag created !!!

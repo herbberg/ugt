@@ -15,15 +15,12 @@ Versions of ugt with new GTL structure (v2.0.0 and higher)
 
 ### Added
 - source files:
-
-  ../hdl/data/fdl/algo_pre_scaler_fractional_bocci.vhd
+  -- ../hdl/data/fdl/algo_pre_scaler_fractional_bocci.vhd
 
 ### Changed
 - source files:
-
-  ../hdl/data/fdl/fdl_module.vhd
-  
-  ../hdl/data/fdl/algo_slice.vhd
+  -- ../hdl/data/fdl/fdl_module.vhd
+  -- ../hdl/data/fdl/algo_slice.vhd
   
 - package file:
   ../hdl/packages/fdl_pkg.vhd

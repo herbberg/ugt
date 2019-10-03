@@ -6,8 +6,6 @@ add wave -noupdate /algo_pre_scaler_fractional_tb/request_update_factor_pulse
 add wave -noupdate /algo_pre_scaler_fractional_tb/update_factor_pulse
 add wave -noupdate -radix hexadecimal -radixshowbase 0 /algo_pre_scaler_fractional_tb/prescale_factor
 add wave -noupdate -radix decimal -radixshowbase 0 /algo_pre_scaler_fractional_tb/dut/prescale_factor_int
-add wave -noupdate -radix decimal -radixshowbase 0 /algo_pre_scaler_fractional_tb/dut/numerator
-add wave -noupdate -radix decimal -radixshowbase 0 /algo_pre_scaler_fractional_tb/dut/denominator
 add wave -noupdate -radix decimal -radixshowbase 0 /algo_pre_scaler_fractional_tb/dut/counter
 add wave -noupdate /algo_pre_scaler_fractional_tb/dut/limit
 add wave -noupdate -radix decimal -radixshowbase 0 /algo_pre_scaler_fractional_tb/dut/index_sim

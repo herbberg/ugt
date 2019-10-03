@@ -11,7 +11,7 @@ Versions of ugt with new GTL structure (v2.0.0 and higher)
 ### [mp7_ugt_v2_3_2] - 2019-10-03
 
 #### Comment
-- mp7_ugt firmware release v2.3.2 (fractional prescaler with numerator and denominator for prescale factor)
+- mp7_ugt firmware release v2.3.2 (fractional prescaler of 32 bits including 2 fractional digits)
 
 #### Added
 - source files:

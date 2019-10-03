@@ -3,18 +3,13 @@
 -- Testbench for prescalers (FDL) with fractional prescale values
 
 -- Version history:
+-- HB 2019-10-03: cleaned up code
 -- HB 2019-05-31: first design
 
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.std_logic_arith.all;
-use ieee.std_logic_unsigned.all;
-library UNISIM;
-use UNISIM.VCOMPONENTS.ALL;
-library std;                  -- for Printing
-use std.textio.all;
 
-use work.math_pkg.all;
 use work.fdl_pkg.all;
 
 entity algo_pre_scaler_fractional_TB is
@@ -24,19 +19,9 @@ architecture beh of algo_pre_scaler_fractional_TB is
 
     constant SIM : boolean := true;
     
-    constant PRESCALE_FACTOR_INIT_VALUE : std_logic_vector(31 downto 0) := PRESCALE_FACTOR_INIT_NUMORATOR & PRESCALE_FACTOR_INIT_DENOMINATOR; -- value = 1
-
---     constant PF_VALUE_NUMORATOR : natural := 7;
---     constant PF_VALUE_DENOMINATOR : natural := 3;
---     constant PF_VALUE_NUMORATOR : natural := 4;
---     constant PF_VALUE_DENOMINATOR : natural := 3;
---     constant PF_VALUE_NUMORATOR : natural := 211;
---     constant PF_VALUE_DENOMINATOR : natural := 99;
-    constant PF_VALUE_NUMORATOR : natural := 100;
-    constant PF_VALUE_DENOMINATOR : natural := 1;
-    constant PF_VALUE_NUMORATOR_VEC : std_logic_vector(PRESCALE_FACTOR_NUMORATOR_WIDTH-1 downto 0) := CONV_STD_LOGIC_VECTOR(PF_VALUE_NUMORATOR, PRESCALE_FACTOR_NUMORATOR_WIDTH);
-    constant PF_VALUE_DENOMINATOR_VEC : std_logic_vector(PRESCALE_FACTOR_DENOMINATOR_WIDTH-1 downto 0) := CONV_STD_LOGIC_VECTOR(PF_VALUE_DENOMINATOR, PRESCALE_FACTOR_DENOMINATOR_WIDTH);
-    constant PRESCALE_FACTOR_VALUE_VEC : std_logic_vector(31 downto 0) := PF_VALUE_NUMORATOR_VEC & PF_VALUE_DENOMINATOR_VEC;
+    constant PRESCALE_FACTOR_VALUE : real := 3.27;
+    constant PRESCALE_FACTOR_VALUE_INTEGER : integer := integer(PRESCALE_FACTOR_VALUE * real(10**PRESCALE_FACTOR_FRACTION_DIGITS));
+    constant PRESCALE_FACTOR_VALUE_VEC : std_logic_vector(31 downto 0) := CONV_STD_LOGIC_VECTOR(PRESCALE_FACTOR_VALUE_INTEGER, 32);   
         
     constant LHC_CLK_PERIOD  : time :=  25 ns;
 
@@ -88,7 +73,7 @@ begin
  ------------------- Instantiate  modules  -----------------
 
     dut: entity work.algo_pre_scaler
-        generic map(PRESCALE_FACTOR_WIDTH, PRESCALE_FACTOR_INIT_VALUE, SIM)
+        generic map(PRESCALE_FACTOR_WIDTH, PRESCALE_FACTOR_INIT_VALUE_VEC, SIM)
         port map(
         clk => lhc_clk,
         sres_counter => sres_counter,

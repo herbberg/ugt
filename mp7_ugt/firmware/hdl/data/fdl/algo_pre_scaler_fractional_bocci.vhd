@@ -3,8 +3,7 @@
 -- Prescalers for algorithms in FDL with fractional prescale values
 
 -- Version-history:
--- HB 2019-10-02: used denominator for incrementing the counter, use numerator for substracting the counter.
--- HB 2019-10-01: factor defined by numerator (25 bits) and denominator (7 bits).
+-- HB 2019-10-03: removed generic parameter PRESCALER_INCR [used as globaly, directly taken from fdl_pkg.vhd].
 -- HB 2019-09-27: new generic parameter PRESCALER_INCR.
 -- HB 2019-09-25: first design, based on proposal of A. Bocci (email: M. Jeitler, 25.9.2019, "Fwd: Fractional prescales")
 
@@ -39,12 +38,12 @@ end algo_pre_scaler;
 architecture rtl of algo_pre_scaler is
 
    constant ZERO : std_logic_vector(PRESCALE_FACTOR_WIDTH-1 downto 0) := (others => '0');
+   constant INCR : std_logic_vector(PRESCALE_FACTOR_WIDTH-1 downto 0) := PRESCALER_INCR(PRESCALE_FACTOR_WIDTH-1 downto 0);
    
    signal prescale_factor_int : std_logic_vector(PRESCALE_FACTOR_WIDTH-1 downto 0) := PRESCALE_FACTOR_INIT(PRESCALE_FACTOR_WIDTH-1 downto 0);
    signal counter : std_logic_vector(PRESCALE_FACTOR_WIDTH-1 downto 0) := (others => '0');
+   signal factor : std_logic_vector(PRESCALE_FACTOR_WIDTH-1 downto 0) := (others => '0');
    signal limit : std_logic := '0';
-   signal numerator : std_logic_vector(PRESCALE_FACTOR_WIDTH-1 downto PRESCALE_FACTOR_DENOMINATOR_WIDTH);
-   signal denominator : std_logic_vector(PRESCALE_FACTOR_DENOMINATOR_WIDTH-1 downto 0);
 
 begin
 
@@ -61,13 +60,12 @@ begin
         data_o => prescale_factor_int(PRESCALE_FACTOR_WIDTH-1 downto 0)
     );
     
-    numerator <= prescale_factor_int(PRESCALE_FACTOR_WIDTH-1 downto PRESCALE_FACTOR_DENOMINATOR_WIDTH);
-    denominator <= prescale_factor_int(PRESCALE_FACTOR_DENOMINATOR_WIDTH-1 downto 0);
+    factor <= prescale_factor_int(PRESCALE_FACTOR_WIDTH-1 downto 0);
     
--- Comparing counter
-    compare_p: process (counter, denominator, numerator)
+-- Comparing counter and factor
+    compare_p: process (counter, factor)
     begin
-        if (counter+denominator >= numerator) then
+        if (counter+INCR >= factor) then
             limit <= '1';            
         else
             limit <= '0';
@@ -81,19 +79,19 @@ begin
             if (sres_counter = '1') or (update_factor_pulse = '1') then
                 counter <= (others => '0');
             elsif (limit = '1' and algo_i = '1') then
-                counter <= counter+denominator-numerator;
+                counter <= counter+INCR-factor;
             elsif (limit = '0' and algo_i = '1') then
-                counter <= counter+denominator;
+                counter <= counter+INCR;
             end if;
         end if;
     end process counter_p;
     
--- Generating prescaled algos (numerator value = 0 => no prescaled algos)
-    prescaled_algo_p: process (clk, algo_i, limit, numerator)
+-- Generating prescaled algos (prescale factor value = 0 => no prescaled algos)
+    prescaled_algo_p: process (clk, algo_i, limit, factor)
         variable algo_cnt : natural := 0;
     begin
         if clk'event and clk = '0' then 
-            if numerator = ZERO(PRESCALE_FACTOR_WIDTH-1 downto PRESCALE_FACTOR_DENOMINATOR_WIDTH) then
+            if factor = ZERO then
                 prescaled_algo_o <= '0';
             elsif limit = '1' and algo_i = '1' then
                 prescaled_algo_o <= '1';
@@ -113,8 +111,6 @@ begin
                 if sres_counter = '1' or update_factor_pulse = '1' then
                     prescaled_algo_cnt := 0;
                     algo_cnt := 0;
-                elsif numerator = ZERO(PRESCALE_FACTOR_WIDTH-1 downto PRESCALE_FACTOR_DENOMINATOR_WIDTH) then
-                    prescaled_algo_cnt := 0;
                 elsif limit = '0' and algo_i = '1' then
                     algo_cnt := algo_cnt + 1;
                 elsif limit = '1' and algo_i = '1' then

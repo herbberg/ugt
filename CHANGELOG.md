@@ -73,7 +73,7 @@ Versions of ugt with new GTL structure (v2.0.0 and higher)
   - ../hdl/data/gtl/sub_eta.vhd
   - ../hdl/data/gtl/sub_phi.vhd
   - ../hdl/packages/gtl_pkg.vhd
- - do files and dep file:
+- do files and dep file:
   - ../sim/scripts/templates/gtl_fdl_wrapper_tpl_questa_v2018.2.do
   - ../sim/scripts/templates/gtl_fdl_wrapper_tpl_questa_v2018.3.do
   - ../sim/scripts/templates/gtl_fdl_wrapper_tpl_questa_v2019.1.do
@@ -91,15 +91,15 @@ Versions of ugt with new GTL structure (v2.0.0 and higher)
 #### Changed
 - ../hdl/data/gtl/inv_mass_calc.vhd (splitted equation for DSP)
 - inserted cases for "same objects" and "different objects" (less resources for "same objects") in:
- - ../hdl/data/gtl/cos_dphi_lut.vhd
- - ../hdl/data/gtl/cosh_deta_lut.vhd
- - ../hdl/data/gtl/diff_eta_lut.vhd
- - ../hdl/data/gtl/diff_phi_lut.vhd
- - ../hdl/data/gtl/sub_eta.vhd
- - ../hdl/data/gtl/sub_phi.vhd
- - ../hdl/data/gtl/delta_r.vhd
- - ../hdl/data/gtl/invariant_mass.vhd
- - ../hdl/data/gtl/comparators_corr_cuts.vhd
+  - ../hdl/data/gtl/cos_dphi_lut.vhd
+  - ../hdl/data/gtl/cosh_deta_lut.vhd
+  - ../hdl/data/gtl/diff_eta_lut.vhd
+  - ../hdl/data/gtl/diff_phi_lut.vhd
+  - ../hdl/data/gtl/sub_eta.vhd
+  - ../hdl/data/gtl/sub_phi.vhd
+  - ../hdl/data/gtl/delta_r.vhd
+  - ../hdl/data/gtl/invariant_mass.vhd
+  - ../hdl/data/gtl/comparators_corr_cuts.vhd
 
 ### [mp7_ugt_v2_2_0] - 2019-08-26
 

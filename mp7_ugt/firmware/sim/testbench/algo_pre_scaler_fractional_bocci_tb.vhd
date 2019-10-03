@@ -15,7 +15,7 @@ library std;                  -- for Printing
 use std.textio.all;
 
 use work.math_pkg.all;
--- use work.algo_pre_scaler_fractional_tb_pkg.all;
+use work.fdl_pkg.all;
 
 entity algo_pre_scaler_fractional_TB is
 end algo_pre_scaler_fractional_TB;
@@ -24,18 +24,19 @@ architecture beh of algo_pre_scaler_fractional_TB is
 
     constant SIM : boolean := true;
     
-    constant PRESCALE_FACTOR_FRACTION_DIGITS : integer := 2;
-    constant PRESCALE_FACTOR_WIDTH : integer := 32;
-    constant PRESCALE_FACTOR_DENOMINATOR_WIDTH : integer := 8; -- max. value = 99 with PRESCALE_FACTOR_FRACTION_DIGITS = 2 
-    constant PRESCALE_FACTOR_NUMORATOR_WIDTH : integer := PRESCALE_FACTOR_WIDTH - PRESCALE_FACTOR_DENOMINATOR_WIDTH; -- value = 24
-    
-    constant PRESCALE_FACTOR_INIT : std_logic_vector(31 downto 0) := X"00000101"; -- value = 1/1 = 1
-    constant PRESCALER_INCR : std_logic_vector(31 downto 0) := CONV_STD_LOGIC_VECTOR((10**PRESCALE_FACTOR_FRACTION_DIGITS), 32);
+    constant PRESCALE_FACTOR_INIT_VALUE : std_logic_vector(31 downto 0) := PRESCALE_FACTOR_INIT_NUMORATOR & PRESCALE_FACTOR_INIT_DENOMINATOR; -- value = 1
 
---     constant PRESCALE_FACTOR_VALUE_VEC : std_logic_vector(31 downto 0) := X"00000383"; -- value = 7/3 
---     constant PRESCALE_FACTOR_VALUE_VEC : std_logic_vector(31 downto 0) := X"00000203"; -- value = 4/3 
-    constant PRESCALE_FACTOR_VALUE_VEC : std_logic_vector(31 downto 0) := X"0000D363"; -- value = 211/99 
---     constant PRESCALE_FACTOR_VALUE_VEC : std_logic_vector(31 downto 0) := X"00006401"; -- value = 100/1 
+--     constant PF_VALUE_NUMORATOR : natural := 7;
+--     constant PF_VALUE_DENOMINATOR : natural := 3;
+--     constant PF_VALUE_NUMORATOR : natural := 4;
+--     constant PF_VALUE_DENOMINATOR : natural := 3;
+--     constant PF_VALUE_NUMORATOR : natural := 211;
+--     constant PF_VALUE_DENOMINATOR : natural := 99;
+    constant PF_VALUE_NUMORATOR : natural := 100;
+    constant PF_VALUE_DENOMINATOR : natural := 1;
+    constant PF_VALUE_NUMORATOR_VEC : std_logic_vector(PRESCALE_FACTOR_NUMORATOR_WIDTH-1 downto 0) := CONV_STD_LOGIC_VECTOR(PF_VALUE_NUMORATOR, PRESCALE_FACTOR_NUMORATOR_WIDTH);
+    constant PF_VALUE_DENOMINATOR_VEC : std_logic_vector(PRESCALE_FACTOR_DENOMINATOR_WIDTH-1 downto 0) := CONV_STD_LOGIC_VECTOR(PF_VALUE_DENOMINATOR, PRESCALE_FACTOR_DENOMINATOR_WIDTH);
+    constant PRESCALE_FACTOR_VALUE_VEC : std_logic_vector(31 downto 0) := PF_VALUE_NUMORATOR_VEC & PF_VALUE_DENOMINATOR_VEC;
         
     constant LHC_CLK_PERIOD  : time :=  25 ns;
 
@@ -87,7 +88,7 @@ begin
  ------------------- Instantiate  modules  -----------------
 
     dut: entity work.algo_pre_scaler
-        generic map(PRESCALE_FACTOR_WIDTH, PRESCALE_FACTOR_INIT, SIM)
+        generic map(PRESCALE_FACTOR_WIDTH, PRESCALE_FACTOR_INIT_VALUE, SIM)
         port map(
         clk => lhc_clk,
         sres_counter => sres_counter,

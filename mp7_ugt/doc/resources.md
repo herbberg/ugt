@@ -74,3 +74,4 @@
 | triple_calo                |    60 |
 | quad_calo                  |  1995 |
 | quad_muon                  |   956 |
+| esums                      |     0 | [comparators_obj_cuts output used in algo]

@@ -2,7 +2,7 @@
 -- FDL structure
 
 -- Version-history:
--- HB 2019-10-02: v1.3.4 - based on v1.3.2, changed logic for fractional prescaler (in algo_pre_scaler_fractional_bocci.vhd) using numerator and denominator for prescale factor.
+-- HB 2019-10-02: v1.3.4 - based on v1.3.3, changed logic for fractional prescaler (in algo_pre_scaler_fractional_bocci.vhd) using numerator and denominator for prescale factor.
 -- HB 2019-09-26: v1.3.3 - based on v1.3.2, changed algo_slice generic for fractional prescaler logic (proposal of A. Bocci).
 -- HB 2019-07-03: v1.3.2 - based on v1.3.1, inserted use clause fdl_pkg.
 -- HB 2019-06-28: v1.3.1 - based on v1.3.0, fixed typo.

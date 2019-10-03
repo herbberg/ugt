@@ -113,6 +113,8 @@ begin
                 if sres_counter = '1' or update_factor_pulse = '1' then
                     prescaled_algo_cnt := 0;
                     algo_cnt := 0;
+                elsif numerator = ZERO(PRESCALE_FACTOR_WIDTH-1 downto PRESCALE_FACTOR_DENOMINATOR_WIDTH) then
+                    prescaled_algo_cnt := 0;
                 elsif limit = '0' and algo_i = '1' then
                     algo_cnt := algo_cnt + 1;
                 elsif limit = '1' and algo_i = '1' then

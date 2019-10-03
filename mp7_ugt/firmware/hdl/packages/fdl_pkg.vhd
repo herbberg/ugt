@@ -34,14 +34,14 @@ package fdl_pkg is
 -- FDL definitions
 -- Definitions for prescalers (for FDL !)
 
--- HB 2019-09-27: changed for proposal of A. Bocci
--- PRESCALE_FACTOR_MAX_VALUE = 42949672 (=0xFFFFFFA0) with 2 fractional digits and 429496729 (=0xFFFFFFFA) with 1 fractional digit for 32 bits width
-    constant PRESCALE_FACTOR_FRACTION_DIGITS : integer := 2;
-    constant PRESCALE_FACTOR_WIDTH : integer := 32;
-    constant PRESCALE_FACTOR_DENOMINATOR_WIDTH : integer := 8; -- max. value = 99 with PRESCALE_FACTOR_FRACTION_DIGITS = 2 
-    constant PRESCALE_FACTOR_NUMORATOR_WIDTH : integer := PRESCALE_FACTOR_WIDTH - PRESCALE_FACTOR_DENOMINATOR_WIDTH; -- value = 24
+-- HB 2019-09-27: changed for proposal of A. Bocci with numerator (24 bits) and denominator (8 bits).
+    constant PRESCALE_FACTOR_NUMORATOR_WIDTH : integer := 24; -- max. value = 16777215 (=2^24-1)
+    constant PRESCALE_FACTOR_DENOMINATOR_WIDTH : integer := 8; -- max. value = 255, but max. 99 will be used
+    constant PRESCALE_FACTOR_WIDTH : integer := PRESCALE_FACTOR_NUMORATOR_WIDTH+PRESCALE_FACTOR_DENOMINATOR_WIDTH;
     
-    constant PRESCALE_FACTOR_INIT_VALUE : std_logic_vector(31 downto 0) := X"00000101"; -- value = 1/1 = 1
+    constant PRESCALE_FACTOR_INIT_NUMORATOR : std_logic_vector(PRESCALE_FACTOR_NUMORATOR_WIDTH-1 downto 0) := X"000001"; -- value = 1
+    constant PRESCALE_FACTOR_INIT_DENOMINATOR : std_logic_vector(PRESCALE_FACTOR_DENOMINATOR_WIDTH-1 downto 0) := X"01"; -- value = 1
+    constant PRESCALE_FACTOR_INIT_VALUE : std_logic_vector(31 downto 0) := PRESCALE_FACTOR_INIT_NUMORATOR & PRESCALE_FACTOR_INIT_DENOMINATOR; -- value = 1
 
     constant PRESCALE_FACTOR_INIT : ipb_regs_array(0 to MAX_NR_ALGOS-1) := (others => PRESCALE_FACTOR_INIT_VALUE);
     

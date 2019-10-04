@@ -1,8 +1,9 @@
 
 -- Description:
--- Prescalers for algorithms in FDL with fractional prescale values
+-- Prescalers for algorithms in FDL with fractional prescale values given by numerator and denominator
 
 -- Version-history:
+-- HB 2019-10-04: new file name for fractional prescale values given by numerator and denominator.
 -- HB 2019-10-02: used denominator for incrementing the counter, use numerator for substracting the counter.
 -- HB 2019-10-01: factor defined by numerator (25 bits) and denominator (7 bits).
 -- HB 2019-09-27: new generic parameter PRESCALER_INCR.

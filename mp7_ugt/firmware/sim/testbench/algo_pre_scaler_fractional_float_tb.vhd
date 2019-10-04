@@ -1,6 +1,6 @@
 
 -- Description:
--- Testbench for prescalers (FDL) with fractional prescale values
+-- Testbench for prescalers (FDL) with fractional prescale values given in float
 
 -- Version history:
 -- HB 2019-10-03: cleaned up code

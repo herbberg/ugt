@@ -1,8 +1,9 @@
 
 -- Description:
--- Prescalers for algorithms in FDL with fractional prescale values
+-- Prescalers for algorithms in FDL with fractional prescale values in float notation
 
 -- Version-history:
+-- HB 2019-10-04: new file name for fractional prescale values in float notation.
 -- HB 2019-10-03: removed generic parameter PRESCALER_INCR [used as globaly, directly taken from fdl_pkg.vhd].
 -- HB 2019-09-27: new generic parameter PRESCALER_INCR.
 -- HB 2019-09-25: first design, based on proposal of A. Bocci (email: M. Jeitler, 25.9.2019, "Fwd: Fractional prescales")

@@ -8,19 +8,27 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 Versions of ugt with new GTL structure (v2.0.0 and higher)
 
-### [mp7_ugt_v2_3_2] - 2019-10-03
+### [mp7_ugt_v2_3_2] - 2019-10-04
 
 #### Comment
-- mp7_ugt firmware release v2.3.2 (32 bits including 2 fractional digits for fractional prescaler)
+- mp7_ugt firmware release v2.3.2 (32 bits for fractional prescaler, two different implementation in repo)
 
 #### Added
 - source files:
-  - ../hdl/data/fdl/algo_pre_scaler_fractional_bocci.vhd
+  - ../hdl/data/fdl/algo_pre_scaler_fractional_float.vhd
+  - ../hdl/data/fdl/algo_pre_scaler_fractional_num_denom.vhd
+  - ../hdl/packages/fdl_pkg_prescale_float.vhd
+  - ../hdl/packages/fdl_pkg_prescale_float_sim.vhd
+  - ../hdl/packages/fdl_pkg_prescale_num_denom.vhd
+  - ../hdl/packages/fdl_pkg_prescale_num_denom_sim.vhd
 - simulation do files:
-  - ../sim/scripts/algo_pre_scaler_fractional_bocci.do
-  - ../sim/scripts/algo_pre_scaler_fractional_bocci_wave.do
+  - ../sim/scripts/algo_pre_scaler_fractional_float.do
+  - ../sim/scripts/algo_pre_scaler_fractional_float_wave.do
+  - ../sim/scripts/algo_pre_scaler_fractional_num_denom.do
+  - ../sim/scripts/algo_pre_scaler_fractional_num_denom_wave.do
 - simulation testbench files:
-  - ../sim/testbench/algo_pre_scaler_fractional_bocci_tb.vhd
+  - ../sim/testbench/algo_pre_scaler_fractional_float_tb.vhd
+  - ../sim/testbench/algo_pre_scaler_fractional_num_denom_tb.vhd
 
 #### Changed
 - source files:
@@ -28,10 +36,11 @@ Versions of ugt with new GTL structure (v2.0.0 and higher)
   - ../hdl/data/fdl/algo_slice.vhd
   - ../hdl/packages/fdl_pkg.vhd
   - ../hdl/packages/gt_mp7_core_pkg.vhd
-- do files and dep file:
+- simulation do files:
   - ../sim/scripts/templates/gtl_fdl_wrapper_tpl_questa_v2018.2.do
   - ../sim/scripts/templates/gtl_fdl_wrapper_tpl_questa_v2018.3.do
   - ../sim/scripts/templates/gtl_fdl_wrapper_tpl_questa_v2019.1.do
+- synthesis dep file:
   - ../cfg/uGT_algo.dep
 
 ### [mp7_ugt_v2_3_1] - 2019-09-27

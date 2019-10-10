@@ -20,8 +20,8 @@ entity twobody_pt_calc is
         SIN_COS_WIDTH: positive
     );
     port(
-        pt1 : in integer;
-        pt2 : in integer;
+        pt1 : in std_logic_vector(PT1_WIDTH-1 downto 0);
+        pt2 : in std_logic_vector(PT2_WIDTH-1 downto 0);
         cos_phi_1 : in integer;
         cos_phi_2 : in integer;
         sin_phi_1 : in integer;
@@ -67,9 +67,9 @@ begin
     cos_plus_sin_vec <= cos_plus_sin_vec_temp when cos_plus_sin_vec_temp(cos_plus_sin_vec_temp'high) = '0' else (not(cos_plus_sin_vec_temp)+1);
     pt1_pt2_cos_sin_temp <= conv_std_logic_vector(2,2) * pt1(PT1_WIDTH-1 downto 0) * pt2(PT2_WIDTH-1 downto 0) * cos_plus_sin_vec;
     pt1_pt2_cos_sin <= pt1_pt2_cos_sin_temp when cos_plus_sin_vec_temp(cos_plus_sin_vec_temp'high) = '0' else (not(pt1_pt2_cos_sin_temp)+1);
-    pt1_sq <= (pt1(PT1_WIDTH-1 downto 0) * pt1(PT1_WIDTH-1 downto 0));            
-    pt2_sq <= (pt2(PT2_WIDTH-1 downto 0) * pt2(PT2_WIDTH-1 downto 0));             
+    pt1_sq <= pt1(PT1_WIDTH-1 downto 0) * pt1(PT1_WIDTH-1 downto 0);            
+    pt2_sq <= pt2(PT2_WIDTH-1 downto 0) * pt2(PT2_WIDTH-1 downto 0);             
     pt_sq <= pt1_sq + pt2_sq;
-    twobody_pt_sq_o <= pt_sq + pt1_pt2_cos_sin;
+    twobody_pt_o <= pt_sq + pt1_pt2_cos_sin;
         
 end architecture rtl;

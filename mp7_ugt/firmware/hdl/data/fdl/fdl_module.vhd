@@ -1,4 +1,4 @@
--- Desription:
+-- Description:
 -- FDL structure
 
 -- Version-history:

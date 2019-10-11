@@ -8,6 +8,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 Versions of ugt with new GTL structure (v2.0.0 and higher)
 
+### [v2.3.3] - ?????????
+
+#### Comment
+
+- mp7_ugt firmware release v2.3.3 ?????????????????????
+
+- moved files from directory mp7_ugt to ugt 
+
 ### [v2.3.2] - 2019-10-11
 
 #### Comment

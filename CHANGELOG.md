@@ -8,6 +8,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 Versions of ugt with new GTL structure (v2.0.0 and higher)
 
+### [v2.3.2] - 2019-10-11
+
+#### Comment
+- deleted amc502_extcond, amc502_finor, amc502_finor_pre and mp7_tdf from repo
+- future developments for amc502 firmwares at "https://github.com/cms-l1-globaltrigger/amc502_..."
+- new tag version name
+
 ### [mp7_ugt_v2_3_2] - 2019-10-04
 
 #### Comment

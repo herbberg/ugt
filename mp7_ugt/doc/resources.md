@@ -72,11 +72,11 @@
 | ---------------------------|:-----:|:-------------:|
 | single_calo                |     3 |               |
 | double_calo                |    38 |               |
-| triple_calo                |     ? | value missing |
-| quad_calo                  |     ? | value missing |
+| triple_calo                |    60 |               |
+| quad_calo                  |  1995 |               |
 | single_muon                |     ? | value missing |
-| double_muon                |     ? | value missing |
-| triple_muon                |     ? | value missing |
+| double_muon                |     3 | to be checked |
+| triple_muon                |     4 | to be checked |
 | quad_muon                  |   956 |               |
 | correlation                |   134 | to be checked |
 | correlation_ovrm           |   247 | to be checked |

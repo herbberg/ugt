@@ -15,6 +15,7 @@
 | inv_mass                 | inv_mass_calc  |          0 |    4 |
 | cosh_deta_lut            | luts_corr_cuts |         83 |    0 |
 | cos_dphi_lut             | luts_corr_cuts |         40 |    0 |
+| twobody_pt               | twobody_pt_calc|        139 |    7 |
 
 * Resource calculation for a module with "same object type":
  
@@ -33,14 +34,17 @@
 ### Modules for comparators:
 #### Values for one instance:
 
-| Module                | Instance      | Mode     | Slice LUTs |
-| ----------------------|---------------|----------|:-----:|
-| comparators_obj_cuts  | comp_unsigned | pt       |     2 |
-| comparators_obj_cuts  | comp_unsigned | phi      |     2 |
-| comparators_obj_cuts  | comp_signed   | eta      |     2 |
-| comparators_corr_cuts | comp_unsigned | deltaR   |    12 |
-| comparators_corr_cuts | comp_unsigned | inv_mass |    25 |
-| lut_comparator        |               | qual     |     1 |
+| Module                | Instance      | Mode      | Slice LUTs |
+| ----------------------|---------------|-----------|:-----:|
+| comparators_obj_cuts  | comp_unsigned | pt        |     2 |
+| comparators_obj_cuts  | comp_unsigned | phi       |     2 |
+| comparators_obj_cuts  | comp_signed   | eta       |     2 |
+| comparators_corr_cuts | comp_unsigned | deltaEta  |     ? |
+| comparators_corr_cuts | comp_unsigned | deltaPhi  |     ? |
+| comparators_corr_cuts | comp_unsigned | deltaR    |    12 |
+| comparators_corr_cuts | comp_unsigned | mass      |    25 |
+| comparators_corr_cuts | comp_unsigned | twoBodyPt |     9 |
+| lut_comparator        |               | qual      |     1 |
 
 * Resource calculation for comparators_obj_cuts and lut_comparator:
  
@@ -67,4 +71,12 @@
 | Condition type             | Slice LUTs |
 | ---------------------------|:-----:|
 | single_calo                |     3 |
+| double_calo                |    38 |
+| triple_calo                |     ? |
+| quad_calo                  |     ? |
+| single_muon                |     ? |
+| double_muon                |     ? |
+| triple_muon                |     ? |
 | quad_muon                  |   956 |
+| correlation                |   134 | => to be checked
+| correlation_ovrm           |   247 | => to be checked

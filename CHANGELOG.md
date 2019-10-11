@@ -11,17 +11,14 @@ Versions of ugt with new GTL structure (v2.0.0 and higher)
 ### [v2.3.2] - 2019-10-11
 
 #### Comment
+
+- mp7_ugt firmware release v2.3.2 (32 bits for fractional prescaler, two different implementation in repo)
+
 - deleted amc502_extcond, amc502_finor, amc502_finor_pre and mp7_tdf from repo
 - future developments for amc502 firmwares at: 
   - "https://github.com/cms-l1-globaltrigger/amc502_extcond"
   - "https://github.com/cms-l1-globaltrigger/amc502_finor"
   - "https://github.com/cms-l1-globaltrigger/amc502_finor_pre"
-- new tag version name
-
-### [mp7_ugt_v2_3_2] - 2019-10-04
-
-#### Comment
-- mp7_ugt firmware release v2.3.2 (32 bits for fractional prescaler, two different implementation in repo)
 
 #### Added
 - source files:
@@ -41,6 +38,7 @@ Versions of ugt with new GTL structure (v2.0.0 and higher)
   - ../sim/testbench/algo_pre_scaler_fractional_num_denom_tb.vhd
 
 #### Changed
+- tag name to release version
 - source files:
   - ../hdl/data/fdl/fdl_module.vhd
   - ../hdl/data/fdl/algo_slice.vhd

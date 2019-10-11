@@ -10,7 +10,9 @@ src packages/gt_mp7_core_addr_decode.vhd
 src packages/frame_addr_decode.vhd
 src packages/control_pkg.vhd
 src packages/gtl_pkg.vhd
-src packages/fdl_pkg.vhd
+#src packages/fdl_pkg.vhd
+src packages/fdl_pkg_prescale_float.vhd
+#src packages/fdl_pkg_prescale_num_denom.vhd
 src packages/lut_pkg.vhd
 src packages/fdl_addr_decode.vhd
 #
@@ -50,6 +52,7 @@ src data/gtl/delta_r.vhd
 src data/gtl/inv_mass_calc.vhd
 src data/gtl/invariant_mass.vhd
 src data/gtl/transverse_mass.vhd
+src data/gtl/twobody_pt_calc.vhd
 src data/gtl/twobody_pt.vhd
 src data/gtl/muon_charge_correlations.vhd
 src data/gtl/reg_mux.vhd
@@ -60,8 +63,10 @@ src data/fdl/algo_rate_counter.vhd
 src data/fdl/algo_post_dead_time_counter.vhd
 src data/fdl/fdl_fabric.vhd
 #src data/fdl/algo_pre_scaler.vhd
-src data/fdl/algo_pre_scaler_fractional.vhd
-src data/fdl/algo_pre_scaler_fractional_pkg.vhd
+src data/fdl/algo_pre_scaler_fractional_float.vhd
+#src data/fdl/algo_pre_scaler_fractional_num_denom.vhd
+#src data/fdl/algo_pre_scaler_fractional.vhd
+#src data/fdl/algo_pre_scaler_fractional_pkg.vhd
 src data/fdl/update_process.vhd
 src data/fdl/pulse_converter.vhd
 src data/fdl/algo_slice.vhd

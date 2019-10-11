@@ -1,2 +1,0 @@
-include mp7_readout_common.dep
-include -c components/amc13_link_7s amc13_link_gtx.dep

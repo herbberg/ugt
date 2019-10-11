@@ -1,11 +1,14 @@
--- Desription:
+-- Description:
 -- FDL structure
 
 -- Version-history:
+-- HB 2019-10-02: v1.3.5 - based on v1.3.4, changed logic for fractional prescaler - using 32 bits including 2 fractional digits for prescale factor.
+-- HB 2019-10-02: v1.3.4 - based on v1.3.3, changed logic for fractional prescaler (in algo_pre_scaler_fractional_bocci.vhd) - using numerator and denominator for prescale factor.
+-- HB 2019-09-26: v1.3.3 - based on v1.3.2, changed algo_slice generic for fractional prescaler logic (proposal of A. Bocci).
 -- HB 2019-07-03: v1.3.2 - based on v1.3.1, inserted use clause fdl_pkg.
 -- HB 2019-06-28: v1.3.1 - based on v1.3.0, fixed typo.
--- HB 2019-06-14: v1.3.0 - based on v1.2.2, implemented possibility for fractional pre-scaler values.
--- HB 2017-01-10: v1.2.2 - based on v1.2.1, but fixed bug with 1 bx delay for "begin_lumi_per" (in algo_slice.vhd) for rate counter after pre-scaler.
+-- HB 2019-06-14: v1.3.0 - based on v1.2.2, implemented possibility for fractional prescaler values.
+-- HB 2017-01-10: v1.2.2 - based on v1.2.1, but fixed bug with 1 bx delay for "begin_lumi_per" (in algo_slice.vhd) for rate counter after prescaler.
 -- HB 2016-12-01: v1.2.1 - based on v1.2.0, but inserted rate counter and register for finor with "prescaler preview" in monitoring.
 -- HB 2016-11-17: v1.2.0 - based on v1.1.1, but inserted logic for "prescaler preview" in monitoring. Removed port "finor_mask".
 -- HB 2016-10-24: v1.1.1 - based on v1.1.0, but inserted register for "updated prescale factor index" and "lumi section number" for monitoring (N-1).
@@ -75,8 +78,8 @@ use work.l1menu_pkg.ALL;
 entity fdl_module is
     generic(
         SIM_MODE : boolean := false; -- if SIM_MODE = true, "algo_bx_mask" is given by "algo_bx_mask_sim".
-        PRESCALE_FACTOR_INIT : ipb_regs_array(0 to MAX_NR_ALGOS-1) := (others => X"00000001");
-        MASKS_INIT : ipb_regs_array(0 to MAX_NR_ALGOS-1) := (others => X"00000001");
+        PRESCALE_FACTOR_INIT : ipb_regs_array(0 to MAX_NR_ALGOS-1);
+        MASKS_INIT : ipb_regs_array(0 to MAX_NR_ALGOS-1);
         PRESCALE_FACTOR_SET_INDEX_WIDTH : positive := 8;
         PRESCALE_FACTOR_SET_INDEX_REG_INIT : ipb_regs_array(0 to 1) := (others => X"00000000");
         L1A_LATENCY_DELAY_INIT : ipb_regs_array(0 to 1) := (others => X"00000000");
@@ -874,10 +877,9 @@ begin
         algo_slice_i: entity work.algo_slice
         generic map(
             RATE_COUNTER_WIDTH => RATE_COUNTER_WIDTH,
-            PRESCALER_COUNTER_WIDTH => PRESCALER_COUNTER_WIDTH,
+            PRESCALE_FACTOR_WIDTH => PRESCALE_FACTOR_WIDTH,
             PRESCALE_FACTOR_INIT => PRESCALE_FACTOR_INIT(i),
-            MAX_DELAY => MAX_DELAY_L1A_LATENCY,
-            PRESCALER_FRACTION_WIDTH => PRESCALER_FRACTION_WIDTH
+            MAX_DELAY => MAX_DELAY_L1A_LATENCY
         )
         port map(
             sys_clk => ipb_clk,
@@ -893,8 +895,8 @@ begin
             request_update_factor_pulse => request_update_factor_pulse,
             begin_lumi_per => begin_lumi_section,
             algo_i => algo_int(i),
-            prescale_factor => prescale_factor_local(i)(PRESCALER_FRACTION_WIDTH+PRESCALER_COUNTER_WIDTH-1 downto 0),
-            prescale_factor_preview => prescale_factor_preview_local(i)(PRESCALER_FRACTION_WIDTH+PRESCALER_COUNTER_WIDTH-1 downto 0),
+            prescale_factor => prescale_factor_local(i)(PRESCALE_FACTOR_WIDTH-1 downto 0),
+            prescale_factor_preview => prescale_factor_preview_local(i)(PRESCALE_FACTOR_WIDTH-1 downto 0),
             algo_bx_mask => algo_bx_mask_local(i),
             veto_mask => veto_masks_local(i),
             rate_cnt_before_prescaler => rate_cnt_before_prescaler_local(i),

@@ -44,7 +44,9 @@ vcom -93 -work work $HDL_DIR/packages/math_pkg.vhd
 vcom -93 -work work $HDL_DIR/packages/top_decl_sim.vhd
 vcom -93 -work work $HDL_DIR/packages/gt_mp7_core_pkg.vhd
 vcom -93 -work work $HDL_DIR/packages/gtl_pkg.vhd
-vcom -93 -work work $HDL_DIR/packages/fdl_pkg.vhd
+#vcom -93 -work work $HDL_DIR/packages/fdl_pkg.vhd
+vcom -93 -work work $HDL_DIR/packages/fdl_pkg_prescale_float.vhd
+#vcom -93 -work work $HDL_DIR/packages/fdl_pkg_prescale_num_denom.vhd
 vcom -93 -work work $HDL_DIR/packages/lut_pkg.vhd
 vcom -93 -work work $HDL_DIR/packages/fdl_addr_decode.vhd
 vcom -93 -work work $TB_DIR/lhc_data_debug_util_pkg.vhd
@@ -83,6 +85,7 @@ vcom -93 -work work $HDL_DIR/data/gtl/delta_r.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/inv_mass_calc.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/invariant_mass.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/transverse_mass.vhd
+vcom -93 -work work $HDL_DIR/data/gtl/twobody_pt_calc.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/twobody_pt.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/muon_charge_correlations.vhd
 
@@ -93,8 +96,10 @@ vcom -93 -work work $HDL_DIR/data/fdl/update_process.vhd
 vcom -93 -work work $HDL_DIR/data/fdl/pulse_converter.vhd
 vcom -93 -work work $HDL_DIR/data/fdl/fdl_fabric.vhd
 #vcom -93 -work work $HDL_DIR/data/fdl/algo_pre_scaler.vhd
-vcom -93 -work work $HDL_DIR/data/fdl/algo_pre_scaler_fractional_pkg.vhd
-vcom -93 -work work $HDL_DIR/data/fdl/algo_pre_scaler_fractional.vhd
+#vcom -93 -work work $HDL_DIR/data/fdl/algo_pre_scaler_fractional_pkg.vhd
+#vcom -93 -work work $HDL_DIR/data/fdl/algo_pre_scaler_fractional.vhd
+#vcom -93 -work work $HDL_DIR/data/fdl/algo_pre_scaler_fractional_num_denom.vhd
+vcom -93 -work work $HDL_DIR/data/fdl/algo_pre_scaler_fractional_float.vhd
 vcom -93 -work work $HDL_DIR/data/fdl/algo_rate_counter.vhd
 vcom -93 -work work $HDL_DIR/data/fdl/algo_post_dead_time_counter.vhd
 vcom -93 -work work $HDL_DIR/data/fdl/algo_slice.vhd

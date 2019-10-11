@@ -1,6 +1,7 @@
 -- Description:
 -- Package for constant and type definitions of FDL firmware in Global Trigger Upgrade system.
 
+-- HB 2019-10-04: new file name for fractional prescale values in float notation.
 -- HB 2019-10-03: Cleaned up code.
 -- HB 2019-09-27: Inserted 3 new constants for fractional prescale and calculate others from those.
 -- HB 2019-09-26: New constants PRESCALE_FACTOR_WIDTH and PRESCALER_INCR, updated PRESCALE_FACTOR_INIT (removed PRESCALER_COUNTER_WIDTH and PRESCALER_FRACTION_WIDTH).

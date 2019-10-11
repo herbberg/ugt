@@ -68,15 +68,15 @@
 
 ### Modules for conditions:
 
-| Condition type             | Slice LUTs |
-| ---------------------------|:-----:|
-| single_calo                |     3 |
-| double_calo                |    38 |
-| triple_calo                |     ? |
-| quad_calo                  |     ? |
-| single_muon                |     ? |
-| double_muon                |     ? |
-| triple_muon                |     ? |
-| quad_muon                  |   956 |
-| correlation                |   134 | => to be checked
-| correlation_ovrm           |   247 | => to be checked
+| Condition type             | Slice LUTs | Comments |
+| ---------------------------|:-----:|:-------------:|
+| single_calo                |     3 |               |
+| double_calo                |    38 |               |
+| triple_calo                |     ? | value missing |
+| quad_calo                  |     ? | value missing |
+| single_muon                |     ? | value missing |
+| double_muon                |     ? | value missing |
+| triple_muon                |     ? | value missing |
+| quad_muon                  |   956 |               |
+| correlation                |   134 | to be checked |
+| correlation_ovrm           |   247 | to be checked |

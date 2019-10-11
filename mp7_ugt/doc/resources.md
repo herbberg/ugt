@@ -17,6 +17,7 @@
 | inv_mass                  | inv_mass_calc  |          0 |    4 |
 | cosh_deta_lut (calo-calo) | luts_corr_cuts |         83 |    0 |
 | cos_dphi_lut (calo-calo)  | luts_corr_cuts |         40 |    0 |
+| twobody_pt                | twobody_pt_calc|        139 |    7 |
 
 * Resource calculation for a module with "same object type":
  
@@ -26,7 +27,7 @@
  
    (number of objects type a) x (number of objects type b) x (value of instance)
 
-#### Value for entire modules: 
+#### Value for entire module: 
 
 | Module                   | Slice LUTs | DSPs |
 | -------------------------|:-----:|:----:|
@@ -35,15 +36,18 @@
 ### Modules for comparators:
 #### Values for one instance:
 
-| Module                | Instance      | Mode     | Slice LUTs |
-| ----------------------|---------------|----------|:-----:|
-| comparators_obj_cuts  | comp_unsigned | pt       |     2 |
-| comparators_obj_cuts  | comp_unsigned | phi      |     2 |
-| comparators_obj_cuts  | comp_signed   | eta      |     2 |
-| comparators_obj_cuts  | lut           | iso      |     1 |
-| comparators_obj_cuts  | lut           | qual     |     1 |
-| comparators_corr_cuts | comp_unsigned | deltaR   |    12 |
-| comparators_corr_cuts | comp_unsigned | inv_mass |    25 |
+| Module                | Instance      | Mode      | Slice LUTs |
+| ----------------------|---------------|-----------|:-----:|
+| comparators_obj_cuts  | comp_unsigned | pt        |     2 |
+| comparators_obj_cuts  | comp_unsigned | phi       |     2 |
+| comparators_obj_cuts  | comp_signed   | eta       |     2 |
+| comparators_corr_cuts | comp_unsigned | deltaEta  |     ? |
+| comparators_corr_cuts | comp_unsigned | deltaPhi  |     ? |
+| comparators_corr_cuts | comp_unsigned | deltaR    |    12 |
+| comparators_corr_cuts | comp_unsigned | mass      |    25 |
+| comparators_corr_cuts | comp_unsigned | twoBodyPt |     9 |
+| comparators_obj_cuts  | lut           | iso       |     1 |
+| comparators_obj_cuts  | lut           | qual      |     1 |
 
 * Resource calculation for comparators_obj_cuts and lut_comparator:
  
@@ -57,7 +61,7 @@
  
    (number of objects type a) x (number of objects type b) x (value of instance)
 
-#### Value for entire modules: 
+#### Value for entire module: 
 
 | Module                     | Slice LUTs | Calculation |
 | ---------------------------|:-----:|:----------------:|
@@ -67,11 +71,20 @@
 
 ### Modules for conditions:
 
-| Condition type             | Slice LUTs |
-| ---------------------------|:-----:|
-| single_calo                |     3 |
-| double_calo                |    19 |
-| triple_calo                |    60 |
-| quad_calo                  |  1995 |
-| quad_muon                  |   956 |
-| esums                      |     0 | [comparators_obj_cuts output used in algo]
+| Condition type             | Slice LUTs | Comments |
+| ---------------------------|:-----:|:------------------------------:|
+| single_calo                |     3 |                                |
+| double_calo                |    38 |                                |
+| triple_calo                |    60 |                                |
+| quad_calo                  |  1995 |                                |
+| single_muon                |     ? | value missing                  |
+| double_muon                |     3 | to be checked                  |
+| triple_muon                |     4 | to be checked                  |
+| quad_muon                  |   956 |                                |
+| correlation                |   134 | to be checked                  |
+| correlation_ovrm           |   247 | to be checked                  |
+| esums                      |     0 | comparator output used in algo |
+
+
+
+

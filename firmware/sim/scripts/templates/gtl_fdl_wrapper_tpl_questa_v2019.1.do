@@ -66,6 +66,7 @@ vcom -93 -work work $HDL_DIR/data/gtl/comparator_muon_cc_triple.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/comparator_muon_cc_quad.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/comparator_muon_charge_corr.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/combinatorial_conditions.vhd
+vcom -93 -work work $HDL_DIR/data/gtl/combinatorial_conditions_ovrm.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/correlation_conditions.vhd
 vcom -93 -work work $HDL_DIR/data/gtl/correlation_conditions_ovrm.vhd
 

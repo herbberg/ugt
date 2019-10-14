@@ -48,10 +48,10 @@ architecture rtl of twobody_pt_calc is
 
 -- HB 2017-09-21: used attribute "use_dsp" instead of "use_dsp48" for "mass" - see warning below
 -- MP7 builds, synth_1, runme.log => WARNING: [Synth 8-5974] attribute "use_dsp48" has been deprecated, please use "use_dsp" instead attribute
-    attribute use_dsp : string;
+--     attribute use_dsp : string;
 --     attribute use_dsp of cos_phi_1x2 : signal is "yes";
 --     attribute use_dsp of sin_phi_1x2 : signal is "yes";
-    attribute use_dsp of pt1_pt2_cos_sin : signal is "yes";
+--     attribute use_dsp of pt1_pt2_cos_sin : signal is "yes";
 --     attribute use_dsp of pt1_sq : signal is "yes";
 --     attribute use_dsp of pt2_sq : signal is "yes";
 

@@ -123,13 +123,12 @@ def main():
     logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.DEBUG)
     
     # Compile build root directory
-    #project_type = "{}_{}".format(BOARD_TYPE, FW_TYPE)
+    project_type = "{}_{}".format(BOARD_TYPE, FW_TYPE)
     
     # Create MP7 tag name for ugt    
     mp7fw_ugt = args.mp7tag + mp7fw_ugt_suffix
     
-    #ipbb_dir = os.path.join(args.path, project_type, args.mp7tag, args.menuname, args.build)
-    ipbb_dir = os.path.join(args.path, args.mp7tag, args.menuname, args.build)
+    ipbb_dir = os.path.join(args.path, project_type, args.mp7tag, args.menuname, args.build)
 
     if os.path.isdir(ipbb_dir):
         raise RuntimeError("build area alredy exists: {}".format(ipbb_dir))

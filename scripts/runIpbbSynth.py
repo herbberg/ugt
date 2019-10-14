@@ -123,12 +123,13 @@ def main():
     logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.DEBUG)
     
     # Compile build root directory
-    project_type = "{}_{}".format(BOARD_TYPE, FW_TYPE)
+    #project_type = "{}_{}".format(BOARD_TYPE, FW_TYPE)
     
     # Create MP7 tag name for ugt    
     mp7fw_ugt = args.mp7tag + mp7fw_ugt_suffix
     
-    ipbb_dir = os.path.join(args.path, project_type, args.mp7tag, args.menuname, args.build)
+    #ipbb_dir = os.path.join(args.path, project_type, args.mp7tag, args.menuname, args.build)
+    ipbb_dir = os.path.join(args.path, args.mp7tag, args.menuname, args.build)
 
     if os.path.isdir(ipbb_dir):
         raise RuntimeError("build area alredy exists: {}".format(ipbb_dir))
@@ -186,12 +187,13 @@ def main():
     if not modules:
         raise RuntimeError("Menu contains no modules")
 
-    # Removing unused AMC502 firmware directories
-    logging.info("removing src directories of unused firmware ...")
-    command = 'bash -c "cd; cd {ipbb_dir}/src/ugt; rm -rf amc502_extcond && rm -rf amc502_finor && rm -rf amc502_finor_pre && rm -rf mp7_tdf"'.format(**locals())
-    run_command(command)
+    ## Removing unused AMC502 firmware directories
+    #logging.info("removing src directories of unused firmware ...")
+    #command = 'bash -c "cd; cd {ipbb_dir}/src/ugt; rm -rf amc502_extcond && rm -rf amc502_finor && rm -rf amc502_finor_pre && rm -rf mp7_tdf"'.format(**locals())
+    #run_command(command)
 
-    ipbb_src_fw_dir = os.path.abspath(os.path.join(ipbb_dir, 'src', 'ugt', project_type, 'firmware'))
+    #ipbb_src_fw_dir = os.path.abspath(os.path.join(ipbb_dir, 'src', 'ugt', project_type, 'firmware'))
+    ipbb_src_fw_dir = os.path.abspath(os.path.join(ipbb_dir, 'src', 'ugt', 'firmware'))
     
     for module_id in range(modules):
         module_name = 'module_{}'.format(module_id)
@@ -227,7 +229,8 @@ def main():
 
         logging.info("===========================================================================")
         logging.info("creating IPBB project for module %s ...", module_id)
-        cmd_ipbb_proj_create = "ipbb proj create vivado {project_type}_{args.build}_{module_id} mp7:../ugt/{project_type}".format(**locals())
+        #cmd_ipbb_proj_create = "ipbb proj create vivado {project_type}_{args.build}_{module_id} mp7:../ugt/{project_type}".format(**locals())
+        cmd_ipbb_proj_create = "ipbb proj create vivado {args.build}_{module_id} mp7:../ugt".format(**locals())
         
         command = 'bash -c "cd; {cmd_source_ipbb}; cd {ipbb_dir}; {cmd_ipbb_proj_create}"'.format(**locals())
         run_command(command)
@@ -241,10 +244,12 @@ def main():
         cmd_ipbb_impl = "ipbb vivado impl"
         cmd_ipbb_bitfile = "ipbb vivado package"
         
-        #Set variable "module_id" for tcl script (l1menu_files.tcl in top.dep)
-        command = 'bash -c "cd; {cmd_source_ipbb}; source {settings64}; cd {ipbb_dir}/proj/{project_type}_{args.build}_{module_id}; module_id={module_id} {cmd_ipbb_project} && {cmd_ipbb_synth} && {cmd_ipbb_impl} && {cmd_ipbb_bitfile}"'.format(**locals())
+        ##Set variable "module_id" for tcl script (l1menu_files.tcl in top.dep)
+        #command = 'bash -c "cd; {cmd_source_ipbb}; source {settings64}; cd {ipbb_dir}/proj/{project_type}_{args.build}_{module_id}; module_id={module_id} {cmd_ipbb_project} && {cmd_ipbb_synth} && {cmd_ipbb_impl} && {cmd_ipbb_bitfile}"'.format(**locals())
+        command = 'bash -c "cd; {cmd_source_ipbb}; source {settings64}; cd {ipbb_dir}/proj/{pro{args.build}_{module_id}; module_id={module_id} {cmd_ipbb_project} && {cmd_ipbb_synth} && {cmd_ipbb_impl} && {cmd_ipbb_bitfile}"'.format(**locals())
 
-        session = "build_{project_type}_{args.build}_{module_id}".format(**locals())
+        #session = "build_{project_type}_{args.build}_{module_id}".format(**locals())
+        session = "build_{args.build}_{module_id}".format(**locals())
         logging.info("starting screen session '%s' for module %s ...", session, module_id)
         run_command('screen', '-dmS', session, command)
 

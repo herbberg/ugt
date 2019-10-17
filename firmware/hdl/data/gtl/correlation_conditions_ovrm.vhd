@@ -2,6 +2,7 @@
 -- Correlation conditions with overlap removal.
 
 -- Version-history:
+-- HB 2019-10-17: Bug fixed.
 -- HB 2019-09-25: Improved and-or logic.
 -- HB 2019-09-02: Inserted generic parameter and logic for "2 plus 1" objects and "1 plus 1" objects.
 -- HB 2019-08-29: First design.
@@ -67,7 +68,7 @@ begin
         type tmp_12_array is array (SLICES(1)(0) to SLICES(1)(1), SLICES(2)(0) to SLICES(2)(1)) of std_logic;
         variable corr_vec, corr_vec_123_or, ovrm_vec_123_or, corr_ovrm_vec : tmp_12_array := (others => (others => '0'));
         type tmp_13_array is array (SLICES(1)(0) to SLICES(1)(1), SLICES(3)(0) to SLICES(3)(1)) of std_logic;
-        variable ovrm_vec_13 : tmp_13_array := (others => (others => '0'));
+        variable corr_vec_13, ovrm_vec_13 : tmp_13_array := (others => (others => '0'));
         type tmp_23_array is array (SLICES(2)(0) to SLICES(2)(1), SLICES(3)(0) to SLICES(3)(1)) of std_logic;
         variable ovrm_vec_23 : tmp_23_array := (others => (others => '0'));
         variable corr_ovrm_index_vec_123 : std_logic_vector((N_SLICE_1*N_SLICE_1*N_SLICE_3) downto 1) := (others => '0');
@@ -103,9 +104,9 @@ begin
         else
             for i in SLICES(1)(0) to SLICES(1)(1) loop
                 for j in SLICES(3)(0) to SLICES(3)(1) loop
-                    corr_vec(i,j) := deta(i,j) and dphi(i,j) and delta_r(i,j) and inv_mass(i,j) and trans_mass(i,j) and tbpt(i,j) and cc_double_i(i,j);
+                    corr_vec_13(i,j) := deta(i,j) and dphi(i,j) and delta_r(i,j) and inv_mass(i,j) and trans_mass(i,j) and tbpt(i,j) and cc_double_i(i,j);
                     index := index + 1;
-                    corr_ovrm_index_vec_13(index) := in_1(i) and in_3(j) and corr_vec(i,j) and not 
+                    corr_ovrm_index_vec_13(index) := in_1(i) and in_3(j) and corr_vec_13(i,j) and not 
                         ((dr_ovrm(i,j) or deta_ovrm(i,j) or dphi_ovrm(i,j)) and in_3(j));
                 end loop;
             end loop;

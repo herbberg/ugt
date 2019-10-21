@@ -248,7 +248,7 @@ def main():
         command = 'bash -c "cd; {cmd_source_ipbb}; source {settings64}; cd {ipbb_dir}/proj/{args.build}_{module_id}; module_id={module_id} {cmd_ipbb_project} && {cmd_ipbb_synth} && {cmd_ipbb_impl} && {cmd_ipbb_bitfile}"'.format(**locals())
 
         #session = "build_{project_type}_{args.build}_{module_id}".format(**locals())
-        session = "build_{args.build}_{module_id}".format(**locals())
+        session = "build_{project_type}_{args.build}_{module_id}".format(**locals())
         logging.info("starting screen session '%s' for module %s ...", session, module_id)
         run_command('screen', '-dmS', session, command)
 
@@ -266,7 +266,10 @@ def main():
     config.set('environment', 'username', tb.username())
 
     config.add_section('menu')
-    config.set('menu', 'build', args.build)
+    # Remove "0x" from args.build
+    build_raw = args.build.split("x", 1)
+    config.set('menu', 'build', build_raw[1])
+    #config.set('menu', 'build', args.build)
     config.set('menu', 'name', menu_name)
     config.set('menu', 'location', url_menu)
     config.set('menu', 'modules', modules)
@@ -294,7 +297,7 @@ def main():
     with open('build_0x{}.cfg'.format(args.build), 'wb') as fp:
         config.write(fp)
 
-    logging.info("created configuration file: %s/build_0x%s.cfg.", ipbb_dir, args.build)
+    logging.info("created configuration file: %s/build_%s.cfg.", ipbb_dir, args.build)
     logging.info("done.")
 
 if __name__ == '__main__':

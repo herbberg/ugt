@@ -12,13 +12,14 @@
 -- ===================================================================================
 -- actual versions of ugt:
 -- use "FRAME_VERSION" as mp7_ugt release fw version (used for tag name)
--- mp7_ugt (=FRAME_VERSION): v2.3.2
+-- mp7_ugt (=FRAME_VERSION): v2.4.0
 --
 --  control: v2.0.1
---  gtl: v2.3.1
+--  gtl: v2.4.0
 --  fdl: v1.3.5
 
 -- Version-history of GTL part:
+-- HB 2019-09-27: v2.4.0: added combinatorial_conditions_ovrm.vhd, updated two-body pt features.
 -- HB 2019-09-27: v2.3.1: updated gt_mp7_core_pkg.vhd.
 -- HB 2019-09-25: v2.3.0: bug fixes for invariant mass and overlap removal conditions.
 -- HB 2019-08-27: v2.2.1: inserted cases for "same objects" and "different objects" (less resources for "same objects") in "lut", "sub" and "correlation cuts" modules.

@@ -17,12 +17,14 @@ Versions of ugt with new GTL structure (v2.0.0 and higher)
 - moved files from directory mp7_ugt to ugt 
 
 #### Added
-- source files:
+- source file:
   - ../hdl/data/gtl/combinatorial_conditions_ovrm.vhd
 
 #### Changed
-- source files:
+- source file:
   - ../hdl/data/gtl/twobody_pt_calc.vhd
+- script:
+  - ../scripts/runIpbbSynth.py
 
 ### [v2.3.2] - 2019-10-11
 

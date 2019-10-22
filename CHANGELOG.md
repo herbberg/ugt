@@ -8,13 +8,21 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 Versions of ugt with new GTL structure (v2.0.0 and higher)
 
-### [v2.3.3] - ?????????
+### [v2.4.0] - 2019-10-22
 
 #### Comment
 
-- mp7_ugt firmware release v2.3.3 ?????????????????????
+- mp7_ugt firmware release v2.4.0 (new condition: combinatorial_conditions_ovrm.vhd, updated two-body pt features)
 
 - moved files from directory mp7_ugt to ugt 
+
+#### Added
+- source files:
+  - ../hdl/data/gtl/combinatorial_conditions_ovrm.vhd
+
+#### Changed
+- source files:
+  - ../hdl/data/gtl/twobody_pt_calc.vhd
 
 ### [v2.3.2] - 2019-10-11
 

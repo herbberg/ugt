@@ -229,7 +229,7 @@ def main():
         logging.info("===========================================================================")
         logging.info("creating IPBB project for module %s ...", module_id)
         #cmd_ipbb_proj_create = "ipbb proj create vivado {project_type}_{args.build}_{module_id} mp7:../ugt/{project_type}".format(**locals())
-        cmd_ipbb_proj_create = "ipbb proj create vivado {args.build}_{module_id} mp7:../ugt".format(**locals())
+        cmd_ipbb_proj_create = "ipbb proj create vivado module_{module_id} mp7:../ugt".format(**locals())
         
         command = 'bash -c "cd; {cmd_source_ipbb}; cd {ipbb_dir}; {cmd_ipbb_proj_create}"'.format(**locals())
         run_command(command)
@@ -245,7 +245,7 @@ def main():
         
         ##Set variable "module_id" for tcl script (l1menu_files.tcl in top.dep)
         #command = 'bash -c "cd; {cmd_source_ipbb}; source {settings64}; cd {ipbb_dir}/proj/{project_type}_{args.build}_{module_id}; module_id={module_id} {cmd_ipbb_project} && {cmd_ipbb_synth} && {cmd_ipbb_impl} && {cmd_ipbb_bitfile}"'.format(**locals())
-        command = 'bash -c "cd; {cmd_source_ipbb}; source {settings64}; cd {ipbb_dir}/proj/{args.build}_{module_id}; module_id={module_id} {cmd_ipbb_project} && {cmd_ipbb_synth} && {cmd_ipbb_impl} && {cmd_ipbb_bitfile}"'.format(**locals())
+        command = 'bash -c "cd; {cmd_source_ipbb}; source {settings64}; cd {ipbb_dir}/proj/module_{module_id}; module_id={module_id} {cmd_ipbb_project} && {cmd_ipbb_synth} && {cmd_ipbb_impl} && {cmd_ipbb_bitfile}"'.format(**locals())
 
         #session = "build_{project_type}_{args.build}_{module_id}".format(**locals())
         session = "build_{project_type}_{args.build}_{module_id}".format(**locals())
@@ -285,7 +285,7 @@ def main():
     config.set('firmware', 'mp7fw_ugt', mp7fw_ugt)
     config.set('firmware', 'ugturl', args.ugturl)
     config.set('firmware', 'ugttag', args.ugt)
-    config.set('firmware', 'type', FW_TYPE)
+    config.set('firmware', 'type', project_type)
     config.set('firmware', 'buildarea', ipbb_dir)
 
     config.add_section('device')
@@ -294,7 +294,7 @@ def main():
     config.set('device', 'alias', BoardAliases[args.board])
 
     # Writing configuration file
-    with open('build_0x{}.cfg'.format(args.build), 'wb') as fp:
+    with open('build_{}.cfg'.format(args.build), 'wb') as fp:
         config.write(fp)
 
     logging.info("created configuration file: %s/build_%s.cfg.", ipbb_dir, args.build)

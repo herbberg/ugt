@@ -186,12 +186,13 @@ def main():
     if not modules:
         raise RuntimeError("Menu contains no modules")
 
-    # Removing unused AMC502 firmware directories
-    logging.info("removing src directories of unused firmware ...")
-    command = 'bash -c "cd; cd {ipbb_dir}/src/ugt; rm -rf amc502_extcond && rm -rf amc502_finor && rm -rf amc502_finor_pre && rm -rf mp7_tdf"'.format(**locals())
-    run_command(command)
+    ## Removing unused AMC502 firmware directories
+    #logging.info("removing src directories of unused firmware ...")
+    #command = 'bash -c "cd; cd {ipbb_dir}/src/ugt; rm -rf amc502_extcond && rm -rf amc502_finor && rm -rf amc502_finor_pre && rm -rf mp7_tdf"'.format(**locals())
+    #run_command(command)
 
-    ipbb_src_fw_dir = os.path.abspath(os.path.join(ipbb_dir, 'src', 'ugt', project_type, 'firmware'))
+    #ipbb_src_fw_dir = os.path.abspath(os.path.join(ipbb_dir, 'src', 'ugt', project_type, 'firmware'))
+    ipbb_src_fw_dir = os.path.abspath(os.path.join(ipbb_dir, 'src', 'ugt', 'firmware'))
     
     for module_id in range(modules):
         module_name = 'module_{}'.format(module_id)
@@ -227,7 +228,8 @@ def main():
 
         logging.info("===========================================================================")
         logging.info("creating IPBB project for module %s ...", module_id)
-        cmd_ipbb_proj_create = "ipbb proj create vivado {project_type}_{args.build}_{module_id} mp7:../ugt/{project_type}".format(**locals())
+        #cmd_ipbb_proj_create = "ipbb proj create vivado {project_type}_{args.build}_{module_id} mp7:../ugt/{project_type}".format(**locals())
+        cmd_ipbb_proj_create = "ipbb proj create vivado module_{module_id} mp7:../ugt".format(**locals())
         
         command = 'bash -c "cd; {cmd_source_ipbb}; cd {ipbb_dir}; {cmd_ipbb_proj_create}"'.format(**locals())
         run_command(command)
@@ -241,9 +243,11 @@ def main():
         cmd_ipbb_impl = "ipbb vivado impl"
         cmd_ipbb_bitfile = "ipbb vivado package"
         
-        #Set variable "module_id" for tcl script (l1menu_files.tcl in top.dep)
-        command = 'bash -c "cd; {cmd_source_ipbb}; source {settings64}; cd {ipbb_dir}/proj/{project_type}_{args.build}_{module_id}; module_id={module_id} {cmd_ipbb_project} && {cmd_ipbb_synth} && {cmd_ipbb_impl} && {cmd_ipbb_bitfile}"'.format(**locals())
+        ##Set variable "module_id" for tcl script (l1menu_files.tcl in top.dep)
+        #command = 'bash -c "cd; {cmd_source_ipbb}; source {settings64}; cd {ipbb_dir}/proj/{project_type}_{args.build}_{module_id}; module_id={module_id} {cmd_ipbb_project} && {cmd_ipbb_synth} && {cmd_ipbb_impl} && {cmd_ipbb_bitfile}"'.format(**locals())
+        command = 'bash -c "cd; {cmd_source_ipbb}; source {settings64}; cd {ipbb_dir}/proj/module_{module_id}; module_id={module_id} {cmd_ipbb_project} && {cmd_ipbb_synth} && {cmd_ipbb_impl} && {cmd_ipbb_bitfile}"'.format(**locals())
 
+        #session = "build_{project_type}_{args.build}_{module_id}".format(**locals())
         session = "build_{project_type}_{args.build}_{module_id}".format(**locals())
         logging.info("starting screen session '%s' for module %s ...", session, module_id)
         run_command('screen', '-dmS', session, command)
@@ -262,7 +266,10 @@ def main():
     config.set('environment', 'username', tb.username())
 
     config.add_section('menu')
-    config.set('menu', 'build', args.build)
+    # Remove "0x" from args.build
+    build_raw = args.build.split("x", 1)
+    config.set('menu', 'build', build_raw[1])
+    #config.set('menu', 'build', args.build)
     config.set('menu', 'name', menu_name)
     config.set('menu', 'location', url_menu)
     config.set('menu', 'modules', modules)
@@ -278,7 +285,7 @@ def main():
     config.set('firmware', 'mp7fw_ugt', mp7fw_ugt)
     config.set('firmware', 'ugturl', args.ugturl)
     config.set('firmware', 'ugttag', args.ugt)
-    config.set('firmware', 'type', FW_TYPE)
+    config.set('firmware', 'type', project_type)
     config.set('firmware', 'buildarea', ipbb_dir)
 
     config.add_section('device')
@@ -287,10 +294,10 @@ def main():
     config.set('device', 'alias', BoardAliases[args.board])
 
     # Writing configuration file
-    with open('build_0x{}.cfg'.format(args.build), 'wb') as fp:
+    with open('build_{}.cfg'.format(args.build), 'wb') as fp:
         config.write(fp)
 
-    logging.info("created configuration file: %s/build_0x%s.cfg.", ipbb_dir, args.build)
+    logging.info("created configuration file: %s/build_%s.cfg.", ipbb_dir, args.build)
     logging.info("done.")
 
 if __name__ == '__main__':

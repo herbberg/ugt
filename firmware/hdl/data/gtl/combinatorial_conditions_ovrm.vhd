@@ -2,6 +2,7 @@
 -- Combinatorial conditions with overlap removal
 
 -- Version-history:
+-- HB 2019-10-17: Bug fixed.
 -- HB 2019-10-14: First design.
 
 library ieee;
@@ -73,7 +74,7 @@ begin
 -- AND-OR matrix
     and_or_p: process(comb_1, comb_2, comb_3, comb_4, cc_double_i, cc_triple_i, cc_quad_i, tbpt)
         variable index : integer := 0;
-        variable and_vec : std_logic_vector((N_SLICE_1*N_SLICE_2*N_SLICE_3*N_SLICE_4) downto 1) := (others => '0');
+        variable and_vec : std_logic_vector((N_SLICE_1*N_SLICE_2*N_SLICE_3*N_SLICE_4*N_SLICE_OVRM) downto 1) := (others => '0');
         variable tmp : std_logic := '0';
     begin
         index := 0;
@@ -96,13 +97,13 @@ begin
                             index := index + 1;
                             and_vec(index) := comb_1(i) and comb_2(j) and comb_3(k) and cc_triple_i(i,j,k) and comb_ovrm(m) and not
                             ((deta_ovrm(i,m) or dphi_ovrm(i,m) or dr_ovrm(i,m) or deta_ovrm(j,m) or dphi_ovrm(j,m) or dr_ovrm(j,m) or 
-                            deta_ovrm(k,m) or dphi_ovrm(k,m) or dr_ovrm(k,m)) and comb_ovrm(m) );
-                        end if;
+                            deta_ovrm(k,m) or dphi_ovrm(k,m) or dr_ovrm(k,m)) and comb_ovrm(m));
+                        end if;                        
                         for l in SLICES(4)(0) to SLICES(4)(1) loop
                             if N_REQ = 4 and (j/=i and k/=i and k/=j and l/=i and l/=j and l/=k) then
                                 index := index + 1;
                                 and_vec(index) := comb_1(i) and comb_2(j) and comb_3(k) and comb_4(l) and cc_quad_i(i,j,k,l) and comb_ovrm(m) and not
-                                ((deta_ovrm(i,m) or dphi_ovrm(i,m) or dr_ovrm(i,m) or deta_ovrm(j,m) or dphi_ovrm(j,m) or dr_ovrm(j,m) or 
+                                ((deta_ovrm(i,m) or dphi_ovrm(i,m) or dr_ovrm(i,m) or deta_ovrm(j,m) or dphi_ovrm(j,m) or dr_ovrm(j,m) or
                                 deta_ovrm(k,m) or dphi_ovrm(k,m) or dr_ovrm(k,m) or deta_ovrm(l,m) or dphi_ovrm(l,m) or dr_ovrm(l,m)) and comb_ovrm(m));
                             end if;
                         end loop;
